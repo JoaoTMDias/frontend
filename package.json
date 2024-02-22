@@ -1,0 +1,19 @@
+{
+  "name": "@jtmdias/frontend",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "all:build": "lerna run build",
+    "all:test": "lerna run test",
+    "all:reinstall": "rimraf node_modules && npm install",
+    "all:upgrade": "npx npm-check-updates"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.20",
+    "lerna": "^8.1.2",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.3.3"
+  }
+}
