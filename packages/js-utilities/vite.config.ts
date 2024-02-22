@@ -8,40 +8,40 @@ import packageJSON from "./package.json";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    tsconfigPaths(),
-    react(),
-    istanbul({
-      cypress: true,
-      requireEnv: false,
-    }),
-    dts({
-      outDir: "dist/types",
-      insertTypesEntry: true,
-    }),
-  ],
-  build: {
-    lib: {
-      entry: resolve(__dirname, "src/index.ts"),
-      name: "JSUtilities",
-      formats: ["es", "umd"],
-      fileName: (format) => {
-        const OUTPUT = {
-          es: "index.es.mjs",
-          umd: "index.umd.cjs",
-        };
+	plugins: [
+		tsconfigPaths(),
+		react(),
+		istanbul({
+			cypress: true,
+			requireEnv: false,
+		}),
+		dts({
+			outDir: "dist/types",
+			insertTypesEntry: true,
+		}),
+	],
+	build: {
+		lib: {
+			entry: resolve(__dirname, "src/index.ts"),
+			name: "JSUtilities",
+			formats: ["es", "umd"],
+			fileName: (format) => {
+				const OUTPUT = {
+					es: "index.es.mjs",
+					umd: "index.umd.cjs",
+				};
 
-        return OUTPUT[format] ?? "index.js";
-      },
-    },
-    rollupOptions: {
-      external: Object.keys(packageJSON.peerDependencies),
-      output: {
-        globals: {
-          react: "React",
-          "react-dom": "ReactDOM",
-        },
-      },
-    },
-  },
+				return OUTPUT[format] ?? "index.js";
+			},
+		},
+		rollupOptions: {
+			external: Object.keys(packageJSON.peerDependencies),
+			output: {
+				globals: {
+					react: "React",
+					"react-dom": "ReactDOM",
+				},
+			},
+		},
+	},
 });
