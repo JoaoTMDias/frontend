@@ -1,0 +1,107 @@
+{
+	"name": "@jtmdias/react-a11y-tools",
+	"description": "A small React component library that aims to ease the process of creating accessible design systems, web apps or websites",
+	"private": false,
+	"version": "1.5.6",
+	"author": {
+		"name": "João Dias",
+		"url": "https://joaodias.me"
+	},
+	"type": "module",
+	"main": "dist/index.umd.cjs",
+	"module": "dist/index.es.mjs",
+	"typings": "dist/index.d.ts",
+	"exports": {
+		".": {
+			"import": "./dist/index.es.mjs",
+			"require": "./dist/index.umd.cjs"
+		}
+	},
+	"files": [
+		"dist"
+	],
+	"engine": {
+		"node": ">= 18",
+		"npm": ">= 10"
+	},
+	"scripts": {
+		"types:check": "tsc --project ./tsconfig.json --noEmit",
+		"build": "npm run types:check && vite build",
+		"postbuild": "npm run bundle-size",
+		"postinstall": "npm run docs:install",
+		"pretest": "merge-coverage clear && merge-coverage clear --folder coverage-reports/cypress && merge-coverage clear --folder coverage || true",
+		"test:open": "cypress open --component --browser chrome",
+		"test:run": "cypress run --component --browser chrome",
+		"test:integration-open": "cypress open --e2e",
+		"test:integration-run": "cypress run --e2e --browser chrome",
+		"test:integration": "start-server-and-test docs:preview 3000 'npm run test:integration-run'",
+		"test": "npm run test:run && npm run test:integration",
+		"bundle-size": "size-limit",
+		"docs:install": "cd ./docs && npm install",
+		"docs:start": "cd ./docs && npm run start",
+		"docs:preview": "cd ./docs && npm run build && npm run serve",
+		"docs:build": "cd ./docs && npm run build",
+		"docs:deploy": "cd ./docs && GIT_USER=joaotmdias && npm run deploy",
+		"reinstall": "rimraf node_modules && npm install"
+	},
+	"peerDependencies": {
+		"react": ">= 16.14",
+		"react-dom": ">= 16.14"
+	},
+	"dependencies": {
+		"@jtmdias/js-utilities": "*",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0"
+	},
+	"devDependencies": {
+		"@cypress/code-coverage": "^3.12.24",
+		"@jtmdias/merge-coverage": "^1.1.0",
+		"@size-limit/preset-small-lib": "^11.0.2",
+		"@testing-library/cypress": "^10.0.1",
+		"@types/react-dom": "^18.2.19",
+		"@types/react": "^18.2.56",
+		"@typescript-eslint/eslint-plugin": "^7.0.2",
+		"@typescript-eslint/parser": "^7.0.2",
+		"@vitejs/plugin-react-swc": "^3.5.0",
+		"axe-core": "^4.8.4",
+		"cypress-axe": "^1.5.0",
+		"cypress-multi-reporters": "^1.6.4",
+		"cypress-real-events": "^1.12.0",
+		"cypress-recurse": "^1.35.2",
+		"cypress": "^13.6.5",
+		"eslint-plugin-react-hooks": "^4.6.0",
+		"eslint-plugin-react-refresh": "^0.4.5",
+		"eslint": "^8.56.0",
+		"react-router-dom": "^6.22.1",
+		"react-dom": "^18.2.0",
+		"react": "^18.2.0",
+		"sass": "^1.71.1",
+		"start-server-and-test": "2.0.3",
+		"size-limit": "^11.0.2",
+		"typescript": "^5.3.3",
+		"vite-plugin-dts": "^3.7.3",
+		"vite-plugin-istanbul": "^5.0.0",
+		"vite-tsconfig-paths": "^4.3.1",
+		"vite": "^5.1.4"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/JoaoTMDias/react-a11y-tools.git"
+	},
+	"size-limit": [
+		{
+			"path": "dist/index.umd.cjs",
+			"limit": "10 kB",
+			"ignore": [
+				"fs"
+			]
+		},
+		{
+			"path": "dist/index.es.mjs",
+			"limit": "10 kB",
+			"ignore": [
+				"fs"
+			]
+		}
+	]
+}
