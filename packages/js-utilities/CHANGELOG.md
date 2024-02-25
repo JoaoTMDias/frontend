@@ -1,50 +1,52 @@
 # [1.5.0](https://github.com/JoaoTMDias/js-utilities/compare/v1.4.0...v1.5.0) (2024-02-21)
 
+## 1.6.0
+
+### Minor Changes
+
+- [`b1e8dad`](https://github.com/JoaoTMDias/frontend/commit/b1e8dadd6f007cb7303752953ab54ec3ad59bd3a) Thanks [@JoaoTMDias](https://github.com/JoaoTMDias)! - Added new draw function that randomly picks an item from a list.
 
 ### Features
 
-* add formatNumber function ([32c5474](https://github.com/JoaoTMDias/js-utilities/commit/32c5474932f3b8b675482ae43750b30024119686))
-* add getValue function ([9318890](https://github.com/JoaoTMDias/js-utilities/commit/9318890982bd52016dea83f76d6c0c231694fdd0))
-* add shortenNumber function ([870b0ac](https://github.com/JoaoTMDias/js-utilities/commit/870b0acf16ede77d31d8de2d6b0fbf5da3d3503b))
-* add stripUnit function ([0b655f2](https://github.com/JoaoTMDias/js-utilities/commit/0b655f22fc3d50b27ce1402b503de7c36fdc8de6))
-* Added at lodash utility ([34c5243](https://github.com/JoaoTMDias/js-utilities/commit/34c5243cda35f03e01aed478838e729189b7b3c7))
-* added isPlainObject utility ([dcb9912](https://github.com/JoaoTMDias/js-utilities/commit/dcb9912cabc769e1d990467ecb5f3cfab0f27d30))
-* added size limit verification on post build ([9418475](https://github.com/JoaoTMDias/js-utilities/commit/9418475da111cc0bd5290fb8fea3206743b08137))
-* Added useScript hook ([6d953cc](https://github.com/JoaoTMDias/js-utilities/commit/6d953cc057a8339bc51ff797eaa6ee4865079f2a))
-* improved code and docs for classNames utility ([a661482](https://github.com/JoaoTMDias/js-utilities/commit/a661482a29f0f43ceb3fbc825be3e2608b18eec9))
+- add formatNumber function ([32c5474](https://github.com/JoaoTMDias/js-utilities/commit/32c5474932f3b8b675482ae43750b30024119686))
+- add getValue function ([9318890](https://github.com/JoaoTMDias/js-utilities/commit/9318890982bd52016dea83f76d6c0c231694fdd0))
+- add shortenNumber function ([870b0ac](https://github.com/JoaoTMDias/js-utilities/commit/870b0acf16ede77d31d8de2d6b0fbf5da3d3503b))
+- add stripUnit function ([0b655f2](https://github.com/JoaoTMDias/js-utilities/commit/0b655f22fc3d50b27ce1402b503de7c36fdc8de6))
+- Added at lodash utility ([34c5243](https://github.com/JoaoTMDias/js-utilities/commit/34c5243cda35f03e01aed478838e729189b7b3c7))
+- added isPlainObject utility ([dcb9912](https://github.com/JoaoTMDias/js-utilities/commit/dcb9912cabc769e1d990467ecb5f3cfab0f27d30))
+- added size limit verification on post build ([9418475](https://github.com/JoaoTMDias/js-utilities/commit/9418475da111cc0bd5290fb8fea3206743b08137))
+- Added useScript hook ([6d953cc](https://github.com/JoaoTMDias/js-utilities/commit/6d953cc057a8339bc51ff797eaa6ee4865079f2a))
+- improved code and docs for classNames utility ([a661482](https://github.com/JoaoTMDias/js-utilities/commit/a661482a29f0f43ceb3fbc825be3e2608b18eec9))
 
 # [1.4.0](https://github.com/JoaoTMDias/js-utilities/compare/v1.3.0...v1.4.0) (2024-02-19)
 
-
 ### Features
 
-* added more lodash replacements ([70430f7](https://github.com/JoaoTMDias/js-utilities/commit/70430f71770dbe9e8dd59c3783391b748dccad0d))
-* added new generic types ([bcd3271](https://github.com/JoaoTMDias/js-utilities/commit/bcd327100c274b5a61fd63f849fc6d4e44c1db5b))
-* Improved uniq function typing ([065b669](https://github.com/JoaoTMDias/js-utilities/commit/065b669105cf3d7b9118512dd622bef6963483c7))
-* migrated to vite 5 and cypress 13 ([022b9fa](https://github.com/JoaoTMDias/js-utilities/commit/022b9fa0269d776bde9313de24c235749afb2a63))
-* moved utils into the functions folder ([30bba7b](https://github.com/JoaoTMDias/js-utilities/commit/30bba7baa00adaf55a5dae106ec427e5a62ad862))
-* split lodash into separate files ([f1c5a6d](https://github.com/JoaoTMDias/js-utilities/commit/f1c5a6d008c5b35bb1fa8e98fccd4a038ac4a019))
+- added more lodash replacements ([70430f7](https://github.com/JoaoTMDias/js-utilities/commit/70430f71770dbe9e8dd59c3783391b748dccad0d))
+- added new generic types ([bcd3271](https://github.com/JoaoTMDias/js-utilities/commit/bcd327100c274b5a61fd63f849fc6d4e44c1db5b))
+- Improved uniq function typing ([065b669](https://github.com/JoaoTMDias/js-utilities/commit/065b669105cf3d7b9118512dd622bef6963483c7))
+- migrated to vite 5 and cypress 13 ([022b9fa](https://github.com/JoaoTMDias/js-utilities/commit/022b9fa0269d776bde9313de24c235749afb2a63))
+- moved utils into the functions folder ([30bba7b](https://github.com/JoaoTMDias/js-utilities/commit/30bba7baa00adaf55a5dae106ec427e5a62ad862))
+- split lodash into separate files ([f1c5a6d](https://github.com/JoaoTMDias/js-utilities/commit/f1c5a6d008c5b35bb1fa8e98fccd4a038ac4a019))
 
 # [1.3.0](https://github.com/JoaoTMDias/js-utilities/compare/v1.2.0...v1.3.0) (2023-06-14)
 
-
 ### Features
 
-* **useCopyToClipboard:** Adds a new hook ([9747255](https://github.com/JoaoTMDias/js-utilities/commit/9747255efb3c89b7d645f9179ed0a14f9c0554a4))
-* **useEffectOnce:** Adds a new hook ([c10c2b9](https://github.com/JoaoTMDias/js-utilities/commit/c10c2b9ff9c2336242c9a8db9b3065149102156e))
-* **useLifecycle:** Adds a new hook ([cc529e9](https://github.com/JoaoTMDias/js-utilities/commit/cc529e98251966346fd0c72ff24aa4fbcb85c573))
-* **useMount:** Adds a new hook ([eb5ab7d](https://github.com/JoaoTMDias/js-utilities/commit/eb5ab7d7acadb43426d9c99568c6f2c60856658d))
-* **useMountedState:** Adds a new hook ([4d18008](https://github.com/JoaoTMDias/js-utilities/commit/4d1800896bcf90ae1ec598e3fddd611230fd62ab))
+- **useCopyToClipboard:** Adds a new hook ([9747255](https://github.com/JoaoTMDias/js-utilities/commit/9747255efb3c89b7d645f9179ed0a14f9c0554a4))
+- **useEffectOnce:** Adds a new hook ([c10c2b9](https://github.com/JoaoTMDias/js-utilities/commit/c10c2b9ff9c2336242c9a8db9b3065149102156e))
+- **useLifecycle:** Adds a new hook ([cc529e9](https://github.com/JoaoTMDias/js-utilities/commit/cc529e98251966346fd0c72ff24aa4fbcb85c573))
+- **useMount:** Adds a new hook ([eb5ab7d](https://github.com/JoaoTMDias/js-utilities/commit/eb5ab7d7acadb43426d9c99568c6f2c60856658d))
+- **useMountedState:** Adds a new hook ([4d18008](https://github.com/JoaoTMDias/js-utilities/commit/4d1800896bcf90ae1ec598e3fddd611230fd62ab))
 
 # [1.2.0](https://github.com/JoaoTMDias/js-utilities/compare/v1.1.0...v1.2.0) (2023-03-24)
 
-
 ### Features
 
-* **useClickOutside:** add custom hook ([212c633](https://github.com/JoaoTMDias/js-utilities/commit/212c63356b636bc869da716b622b2ae97ad5b9b0))
-* **useNetworkState:** :sparkles: add custom hook to track the state of browser's network connection ([05dac4b](https://github.com/JoaoTMDias/js-utilities/commit/05dac4bcbcf768332d064a91808ee0ece83761da))
-* **usePageVisibility:** add new custom hook ([1762b62](https://github.com/JoaoTMDias/js-utilities/commit/1762b6204ef24a49a6c3bf517a3549f3a5a80058))
-* **usePermission:** :sparkles: add custom hook to handle browser permissions ([4f6a61e](https://github.com/JoaoTMDias/js-utilities/commit/4f6a61e2a0c7fb6a627fa2791ee095ec6de866fa))
+- **useClickOutside:** add custom hook ([212c633](https://github.com/JoaoTMDias/js-utilities/commit/212c63356b636bc869da716b622b2ae97ad5b9b0))
+- **useNetworkState:** :sparkles: add custom hook to track the state of browser's network connection ([05dac4b](https://github.com/JoaoTMDias/js-utilities/commit/05dac4bcbcf768332d064a91808ee0ece83761da))
+- **usePageVisibility:** add new custom hook ([1762b62](https://github.com/JoaoTMDias/js-utilities/commit/1762b6204ef24a49a6c3bf517a3549f3a5a80058))
+- **usePermission:** :sparkles: add custom hook to handle browser permissions ([4f6a61e](https://github.com/JoaoTMDias/js-utilities/commit/4f6a61e2a0c7fb6a627fa2791ee095ec6de866fa))
 
 # CHANGELOG
 
