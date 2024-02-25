@@ -14,6 +14,7 @@
 		"all:upgrade": "npx npm-check-updates",
 		"reinstall": "rimraf node_modules && npm install",
 		"project-graph": "npx nx graph",
+		"create-changeset": "changeset",
 		"version": "changeset version",
 		"release": "changeset publish"
 	},
