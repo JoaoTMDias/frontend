@@ -5,7 +5,7 @@
 
 <br />
 
-[**Read The Docs**](https://react-a11y-tools.wiki)
+[**Read The Docs**](https://joaotmdias.github.io/react-a11y-tools)
 
 </div>
 
@@ -34,9 +34,9 @@
 	- [🐛 Bugs](#-bugs)
 	- [💡 Feature Requests](#-feature-requests)
 - [Tests](#tests)
-	- [Run all component tests](#run-all-component-tests)s
+	- [Run all tests](#run-all-tests)
 	- [Cypress component tests:](#cypress-component-tests)
-	- [End-to-end tests:](#end-to-end-tests)
+	- [Integration tests:](#integration-tests)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -119,7 +119,7 @@ a 👍. This helps maintainers prioritize what to work on.
 
 There are two layers of tests written for this library:
 
-- We use  Cypress to do component and integration testing.
+-   We use Cypress to do component and integration testing.
 
 To run the whole suite of tests, make sure you've done the steps in [installation](#installation), then:
 
