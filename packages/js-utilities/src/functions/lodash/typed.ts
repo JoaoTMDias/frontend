@@ -6,7 +6,7 @@
  *
  * (c) 2023 joaodias.me
  */
-import { throwError } from "src/functions";
+import { throwError } from "../../../src/functions";
 
 /**
  * Checks if `value` is an empty object or collection.
@@ -29,7 +29,9 @@ import { throwError } from "src/functions";
  * // false
  */
 export function isEmpty(value?: any): boolean {
-  return [Object, Array].includes((value || {}).constructor) && !Object.entries(value || {}).length;
+	return (
+		[Object, Array].includes((value || {}).constructor) && !Object.entries(value || {}).length
+	);
 }
 
 /**
@@ -57,15 +59,15 @@ export function isEmpty(value?: any): boolean {
  * // true
  */
 export function isBlank(text: string): boolean {
-  if (isNil(text)) {
-    return true;
-  }
+	if (isNil(text)) {
+		return true;
+	}
 
-  if (!isString(text)) {
-    throwError("js-utilities", "isBlank", "This value is not a string");
-  }
+	if (!isString(text)) {
+		throwError("js-utilities", "isBlank", "This value is not a string");
+	}
 
-  return isEmpty(text.trim());
+	return isEmpty(text.trim());
 }
 
 /**
@@ -88,11 +90,11 @@ export function isBlank(text: string): boolean {
  * // false
  */
 export function isObject(value?: any): value is object {
-  if (isNil(value)) {
-    return false;
-  }
+	if (isNil(value)) {
+		return false;
+	}
 
-  return value.constructor === Object;
+	return value.constructor === Object;
 }
 
 /**
@@ -122,12 +124,12 @@ export function isObject(value?: any): value is object {
  * // true
  */
 export function isPlainObject(value?: any): value is object {
-  if (isNil(value)) {
-    return false;
-  }
+	if (isNil(value)) {
+		return false;
+	}
 
-  const prototype = Object.getPrototypeOf(value);
-  return prototype === null || prototype === Object.prototype;
+	const prototype = Object.getPrototypeOf(value);
+	return prototype === null || prototype === Object.prototype;
 }
 
 /**
@@ -136,7 +138,7 @@ export function isPlainObject(value?: any): value is object {
  * Note: Does not check that the input date is valid, only that it is a Javascript Date type.
  */
 export const isDate = (value: any): value is Date => {
-  return Object.prototype.toString.call(value) === "[object Date]";
+	return Object.prototype.toString.call(value) === "[object Date]";
 };
 
 /**
@@ -159,11 +161,11 @@ export const isDate = (value: any): value is Date => {
  * // true
  */
 export const isPromise = (value: any): value is Promise<any> => {
-  if (!value || !value.then || !isFunction(value.then)) {
-    return false;
-  }
+	if (!value || !value.then || !isFunction(value.then)) {
+		return false;
+	}
 
-  return true;
+	return true;
 };
 
 /**
@@ -178,7 +180,7 @@ export const isPromise = (value: any): value is Promise<any> => {
  * // false
  */
 export function isString(value?: any): value is string {
-  return typeof value === "string" || value instanceof String;
+	return typeof value === "string" || value instanceof String;
 }
 
 /**
@@ -199,7 +201,7 @@ export function isString(value?: any): value is string {
  * // false
  */
 export function isNumber(value?: any): value is number {
-  return typeof value === "number" || value instanceof Number;
+	return typeof value === "number" || value instanceof Number;
 }
 
 export { isNumber as isInteger };
@@ -213,11 +215,11 @@ export { isNumber as isInteger };
  * @returns {boolean} result
  */
 export function isPrimitive(value: any): boolean {
-  return (
-    value === undefined ||
-    value === null ||
-    (typeof value !== "object" && typeof value !== "function")
-  );
+	return (
+		value === undefined ||
+		value === null ||
+		(typeof value !== "object" && typeof value !== "function")
+	);
 }
 
 /**
@@ -232,14 +234,14 @@ export function isPrimitive(value: any): boolean {
  * // false
  */
 export function isBoolean(value?: any): value is boolean {
-  return value === !!value || typeof value === "boolean" || value instanceof Boolean;
+	return value === !!value || typeof value === "boolean" || value instanceof Boolean;
 }
 
 /**
  * Returns if value is a true boolean value or is a string boolean
  */
 export function boolOrBoolString(value: any): value is "true" | true {
-  return value === "true" ? true : isBoolean(value) ? value : false;
+	return value === "true" ? true : isBoolean(value) ? value : false;
 }
 
 /**
@@ -257,7 +259,7 @@ export function boolOrBoolString(value: any): value is "true" | true {
  * // false
  */
 export function isArray(value?: any): value is Array<any> {
-  return Array.isArray(value);
+	return Array.isArray(value);
 }
 
 /**
@@ -278,7 +280,7 @@ export function isArray(value?: any): value is Array<any> {
  * // false
  */
 export function isFunction(value?: any): value is Function {
-  return !!(value && value.constructor && value.call && value.apply);
+	return !!(value && value.constructor && value.call && value.apply);
 }
 
 /**
@@ -296,7 +298,7 @@ export function isFunction(value?: any): value is Function {
  * // false
  */
 export function isNil(value?: any): value is null | undefined {
-  return value === null || value === undefined;
+	return value === null || value === undefined;
 }
 
 /**
@@ -311,7 +313,7 @@ export function isNil(value?: any): value is null | undefined {
  * // false
  */
 export function isNull(value?: any): value is null {
-  return value === null;
+	return value === null;
 }
 
 /**
@@ -326,7 +328,7 @@ export function isNull(value?: any): value is null {
  * // false
  */
 export function isUndefined(value?: any): value is undefined {
-  return value === undefined;
+	return value === undefined;
 }
 
 /**
@@ -341,12 +343,12 @@ export function isUndefined(value?: any): value is undefined {
  * // false
  */
 export function isElement(value: any): value is Element {
-  if (isNil(value)) {
-    return false;
-  }
+	if (isNil(value)) {
+		return false;
+	}
 
-  const IS_INSTANCE = value instanceof Element;
-  const IS_OBJECT_ELEMENT =
-    typeof value === "object" && value.nodeType === 1 && typeof value.nodeName === "string";
-  return IS_INSTANCE || IS_OBJECT_ELEMENT;
+	const IS_INSTANCE = value instanceof Element;
+	const IS_OBJECT_ELEMENT =
+		typeof value === "object" && value.nodeType === 1 && typeof value.nodeName === "string";
+	return IS_INSTANCE || IS_OBJECT_ELEMENT;
 }

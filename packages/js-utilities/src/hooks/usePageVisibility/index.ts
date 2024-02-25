@@ -1,13 +1,13 @@
 /**
-* This file is open-source. This means that it can be reproduced in whole
-* or in part, stored in a retrieval system transmitted in any form, or by
-* any means electronic with my prior permission as an author and owner
-* Please refer to the terms of the license agreement in the root of the project
-*
+ * This file is open-source. This means that it can be reproduced in whole
+ * or in part, stored in a retrieval system transmitted in any form, or by
+ * any means electronic with my prior permission as an author and owner
+ * Please refer to the terms of the license agreement in the root of the project
+ *
  * (c) 2023 joaodias.me
-*/
+ */
 import { useCallback, useEffect, useRef } from "react";
-import { throwError } from "src/functions";
+import { throwError } from "../../../src/functions";
 import { getBrowserCompatibility } from "./helpers";
 import { PageVisibilityCallback } from "./types";
 
@@ -44,70 +44,77 @@ import { PageVisibilityCallback } from "./types";
  * @param {number} [delay] Number of milliseconds to wait before responding to page visibility change
  */
 export function usePageVisibility(handlerCallback: PageVisibilityCallback, delay?: number): void {
-    const { current: BROWSER_COMPATIBILITY } = useRef(getBrowserCompatibility());
-    const timeoutId = useRef<NodeJS.Timeout | null>(null);
+	const { current: BROWSER_COMPATIBILITY } = useRef(getBrowserCompatibility());
+	const timeoutId = useRef<NodeJS.Timeout | null>(null);
 
-    /**
-     * Checks up on the passed props and throws errors if they do not match
-     * the expected type and shape.
-     */
-    const checkOnProps = useCallback(() => {
-        if (handlerCallback && typeof handlerCallback !== "function") {
-            throwError("helpers", "usePageVisibility", "Please use a callback function as the first parameter");
-        }
+	/**
+	 * Checks up on the passed props and throws errors if they do not match
+	 * the expected type and shape.
+	 */
+	const checkOnProps = useCallback(() => {
+		if (handlerCallback && typeof handlerCallback !== "function") {
+			throwError(
+				"helpers",
+				"usePageVisibility",
+				"Please use a callback function as the first parameter"
+			);
+		}
 
-        if (delay && (typeof delay !== "number" || delay < 0)) {
-            throwError("helpers", "usePageVisibility", "Delay must be a positive number");
-        }
-    }, [delay, handlerCallback]);
+		if (delay && (typeof delay !== "number" || delay < 0)) {
+			throwError("helpers", "usePageVisibility", "Delay must be a positive number");
+		}
+	}, [delay, handlerCallback]);
 
-    /**
-     * Returns the next `isVisible` status.
-     * It is the contrary to the `document.hidden` value.
-     *
-     * So if the document is hidden, then the next `isVisible` status is `false`.
-     */
-    const getNextVisibilityStatus = useCallback((): boolean => {
-        const HIDDEN_PROPERTY = BROWSER_COMPATIBILITY.hidden as "hidden";
-        const NEXT_VISIBILITY_STATUS = !document[HIDDEN_PROPERTY];
-        return NEXT_VISIBILITY_STATUS;
-    }, [BROWSER_COMPATIBILITY.hidden]);
+	/**
+	 * Returns the next `isVisible` status.
+	 * It is the contrary to the `document.hidden` value.
+	 *
+	 * So if the document is hidden, then the next `isVisible` status is `false`.
+	 */
+	const getNextVisibilityStatus = useCallback((): boolean => {
+		const HIDDEN_PROPERTY = BROWSER_COMPATIBILITY.hidden as "hidden";
+		const NEXT_VISIBILITY_STATUS = !document[HIDDEN_PROPERTY];
+		return NEXT_VISIBILITY_STATUS;
+	}, [BROWSER_COMPATIBILITY.hidden]);
 
-    /**
-     * When the `visibilitychange` event detects a change in the page visibility,
-     * this function is executed.
-     *
-     * If there is a delay, waits x amount of time before executing the `handlerCallback`.
-     */
-    const onVisibilityChange = useCallback(() => {
-        if (delay) {
-            if (timeoutId.current) {
-                clearTimeout(timeoutId.current);
-            }
+	/**
+	 * When the `visibilitychange` event detects a change in the page visibility,
+	 * this function is executed.
+	 *
+	 * If there is a delay, waits x amount of time before executing the `handlerCallback`.
+	 */
+	const onVisibilityChange = useCallback(() => {
+		if (delay) {
+			if (timeoutId.current) {
+				clearTimeout(timeoutId.current);
+			}
 
-            timeoutId.current = setTimeout(() => {
-                const NEXT_VISIBILITY_STATUS = getNextVisibilityStatus();
+			timeoutId.current = setTimeout(() => {
+				const NEXT_VISIBILITY_STATUS = getNextVisibilityStatus();
 
-                handlerCallback(NEXT_VISIBILITY_STATUS);
-            }, delay);
-        } else {
-            const NEXT_VISIBILITY_STATUS = getNextVisibilityStatus();
+				handlerCallback(NEXT_VISIBILITY_STATUS);
+			}, delay);
+		} else {
+			const NEXT_VISIBILITY_STATUS = getNextVisibilityStatus();
 
-            handlerCallback(NEXT_VISIBILITY_STATUS);
-        }
-    }, [delay, getNextVisibilityStatus, handlerCallback]);
+			handlerCallback(NEXT_VISIBILITY_STATUS);
+		}
+	}, [delay, getNextVisibilityStatus, handlerCallback]);
 
-    useEffect(() => {
-        checkOnProps();
+	useEffect(() => {
+		checkOnProps();
 
-        document.addEventListener(BROWSER_COMPATIBILITY.visibilityChange, onVisibilityChange);
+		document.addEventListener(BROWSER_COMPATIBILITY.visibilityChange, onVisibilityChange);
 
-        return () => {
-            if (timeoutId.current) {
-                clearTimeout(timeoutId.current);
-            }
+		return () => {
+			if (timeoutId.current) {
+				clearTimeout(timeoutId.current);
+			}
 
-            document.removeEventListener(BROWSER_COMPATIBILITY.visibilityChange, onVisibilityChange);
-        };
-    }, [BROWSER_COMPATIBILITY.visibilityChange, checkOnProps, onVisibilityChange]);
+			document.removeEventListener(
+				BROWSER_COMPATIBILITY.visibilityChange,
+				onVisibilityChange
+			);
+		};
+	}, [BROWSER_COMPATIBILITY.visibilityChange, checkOnProps, onVisibilityChange]);
 }

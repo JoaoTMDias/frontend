@@ -25,7 +25,6 @@
 		"pretest": "merge-coverage clear && merge-coverage clear --folder coverage-reports/cypress && merge-coverage clear --folder coverage || true",
 		"test:open": "TZ=Europe/Lisbon cypress open --component",
 		"test": "TZ=Europe/Lisbon cypress run --component",
-		"test:ci": "npm run test",
 		"posttest": "npx nyc report --reporter=text-summary",
 		"bundle-size": "size-limit",
 		"reinstall": "rimraf node_modules && npm install"

@@ -1,49 +1,49 @@
 import { useEffect, useState } from "react";
-import { useLifecycle, useMountedState, wait } from "src/index";
+import { useMountedState, wait } from "../../../src/index";
 
 interface DemoWithHookProps {
-  onMountedStateChange?: (state: boolean) => void;
+	onMountedStateChange?: (state: boolean) => void;
 }
 
 function DemoWithHook({ onMountedStateChange }: DemoWithHookProps) {
-  const isMounted = useMountedState();
-  const [mountedState, setMountedState] = useState(false);
+	const isMounted = useMountedState();
+	const [mountedState, setMountedState] = useState(false);
 
-  useEffect(() => {
-    async function announceMounted() {
-      wait(500);
+	useEffect(() => {
+		async function announceMounted() {
+			wait(500);
 
-      if (isMounted()) {
-        setMountedState(true);
-        onMountedStateChange?.(true);
-      }
-    }
+			if (isMounted()) {
+				setMountedState(true);
+				onMountedStateChange?.(true);
+			}
+		}
 
-    announceMounted();
+		announceMounted();
 
-    return () => {
-      onMountedStateChange?.(false);
-    };
-  });
+		return () => {
+			onMountedStateChange?.(false);
+		};
+	});
 
-  return <p data-is-mounted={mountedState}>useMountedState</p>;
+	return <p data-is-mounted={mountedState}>useMountedState</p>;
 }
 
 it("should call provided callback on mount", () => {
-  cy.mount(<DemoWithHook onMountedStateChange={cy.stub().as("onMountedStateChange")} />);
+	cy.mount(<DemoWithHook onMountedStateChange={cy.stub().as("onMountedStateChange")} />);
 
-  cy.get("p").should("have.attr", "data-is-mounted", "true");
-  cy.get("@onMountedStateChange").should("have.been.calledWith", true);
+	cy.get("p").should("have.attr", "data-is-mounted", "true");
+	cy.get("@onMountedStateChange").should("have.been.calledWith", true);
 });
 
 it("should call provided callback on unmount", () => {
-  cy.mount(<DemoWithHook onMountedStateChange={cy.stub().as("onMountedStateChange")} />).then(
-    () => {
-      cy.get("p").should("have.attr", "data-is-mounted", "true");
+	cy.mount(<DemoWithHook onMountedStateChange={cy.stub().as("onMountedStateChange")} />).then(
+		() => {
+			cy.get("p").should("have.attr", "data-is-mounted", "true");
 
-      cy.unmount();
+			cy.unmount();
 
-      cy.get("@onMountedStateChange").should("have.been.calledWith", false);
-    }
-  );
+			cy.get("@onMountedStateChange").should("have.been.calledWith", false);
+		}
+	);
 });

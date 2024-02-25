@@ -34,7 +34,7 @@
 		"test:run": "cypress run --component --browser chrome",
 		"test:integration-open": "cypress open --e2e",
 		"test:integration-run": "cypress run --e2e --browser chrome",
-		"test:integration": "start-server-and-test docs:preview 3000 'npm run test:integration-run'",
+		"test:integration": "start-server-and-test docs:start http://localhost:3000/react-a11y-tools/ 'npm run test:integration-run'",
 		"test": "npm run test:run && npm run test:integration",
 		"bundle-size": "size-limit",
 		"docs:install": "cd ./docs && npm install",

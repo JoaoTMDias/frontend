@@ -1,10 +1,12 @@
 import { resolve } from "path";
 import { defineConfig } from "vite";
+import tsconfigPaths from "vite-tsconfig-paths";
 
 //@ts-ignore
 import getBaseConfig from "../../config/viteBaseConfig";
 
 const CONFIG = getBaseConfig({
+	plugins: [tsconfigPaths()],
 	build: {
 		lib: {
 			entry: resolve(__dirname, "src/index.ts"),

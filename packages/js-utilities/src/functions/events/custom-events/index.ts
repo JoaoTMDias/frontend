@@ -8,20 +8,20 @@
  * (c) 2023 joaodias.me
  */
 import { useEffect } from "react";
-import { isBrowser } from "src/functions";
+import { isBrowser } from "../../../../src/functions";
 
 const getElement = (function () {
-  const targetElement = isBrowser ? document.createElement("div") : null;
+	const targetElement = isBrowser ? document.createElement("div") : null;
 
-  return function () {
-    return targetElement;
-  };
+	return function () {
+		return targetElement;
+	};
 })();
 
 declare global {
-  interface Window {
-    _customEventTargetElement: undefined | HTMLDivElement;
-  }
+	interface Window {
+		_customEventTargetElement: undefined | HTMLDivElement;
+	}
 }
 
 export type EventHandler<T> = (data: T) => void;
@@ -39,23 +39,23 @@ export type EventHandler<T> = (data: T) => void;
  * });
  */
 export function useCustomEventListener<GenericType>(
-  eventName: string,
-  eventHandler: EventHandler<GenericType>
+	eventName: string,
+	eventHandler: EventHandler<GenericType>
 ): void {
-  useEffect(() => {
-    const element = getElement();
-    const handleEvent = (event: CustomEvent | Event) => {
-      const data = (event as CustomEvent).detail;
+	useEffect(() => {
+		const element = getElement();
+		const handleEvent = (event: CustomEvent | Event) => {
+			const data = (event as CustomEvent).detail;
 
-      eventHandler(data);
-    };
+			eventHandler(data);
+		};
 
-    element?.addEventListener(eventName, handleEvent, false);
+		element?.addEventListener(eventName, handleEvent, false);
 
-    return () => {
-      element?.removeEventListener(eventName, handleEvent, false);
-    };
-  });
+		return () => {
+			element?.removeEventListener(eventName, handleEvent, false);
+		};
+	});
 }
 
 /**
@@ -80,8 +80,8 @@ export function useCustomEventListener<GenericType>(
  * @param {GenericType} [data]
  */
 export function emitCustomEvent<GenericType>(eventName: string, data?: GenericType): void {
-  const element = getElement();
-  const event: CustomEvent<GenericType> = new CustomEvent(eventName, { detail: data });
+	const element = getElement();
+	const event: CustomEvent<GenericType> = new CustomEvent(eventName, { detail: data });
 
-  element?.dispatchEvent(event);
+	element?.dispatchEvent(event);
 }

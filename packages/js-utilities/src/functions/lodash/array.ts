@@ -1,4 +1,4 @@
-import { ObjTypeWithAny } from "src/typings";
+import { ObjTypeWithAny } from "../../../src/typings";
 
 /**
  * Checks if `n` is between `start` and up to, but not including, `end`.
@@ -29,7 +29,7 @@ import { ObjTypeWithAny } from "src/typings";
  * // => true
  */
 export function inRange(num: number, rangeStart: number, rangeEnd = 0): boolean {
-  return (rangeStart < num && num < rangeEnd) || (rangeEnd < num && num < rangeStart);
+	return (rangeStart < num && num < rangeEnd) || (rangeEnd < num && num < rangeStart);
 }
 
 type Iteratee<T> = keyof T | ((item: T) => any);
@@ -47,25 +47,25 @@ type Iteratee<T> = keyof T | ((item: T) => any);
  * // => [2.1, 1.2]
  */
 export function uniqBy<T>(arr: T[], iteratee: Iteratee<T>): T[] {
-  const getKey = (item: T): any => {
-    if (typeof iteratee === "function") {
-      return iteratee(item);
-    }
+	const getKey = (item: T): any => {
+		if (typeof iteratee === "function") {
+			return iteratee(item);
+		}
 
-    return item[iteratee];
-  };
+		return item[iteratee];
+	};
 
-  const uniqueKeys = new Set<any>();
+	const uniqueKeys = new Set<any>();
 
-  return arr.filter((item) => {
-    const key = getKey(item);
-    if (uniqueKeys.has(key)) {
-      return false;
-    } else {
-      uniqueKeys.add(key);
-      return true;
-    }
-  });
+	return arr.filter((item) => {
+		const key = getKey(item);
+		if (uniqueKeys.has(key)) {
+			return false;
+		} else {
+			uniqueKeys.add(key);
+			return true;
+		}
+	});
 }
 
 /**
@@ -78,7 +78,7 @@ export function uniqBy<T>(arr: T[], iteratee: Iteratee<T>): T[] {
  * // => true
  */
 export function includes<T>(array: T[], value: any): boolean {
-  return array.includes(value);
+	return array.includes(value);
 }
 
 /**
@@ -90,10 +90,10 @@ export function includes<T>(array: T[], value: any): boolean {
  * // => [1, 1, 2, 2]
  */
 export function flatMap<T>(arr: T[], callback: (value: T, index: number, array: T[]) => T[]): T[] {
-  return arr.reduce((acc, value, index, array) => {
-    const mappedValues = callback(value, index, array);
-    return acc.concat(mappedValues as any);
-  }, []) as T[];
+	return arr.reduce((acc, value, index, array) => {
+		const mappedValues = callback(value, index, array);
+		return acc.concat(mappedValues as any);
+	}, []) as T[];
 }
 
 /**
@@ -118,16 +118,16 @@ export function flatMap<T>(arr: T[], callback: (value: T, index: number, array: 
  * // => [1, 2, 3, [4], 5]
  */
 export function flatten<T>(arr: T[], level?: number | boolean) {
-  if (typeof level === "boolean") {
-    return arr.flat(level ? Infinity : 1);
-  }
+	if (typeof level === "boolean") {
+		return arr.flat(level ? Infinity : 1);
+	}
 
-  if (typeof level === "number" && level >= 0) {
-    // Check if level is a non-negative number
-    return arr.flat(level);
-  }
+	if (typeof level === "number" && level >= 0) {
+		// Check if level is a non-negative number
+		return arr.flat(level);
+	}
 
-  return arr.flat();
+	return arr.flat();
 }
 
 /**
@@ -146,10 +146,10 @@ export function flatten<T>(arr: T[], level?: number | boolean) {
  * // => { user: "barney", age: 36, active: true }
  */
 export function find<T>(
-  arr: T[],
-  predicate: (value: T, index: number, obj: T[]) => unknown
+	arr: T[],
+	predicate: (value: T, index: number, obj: T[]) => unknown
 ): T | undefined {
-  return arr.find(predicate);
+	return arr.find(predicate);
 }
 
 /**
@@ -167,10 +167,10 @@ export function find<T>(
  * // => 1
  */
 export function findIndex<T>(
-  arr: T[],
-  predicate: (value: T, index: number, obj: T[]) => unknown
+	arr: T[],
+	predicate: (value: T, index: number, obj: T[]) => unknown
 ): number {
-  return arr.findIndex(predicate);
+	return arr.findIndex(predicate);
 }
 
 /**
@@ -192,16 +192,16 @@ export function findIndex<T>(
  * // => []
  */
 export function chunk<T>(arr: T[], chunkSize: number = 1): T[][] {
-  if (!Array.isArray(arr) || arr.length === 0 || chunkSize <= 0) {
-    return [];
-  }
+	if (!Array.isArray(arr) || arr.length === 0 || chunkSize <= 0) {
+		return [];
+	}
 
-  const chunks: T[][] = [];
+	const chunks: T[][] = [];
 
-  for (let i = 0; i < arr.length; i += chunkSize) {
-    chunks.push(arr.slice(i, i + chunkSize));
-  }
-  return chunks;
+	for (let i = 0; i < arr.length; i += chunkSize) {
+		chunks.push(arr.slice(i, i + chunkSize));
+	}
+	return chunks;
 }
 
 /**
@@ -217,17 +217,17 @@ export function chunk<T>(arr: T[], chunkSize: number = 1): T[][] {
  * // => { '4': [4.2], '6': [6.1, 6.3] }
  */
 export function groupBy<T, K>(collection: T[], iteratee: (element: T) => K): Record<string, T[]> {
-  const groups: Record<string, T[]> = {};
+	const groups: Record<string, T[]> = {};
 
-  collection.forEach((element) => {
-    const key = String(iteratee(element));
-    if (!groups[key]) {
-      groups[key] = [];
-    }
-    groups[key].push(element);
-  });
+	collection.forEach((element) => {
+		const key = String(iteratee(element));
+		if (!groups[key]) {
+			groups[key] = [];
+		}
+		groups[key].push(element);
+	});
 
-  return groups;
+	return groups;
 }
 
 /**
@@ -261,21 +261,27 @@ export function groupBy<T, K>(collection: T[], iteratee: (element: T) => K): Rec
  * // => { 'a': [{ 'b': 2, 'c': 3 }, { 'd': 4, 'e': 5 }] }
  */
 export function merge<T extends ObjTypeWithAny, U extends ObjTypeWithAny>(
-  target: T,
-  source: U
+	target: T,
+	source: U
 ): T & U {
-  const merged: any = { ...target };
+	const merged: any = { ...target };
 
-  for (const key in source) {
-    if (typeof source[key] === "object" && source[key] !== null && !Array.isArray(source[key])) {
-      merged[key] = merge(target[key] ?? {}, source[key]);
-    } else if (Array.isArray(source[key]) && Array.isArray(target[key])) {
-      // Merge arrays recursively @ts-ignore
-      merged[key] = target[key].map((item: any, index: number) => merge(item, source[key][index]));
-    } else {
-      merged[key] = source[key];
-    }
-  }
+	for (const key in source) {
+		if (
+			typeof source[key] === "object" &&
+			source[key] !== null &&
+			!Array.isArray(source[key])
+		) {
+			merged[key] = merge(target[key] ?? {}, source[key]);
+		} else if (Array.isArray(source[key]) && Array.isArray(target[key])) {
+			// Merge arrays recursively @ts-ignore
+			merged[key] = target[key].map((item: any, index: number) =>
+				merge(item, source[key][index])
+			);
+		} else {
+			merged[key] = source[key];
+		}
+	}
 
-  return merged as T & U;
+	return merged as T & U;
 }

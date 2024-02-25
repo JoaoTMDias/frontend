@@ -8,31 +8,31 @@
  */
 import { useEffect, useState } from "react";
 import { isBrowser } from "../..";
-import { off, on } from "src/functions";
+import { off, on } from "../../../src/functions";
 import { NavigatorWithConnection, NetworkInformation, UseNetworkState } from "./types";
 
 const navigator = isBrowser ? (window.navigator as NavigatorWithConnection) : undefined;
 const conn: NetworkInformation | undefined =
-  navigator && (navigator.connection || navigator.mozConnection || navigator.webkitConnection);
+	navigator && (navigator.connection || navigator.mozConnection || navigator.webkitConnection);
 
 /**
  * Returns the network information state
  */
 function getConnectionState(previousState?: UseNetworkState): UseNetworkState {
-  const online = navigator?.onLine;
-  const previousOnline = previousState?.online;
+	const online = navigator?.onLine;
+	const previousOnline = previousState?.online;
 
-  return {
-    online,
-    previous: previousOnline,
-    since: online === previousOnline ? previousState?.since : new Date(),
-    downlink: conn?.downlink,
-    downlinkMax: conn?.downlinkMax,
-    effectiveType: conn?.effectiveType,
-    rtt: conn?.rtt,
-    saveData: conn?.saveData,
-    type: conn?.type,
-  };
+	return {
+		online,
+		previous: previousOnline,
+		since: online === previousOnline ? previousState?.since : new Date(),
+		downlink: conn?.downlink,
+		downlinkMax: conn?.downlinkMax,
+		effectiveType: conn?.effectiveType,
+		rtt: conn?.rtt,
+		saveData: conn?.saveData,
+		type: conn?.type,
+	};
 }
 
 /**
@@ -49,33 +49,33 @@ function getConnectionState(previousState?: UseNetworkState): UseNetworkState {
  * );
  */
 export function useNetworkState(initialState?: UseNetworkState): UseNetworkState {
-  const [state, setState] = useState(initialState ?? getConnectionState);
+	const [state, setState] = useState(initialState ?? getConnectionState);
 
-  useEffect(() => {
-    const handleStateChange = () => {
-      setState(getConnectionState);
-    };
+	useEffect(() => {
+		const handleStateChange = () => {
+			setState(getConnectionState);
+		};
 
-    on(window, "online", handleStateChange, { passive: true });
-    on(window, "offline", handleStateChange, { passive: true });
+		on(window, "online", handleStateChange, { passive: true });
+		on(window, "offline", handleStateChange, { passive: true });
 
-    // it is quite hard to test it in jsdom environment maybe will be improved in future
-    /* istanbul ignore next */
-    if (conn) {
-      on(conn, "change", handleStateChange, { passive: true });
-    }
+		// it is quite hard to test it in jsdom environment maybe will be improved in future
+		/* istanbul ignore next */
+		if (conn) {
+			on(conn, "change", handleStateChange, { passive: true });
+		}
 
-    return () => {
-      off(window, "online", handleStateChange);
-      off(window, "offline", handleStateChange);
+		return () => {
+			off(window, "online", handleStateChange);
+			off(window, "offline", handleStateChange);
 
-      /* istanbul ignore next */
-      if (conn) {
-        off(conn, "change", handleStateChange);
-      }
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+			/* istanbul ignore next */
+			if (conn) {
+				off(conn, "change", handleStateChange);
+			}
+		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
-  return state;
+	return state;
 }

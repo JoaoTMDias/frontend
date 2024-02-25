@@ -5,7 +5,7 @@
  * (c) 2023 joaodias.me, Rights Reserved.
  */
 import React from "react";
-import { classNames } from "@jtmdias/js-utilities";
+import classNames from "clsx";
 import { MessagesAnnouncer, useMessagesAnnouncer } from "../../../../../src";
 import styles from "./styles.module.scss";
 

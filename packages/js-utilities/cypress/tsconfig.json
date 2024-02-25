@@ -1,14 +1,11 @@
 {
-  "extends": "../tsconfig.json",
-  "compilerOptions": {
-    "types": ["node", "cypress", "@testing-library/cypress", "./support"],
-    "baseUrl": ".",
-    "paths": {
-      "fixtures/*": ["./fixtures/*"],
-      "plugins/*": ["./plugins/*"],
-      "support/*": ["./support/*"],
-      "stories/*": ["../stories/*"]
-    }
-  },
-  "include": ["**/*.ts", "**/*.tsx", "cypress.d.ts"]
+	"extends": "../tsconfig.json",
+	"compilerOptions": {
+		"types": ["node", "cypress", "@testing-library/cypress", "./support"],
+		"baseUrl": ".",
+		"paths": {
+			"src/*": ["../src/*"]
+		}
+	},
+	"include": ["**/*.ts", "**/*.tsx", "cypress.d.ts"]
 }

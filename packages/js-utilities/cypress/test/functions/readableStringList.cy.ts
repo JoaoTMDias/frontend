@@ -6,34 +6,34 @@
  *
  * (c) 2023 joaodias.me
  */
-import { readableStringList } from "src/functions";
+import { readableStringList } from "../../../src/functions";
 
 const SOURCE = ["Homer", "Marge", "Lisa", "Bart", "Maggie"];
 
 describe("readableStringList", () => {
-  it("should return an inclusive formatted list in several languages", () => {
-    const LIST = {
-      en: "Homer, Marge, Lisa, Bart, and Maggie",
-      pt: "Homer, Marge, Lisa, Bart e Maggie",
-      fr: "Homer, Marge, Lisa, Bart et Maggie",
-      de: "Homer, Marge, Lisa, Bart und Maggie",
-    };
+	it("should return an inclusive formatted list in several languages", () => {
+		const LIST = {
+			en: "Homer, Marge, Lisa, Bart, and Maggie",
+			pt: "Homer, Marge, Lisa, Bart e Maggie",
+			fr: "Homer, Marge, Lisa, Bart et Maggie",
+			de: "Homer, Marge, Lisa, Bart und Maggie",
+		};
 
-    Object.keys(LIST).forEach((language) =>
-      expect(readableStringList(SOURCE, language, "and")).to.equal(LIST[language])
-    );
-  });
+		Object.keys(LIST).forEach((language) =>
+			expect(readableStringList(SOURCE, language, "and")).to.equal(LIST[language])
+		);
+	});
 
-  it("should return an exclusive formatted list in several languages", () => {
-    const LIST = {
-      en: "Homer, Marge, Lisa, Bart, or Maggie",
-      pt: "Homer, Marge, Lisa, Bart ou Maggie",
-      fr: "Homer, Marge, Lisa, Bart ou Maggie",
-      de: "Homer, Marge, Lisa, Bart oder Maggie",
-    } as const;
+	it("should return an exclusive formatted list in several languages", () => {
+		const LIST = {
+			en: "Homer, Marge, Lisa, Bart, or Maggie",
+			pt: "Homer, Marge, Lisa, Bart ou Maggie",
+			fr: "Homer, Marge, Lisa, Bart ou Maggie",
+			de: "Homer, Marge, Lisa, Bart oder Maggie",
+		} as const;
 
-    Object.keys(LIST).forEach((language) =>
-      expect(readableStringList(SOURCE, language, "or")).to.equal(LIST[language])
-    );
-  });
+		Object.keys(LIST).forEach((language) =>
+			expect(readableStringList(SOURCE, language, "or")).to.equal(LIST[language])
+		);
+	});
 });

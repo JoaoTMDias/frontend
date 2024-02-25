@@ -3,7 +3,7 @@ import type { RollupOptions } from "rollup";
 import dts from "vite-plugin-dts";
 import istanbul from "vite-plugin-istanbul";
 import react from "@vitejs/plugin-react-swc";
-import tsconfigPaths from "vite-tsconfig-paths";
+import { resolve } from "node:path";
 
 const BASE_EXTERNAL_LIBRARIES = {
 	react: "React",
@@ -32,7 +32,6 @@ function getBaseViteConfig({ plugins = [], build = {}, ...config }: UserConfig):
 
 	return {
 		plugins: [
-			tsconfigPaths(),
 			react(),
 			istanbul({
 				cypress: true,
@@ -44,6 +43,14 @@ function getBaseViteConfig({ plugins = [], build = {}, ...config }: UserConfig):
 			}),
 			...plugins,
 		],
+		resolve: {
+			alias: [
+				{
+					find: "src",
+					replacement: resolve(__dirname, "./src"),
+				},
+			],
+		},
 		build: {
 			lib,
 			rollupOptions: {

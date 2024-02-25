@@ -1,34 +1,34 @@
 import { useState } from "react";
-import useCopyToClipboard from "src/hooks/useCopyToClipboard";
+import useCopyToClipboard from "../../../src/hooks/useCopyToClipboard";
 
 function Demo({ injectedValue }: { injectedValue?: string }) {
-  const [text, setText] = useState("");
-  const { value, error, copyToClipboard } = useCopyToClipboard();
+	const [text, setText] = useState("");
+	const { value, error, copyToClipboard } = useCopyToClipboard();
 
-  return (
-    <div>
-      <input value={text} onChange={(e) => setText(e.target.value)} />
-      <button type="button" onClick={() => copyToClipboard(injectedValue ?? text)}>
-        copy text
-      </button>
-      {error ? <p>Unable to copy value: {error.message}</p> : value && <p>Copied {value}</p>}
-    </div>
-  );
+	return (
+		<div>
+			<input value={text} onChange={(e) => setText(e.target.value)} />
+			<button type="button" onClick={() => copyToClipboard(injectedValue ?? text)}>
+				copy text
+			</button>
+			{error ? <p>Unable to copy value: {error.message}</p> : value && <p>Copied {value}</p>}
+		</div>
+	);
 }
 
 it("should copy the contents to the clipboard", () => {
-  cy.mount(<Demo />);
+	cy.mount(<Demo />);
 
-  cy.get("input").type("jtmdias");
-  cy.get("button").click();
+	cy.get("input").type("jtmdias");
+	cy.get("button").click();
 
-  cy.get("p").should("contain", "Copied jtmdias");
+	cy.get("p").should("contain", "Copied jtmdias");
 });
 
 it("should copy the contents to the clipboard without the user input", () => {
-  cy.mount(<Demo injectedValue="something" />);
+	cy.mount(<Demo injectedValue="something" />);
 
-  cy.get("button").click();
+	cy.get("button").click();
 
-  cy.get("p").should("contain", "Copied something");
+	cy.get("p").should("contain", "Copied something");
 });

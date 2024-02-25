@@ -1,5 +1,4 @@
 import React, { useRef } from "react";
-import { callIfExists } from "@jtmdias/js-utilities";
 import {
 	RoverProvider,
 	useRover,
@@ -23,9 +22,9 @@ const SidenavLink = ({
 			className={styles.rover__sidenav__link}
 			ref={ref}
 			onKeyDown={handleKeyDown}
-			onClick={() => {
+			onClick={(event) => {
 				handleClick();
-				callIfExists(onClick);
+				onClick?.(event);
 			}}
 			tabIndex={tabIndex}
 			disabled={disabled}
@@ -54,7 +53,10 @@ export const DemoRovingTabIndex = () => {
 					<span className={styles.rover__sidenav__label}>Menu</span>
 					<ul className={styles.rover__sidenav__list}>
 						<li>
-							<SidenavLink disabled={false} onClick={() => console.log("Button One clicked")}>
+							<SidenavLink
+								disabled={false}
+								onClick={() => console.log("Button One clicked")}
+							>
 								<div className={styles.rover__sidenav__left}>
 									<svg
 										className={styles.rover__sidenav__icon}
@@ -73,13 +75,18 @@ export const DemoRovingTabIndex = () => {
 											<polyline points="14.5,5.5 14.5,14.5 1.5,14.5 1.5,5.5" />
 										</g>
 									</svg>
-									<span className={styles["rover__sidenav__link-text"]}>Orders</span>
+									<span className={styles["rover__sidenav__link-text"]}>
+										Orders
+									</span>
 								</div>
 								<span className={styles.rover__sidenav__counter}>10</span>
 							</SidenavLink>
 						</li>
 						<li>
-							<SidenavLink disabled={false} onClick={() => console.log("Button Two clicked")}>
+							<SidenavLink
+								disabled={false}
+								onClick={() => console.log("Button Two clicked")}
+							>
 								<div className={styles.rover__sidenav__left}>
 									<svg
 										className={styles.rover__sidenav__icon}
@@ -95,13 +102,18 @@ export const DemoRovingTabIndex = () => {
 											d="M14.328,2.672 c-1.562-1.562-4.095-1.562-5.657,0C8.391,2.952,8.18,3.27,8,3.601c-0.18-0.331-0.391-0.65-0.672-0.93 c-1.562-1.562-4.095-1.562-5.657,0c-1.562,1.562-1.562,4.095,0,5.657L8,14.5l6.328-6.172C15.891,6.766,15.891,4.234,14.328,2.672z"
 										></path>
 									</svg>
-									<span className={styles["rover__sidenav__link-text"]}>Wishlist</span>
+									<span className={styles["rover__sidenav__link-text"]}>
+										Wishlist
+									</span>
 								</div>
 								<span className={styles.rover__sidenav__counter}>12</span>
 							</SidenavLink>
 						</li>
 						<li>
-							<SidenavLink disabled={false} onClick={() => console.log("Button Three clicked")}>
+							<SidenavLink
+								disabled={false}
+								onClick={() => console.log("Button Three clicked")}
+							>
 								<div className={styles.rover__sidenav__left}>
 									<svg
 										className={styles.rover__sidenav__icon}
@@ -119,12 +131,17 @@ export const DemoRovingTabIndex = () => {
 											<polyline points="2.5,8.5 2.5,15.5 6.5,15.5 6.5,11.5 9.5,11.5 9.5,15.5 13.5,15.5 13.5,8.5" />
 										</g>
 									</svg>
-									<span className={styles["rover__sidenav__link-text"]}>Addresses</span>
+									<span className={styles["rover__sidenav__link-text"]}>
+										Addresses
+									</span>
 								</div>
 							</SidenavLink>
 						</li>
 						<li>
-							<SidenavLink disabled={false} onClick={() => console.log("Button Four clicked")}>
+							<SidenavLink
+								disabled={false}
+								onClick={() => console.log("Button Four clicked")}
+							>
 								<div className={styles.rover__sidenav__left}>
 									<svg
 										className={styles.rover__sidenav__icon}
@@ -143,7 +160,9 @@ export const DemoRovingTabIndex = () => {
 											<polygon points="11,15 8.5,15.5 9,13 13.5,8.5 15.5,10.5 "></polygon>
 										</g>
 									</svg>
-									<span className={styles["rover__sidenav__link-text"]}>Payment Methods</span>
+									<span className={styles["rover__sidenav__link-text"]}>
+										Payment Methods
+									</span>
 								</div>
 							</SidenavLink>
 						</li>
@@ -151,7 +170,10 @@ export const DemoRovingTabIndex = () => {
 					<span className={styles.rover__sidenav__label}>Other</span>
 					<ul className={styles.rover__sidenav__list}>
 						<li>
-							<SidenavLink disabled={false} onClick={() => console.log("Button Five clicked")}>
+							<SidenavLink
+								disabled={false}
+								onClick={() => console.log("Button Five clicked")}
+							>
 								<div className={styles.rover__sidenav__left}>
 									<svg
 										className={styles.rover__sidenav__icon}
@@ -169,12 +191,17 @@ export const DemoRovingTabIndex = () => {
 											<path d="M11.5,4c0,1.933-1.567,4.5-3.5,4.5S4.5,5.933,4.5,4a3.5,3.5,0,0,1,7,0Z"></path>
 										</g>
 									</svg>
-									<span className={styles["rover__sidenav__link-text"]}>Profile Settings</span>
+									<span className={styles["rover__sidenav__link-text"]}>
+										Profile Settings
+									</span>
 								</div>
 							</SidenavLink>
 						</li>
 						<li>
-							<SidenavLink disabled={false} onClick={() => console.log("Button Six clicked")}>
+							<SidenavLink
+								disabled={false}
+								onClick={() => console.log("Button Six clicked")}
+							>
 								<div className={styles.rover__sidenav__left}>
 									<svg
 										className={styles.rover__sidenav__icon}
@@ -193,7 +220,9 @@ export const DemoRovingTabIndex = () => {
 											<polyline points="3.5,5.5 0.5,8.5 3.5,11.5" />
 										</g>
 									</svg>
-									<span className={styles["rover__sidenav__link-text"]}>Log Out</span>
+									<span className={styles["rover__sidenav__link-text"]}>
+										Log Out
+									</span>
 								</div>
 							</SidenavLink>
 						</li>
