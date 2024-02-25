@@ -11,8 +11,9 @@
 	"scripts": {
 		"all:build": "lerna run build",
 		"all:test": "lerna run test",
-		"all:reinstall": "rimraf node_modules && npm install",
 		"all:upgrade": "npx npm-check-updates",
+		"reinstall": "rimraf node_modules && npm install",
+		"project-graph": "npx nx graph",
 		"version": "changeset version",
 		"release": "changeset publish"
 	},
