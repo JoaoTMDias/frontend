@@ -16,7 +16,7 @@
 		"project-graph": "npx nx graph",
 		"create-changeset": "changeset",
 		"version": "changeset version",
-		"release": "changeset publish"
+		"release": "npm run all:build && changeset publish"
 	},
 	"devDependencies": {
 		"@changesets/changelog-github": "^0.5.0",

@@ -45,7 +45,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Install dependencies
+      - name: Installing Dependencies
         run: npm ci
       - name: Create Release Pull Request or Publish to npm
         uses: changesets/action@v1
