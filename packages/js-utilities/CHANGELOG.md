@@ -1,5 +1,11 @@
 # [1.5.0](https://github.com/JoaoTMDias/js-utilities/compare/v1.4.0...v1.5.0) (2024-02-21)
 
+## 1.6.2
+
+### Patch Changes
+
+- [`be66841`](https://github.com/JoaoTMDias/frontend/commit/be66841cddfec5cfb6e48cb1e26593de1dd21c34) Thanks [@JoaoTMDias](https://github.com/JoaoTMDias)! - Added prerelease script to build before publishing to npm
+
 ## 1.6.1
 
 ### Patch Changes
