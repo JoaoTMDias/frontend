@@ -6,6 +6,7 @@
  *
  * (c) 2023 joaodias.me, Rights Reserved.
  */
+import { KeyOrShortcut } from "cypress/support/commands";
 import { FOCUSABLE_ELEMENT_SELECTOR } from "../../selectors/focusable";
 
 const ROVER_STORY_URL = "/docs/manage-focus/roving-tabindex";
@@ -30,10 +31,10 @@ describe("Roving Tab Index", () => {
 		cy.get("@Nav").within(() => {
 			cy.get(FOCUSABLE_ELEMENT_SELECTOR).as("navButtons");
 			cy.get("@navButtons").first().should("have.focus");
-			cy.focused().type("{downarrow}{downarrow}{downarrow}{downarrow}{downarrow}");
-			cy.get("@navButtons").last().should("have.focus");
+			cy.focused()
+				.pressUntil(() => cy.get("@navButtons").last(), "ArrowDown")
+				.realPress("Tab");
 		});
-		cy.focused().realPress("Tab");
 		cy.get("@SecondButton").should("have.focus");
 	});
 
@@ -43,7 +44,9 @@ describe("Roving Tab Index", () => {
 		cy.get("@Nav").within(() => {
 			cy.get(FOCUSABLE_ELEMENT_SELECTOR).as("navButtons");
 			cy.get("@navButtons").first().should("have.focus");
-			cy.focused().type("{downarrow}{downarrow}{downarrow}{downarrow}{home}");
+			cy.focused()
+				.pressUntil(() => cy.get("@navButtons").last(), "ArrowDown")
+				.realPress("Home");
 			cy.get("@navButtons").first().should("have.focus");
 		});
 	});
@@ -54,30 +57,43 @@ describe("Roving Tab Index", () => {
 		cy.get("@Nav").within(() => {
 			cy.get(FOCUSABLE_ELEMENT_SELECTOR).as("navButtons");
 			cy.get("@navButtons").first().should("have.focus");
-			cy.focused().type("{downarrow}{downarrow}{downarrow}{downarrow}{home}");
-			cy.get("@navButtons").first().should("have.focus");
-		});
-	});
-
-	it("should travel to the bottom of the menu when pressing the End button", () => {
-		cy.get("@FirstButton").focus();
-		cy.get("@FirstButton").realPress("Tab");
-		cy.get("@Nav").within(() => {
-			cy.get(FOCUSABLE_ELEMENT_SELECTOR).as("navButtons");
-			cy.get("@navButtons").first().should("have.focus");
-			cy.focused().type("{downarrow}{end}");
+			cy.get("@navButtons").first().realPress("End");
 			cy.get("@navButtons").last().should("have.focus");
 		});
 	});
 
 	it("should not do anything if pressed a non-mapped key", () => {
+		const KEYS: KeyOrShortcut[] = [
+			"Delete",
+			"Insert",
+			"PageUp",
+			"PageDown",
+			"ArrowRight",
+			"ArrowLeft",
+			"!",
+			"#",
+			"$",
+			"%",
+			"&",
+			"(",
+			")",
+			"<",
+			">",
+			"{{}",
+			"Escape",
+			"ZoomOut",
+		];
+
 		cy.get("@FirstButton").focus();
 		cy.get("@FirstButton").realPress("Tab");
 		cy.get("@Nav").within(() => {
 			cy.get(FOCUSABLE_ELEMENT_SELECTOR).as("navButtons");
 			cy.get("@navButtons").first().should("have.focus");
-			cy.focused().type("{del}{insert}{movetoend}{pageup}{pagedown}{rightarrow}");
-			cy.get("@navButtons").first().should("have.focus");
+
+			for (const key of KEYS) {
+				cy.get("@navButtons").first().realPress(key);
+				cy.get("@navButtons").first().should("have.focus");
+			}
 		});
 	});
 });
