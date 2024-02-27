@@ -2,7 +2,7 @@
 	"name": "@jtmdias/react-a11y-tools",
 	"description": "A small React component library that aims to ease the process of creating accessible design systems, web apps or websites",
 	"private": false,
-	"version": "1.5.6",
+	"version": "1.6.0",
 	"author": {
 		"name": "João Dias",
 		"url": "https://joaodias.me"
