@@ -4,8 +4,8 @@
  *
  * (c) 2023 joaodias.me, Rights Reserved.
  */
-const ROUTE_STORY_URL = "/docs/feedback/route-announcer#/";
-const MESSAGES_STORY_URL = "/docs/feedback/messages-announcer";
+const ROUTE_STORY_URL = "/feedback/route-announcer#/";
+const MESSAGES_STORY_URL = "/feedback/messages-announcer";
 
 describe("Announcer", () => {
 	describe("Route Announcer", () => {
@@ -40,7 +40,10 @@ describe("Announcer", () => {
 					cy.get("@previewLevelOneHeading")
 						.then(($heading) => {
 							const articlePageHeading = $heading.text();
-							cy.get("@announcer").should("have.text", `Navigated to ${articlePageHeading}`);
+							cy.get("@announcer").should(
+								"have.text",
+								`Navigated to ${articlePageHeading}`
+							);
 							cy.get("@ArticleTwoLink").should("have.attr", "aria-current", "page");
 							cy.tabUntil(() => cy.findByTestId("js-route-announer-go-back")).click();
 
@@ -48,7 +51,10 @@ describe("Announcer", () => {
 						})
 						.then(($heading) => {
 							const listPageHeading = $heading.text();
-							cy.get("@announcer").should("have.text", `Navigated to ${listPageHeading}`);
+							cy.get("@announcer").should(
+								"have.text",
+								`Navigated to ${listPageHeading}`
+							);
 							cy.get("@BlogLink").should("have.attr", "aria-current", "page");
 						});
 				});
@@ -61,7 +67,10 @@ describe("Announcer", () => {
 					cy.title()
 						.then(($heading) => {
 							const productPageTitle = $heading;
-							cy.get("@announcer").should("have.text", `Navigated to ${productPageTitle}`);
+							cy.get("@announcer").should(
+								"have.text",
+								`Navigated to ${productPageTitle}`
+							);
 							cy.get("@ProductLink").should("have.attr", "aria-current", "page");
 
 							cy.tabUntil(() => cy.get("@BlogLink"), true).click();
@@ -70,7 +79,10 @@ describe("Announcer", () => {
 						})
 						.then(($heading) => {
 							const listPageHeading = $heading.text();
-							cy.get("@announcer").should("have.text", `Navigated to ${listPageHeading}`);
+							cy.get("@announcer").should(
+								"have.text",
+								`Navigated to ${listPageHeading}`
+							);
 							cy.get("@BlogLink").should("have.attr", "aria-current", "page");
 						});
 				});

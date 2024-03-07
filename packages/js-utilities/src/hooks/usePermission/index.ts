@@ -12,8 +12,6 @@ import { UsePermissionState } from "./types";
 
 /**
  * Tracks a permission state.
- *
- * Tracks a permission state.
  * - SSR-compatible
  * - Automatically updates on permission state change.
  *

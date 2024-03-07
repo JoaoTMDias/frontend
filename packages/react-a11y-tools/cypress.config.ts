@@ -12,7 +12,7 @@ export default defineConfig({
 	e2e: {
 		supportFile: "cypress/support/integration.ts",
 		specPattern: ["cypress/test/integration/**/*.{cy,spec,test}.{js,jsx,ts,tsx}"],
-		baseUrl: "http://localhost:3000/react-a11y-tools",
+		baseUrl: "http://localhost:3000/frontend/docs/react-a11y-tools/",
 		setupNodeEvents(on, config) {
 			codeCoverageTask(on, config);
 

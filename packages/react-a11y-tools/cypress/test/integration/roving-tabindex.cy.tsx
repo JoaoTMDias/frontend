@@ -9,7 +9,7 @@
 import { KeyOrShortcut } from "cypress/support/commands";
 import { FOCUSABLE_ELEMENT_SELECTOR } from "../../selectors/focusable";
 
-const ROVER_STORY_URL = "/docs/manage-focus/roving-tabindex";
+const ROVER_STORY_URL = "/manage-focus/roving-tabindex";
 
 describe("Roving Tab Index", () => {
 	beforeEach(() => {

@@ -137,9 +137,9 @@ export function isPlainObject(value?: any): value is object {
  *
  * Note: Does not check that the input date is valid, only that it is a Javascript Date type.
  */
-export const isDate = (value: any): value is Date => {
+export function isDate(value: any): value is Date {
 	return Object.prototype.toString.call(value) === "[object Date]";
-};
+}
 
 /**
  * Determine if a value is a Promise
@@ -160,13 +160,13 @@ export const isDate = (value: any): value is Date => {
  * isPromise(new Promise(res => res()))
  * // true
  */
-export const isPromise = (value: any): value is Promise<any> => {
+export function isPromise(value: any): value is Promise<any> {
 	if (!value || !value.then || !isFunction(value.then)) {
 		return false;
 	}
 
 	return true;
-};
+}
 
 /**
  * Checks if `value` is classified as a String primitive or object.

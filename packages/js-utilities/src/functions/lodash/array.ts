@@ -249,6 +249,8 @@ export function groupBy<T, K>(collection: T[], iteratee: (element: T) => K): Rec
  *
  * **Note:** This method mutates `object`.
  *
+ * @example
+ *
  * const object = {
  *   'a': [{ 'b': 2 }, { 'd': 4 }]
  * }
