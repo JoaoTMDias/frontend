@@ -12,7 +12,6 @@ jobs:
     strategy:
       matrix:
         node-version:
-          - 18.x
           - 20.x
         os:
           - ubuntu-latest
@@ -22,9 +21,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: npm
-      - run: npm ci
-      - run: npm run all:test
+          cache: "yarn"
+      - run: yarn install --frozen-lockfile
+      - run: yarn all:test
 
   publish:
     name: Documentation
@@ -43,9 +42,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: npm
-      - run: npm ci
-      - run: npm run docs:build
+          cache: "yarn"
+      - run: yarn install --frozen-lockfile
+      - run: yarn docs:build
       - name: Deploy to GitHub Pages
         if: success()
         uses: crazy-max/ghaction-github-pages@v4
@@ -74,13 +73,14 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+          cache: "yarn"
       - name: Installing Dependencies
-        run: npm ci
+        run: yarn install --frozen-lockfile
       - name: Create Release Pull Request or Publish to npm
         uses: changesets/action@v1
         with:
-          publish: npm run release
-          version: npm run version
+          publish: yarn release
+          version: yarn version
           commit: "chore: new release"
           title: "chore: new release candidate"
         env:

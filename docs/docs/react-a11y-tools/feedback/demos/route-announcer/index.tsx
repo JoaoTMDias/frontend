@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { HashRouter, Route, useLocation, Switch, NavLink } from "react-router-dom";
+import { HashRouter, Route, useLocation, Routes, NavLink } from "react-router-dom";
 import { RouteAnnouncer } from "@jtmdias/react-a11y-tools";
 import styles from "./styles.module.scss";
 
@@ -493,12 +493,12 @@ const Content = () => {
 					</nav>
 				</header>
 				<main>
-					<Switch>
-						<Route exact path="/" component={Home} />
-						<Route exact path="/article-1" component={ArticleOne} />
-						<Route exact path="/article-2" component={ArticleTwo} />
-						<Route exact path="/product" component={Shop} />
-					</Switch>
+					<Routes>
+						<Route path="/" element={<Home />} />
+						<Route path="/article-1" element={<ArticleOne />} />
+						<Route path="/article-2" element={<ArticleTwo />} />
+						<Route path="/product" element={<Shop />} />
+					</Routes>
 				</main>
 			</div>
 		</RouteAnnouncer>

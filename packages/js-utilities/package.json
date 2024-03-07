@@ -20,14 +20,14 @@
 	},
 	"scripts": {
 		"types:check": "tsc --project ./tsconfig.json --noEmit",
-		"build": "npm run types:check && vite build",
-		"postbuild": "npm run bundle-size",
+		"build": "yarn types:check && vite build",
+		"postbuild": "yarn bundle-size",
 		"pretest": "merge-coverage clear && merge-coverage clear --folder coverage-reports/cypress && merge-coverage clear --folder coverage || true",
 		"test:open": "TZ=Europe/Lisbon cypress open --component",
 		"test": "TZ=Europe/Lisbon cypress run --component",
 		"posttest": "npx nyc report --reporter=text-summary",
 		"bundle-size": "size-limit",
-		"reinstall": "rimraf node_modules && npm install"
+		"reinstall": "rimraf node_modules && yarn install"
 	},
 	"peerDependencies": {
 		"react": ">= 16.14",
