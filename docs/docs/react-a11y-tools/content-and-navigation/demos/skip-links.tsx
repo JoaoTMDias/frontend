@@ -1,6 +1,8 @@
 import React from "react";
 import { options } from "./mocks";
-import { SkipLinks, Heading, ISkipLink } from "@jtmdias/react-a11y-tools";
+import { SkipLinks, Heading } from "../../../../../packages/react-a11y-tools/src";
+import type { ISkipLink } from "../../../../../packages/react-a11y-tools/src/components/skip-links/link";
+
 import styles from "./styles.module.scss";
 
 export const DemoSkipLinks = () => {

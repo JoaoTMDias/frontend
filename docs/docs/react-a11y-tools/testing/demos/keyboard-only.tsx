@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { KeyboardOnly } from "@jtmdias/react-a11y-tools";
+import { KeyboardOnly } from "../../../../../packages/react-a11y-tools/src";
 import styles from "./styles.module.scss";
 
 export const DemoKeyboardOnly = () => {

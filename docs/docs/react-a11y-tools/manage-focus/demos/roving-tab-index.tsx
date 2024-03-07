@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { RoverProvider, useRover, useFocus } from "@jtmdias/react-a11y-tools";
+import { RoverProvider, useRover, useFocus } from "../../../../../packages/react-a11y-tools/src";
 import styles from "./styles.module.scss";
 
 const SidenavLink = ({

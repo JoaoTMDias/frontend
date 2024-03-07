@@ -6,7 +6,10 @@
  */
 import React from "react";
 import classNames from "clsx";
-import { MessagesAnnouncer, useMessagesAnnouncer } from "@jtmdias/react-a11y-tools";
+import {
+	MessagesAnnouncer,
+	useMessagesAnnouncer,
+} from "../../../../../../packages/react-a11y-tools/src";
 import styles from "./styles.module.scss";
 
 const Form = ({ hasSubmitted, onSubmit }: { hasSubmitted: boolean; onSubmit: () => void }) => {

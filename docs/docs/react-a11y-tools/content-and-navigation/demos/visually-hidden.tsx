@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { VisuallyHidden } from "@jtmdias/react-a11y-tools";
+import { VisuallyHidden } from "../../../../../packages/react-a11y-tools/src";
 import styles from "./styles.module.scss";
 
 const ELEMENT_ID = "064a70e8-5c1e-43e6-8eee-9ab069b094fc";

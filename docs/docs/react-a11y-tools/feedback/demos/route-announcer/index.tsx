@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { HashRouter, Route, useLocation, Switch, NavLink } from "react-router-dom";
-import { RouteAnnouncer } from "@jtmdias/react-a11y-tools";
+import { RouteAnnouncer } from "../../../../../../packages/react-a11y-tools/src";
 import styles from "./styles.module.scss";
 
 const Home = (): JSX.Element => (

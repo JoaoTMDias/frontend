@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FocusManager } from "@jtmdias/react-a11y-tools";
+import { FocusManager } from "../../../../../packages/react-a11y-tools/src";
 import styles from "./styles.module.scss";
 
 export const DemoFocusManager = (props) => {

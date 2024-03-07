@@ -7,7 +7,7 @@
  * (c) 2023 joaodias.me, Rights Reserved.
  */
 import React, { useRef, useState, HTMLAttributes, InputHTMLAttributes } from "react";
-import { useAutoId, useTabbable, makeId } from "@jtmdias/react-a11y-tools";
+import { useAutoId, useTabbable, makeId } from "../../../../../../packages/react-a11y-tools/src";
 import styles from "./index.modules.scss";
 
 type Tabbable = {

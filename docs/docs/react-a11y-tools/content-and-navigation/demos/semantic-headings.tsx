@@ -1,5 +1,5 @@
 import React from "react";
-import { Heading, Level } from "@jtmdias/react-a11y-tools";
+import { Heading, Level } from "../../../../../packages/react-a11y-tools/src";
 import styles from "./styles.module.scss";
 
 export const DemoSemanticHeadings = () => {
