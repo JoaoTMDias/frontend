@@ -15,5 +15,5 @@ import { MemoryRouter } from "react-router-dom";
  * @param {React.ReactElement} ui
  */
 export function renderWithRouter(ui: React.ReactElement) {
-	cy.mount(<MemoryRouter basename="/">{ui}</MemoryRouter>);
+	cy.mount(<MemoryRouter initialEntries={["/"]}>{ui}</MemoryRouter>);
 }

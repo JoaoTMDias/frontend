@@ -5,7 +5,7 @@
  * (c) 2023 joaodias.me, Rights Reserved.
  */
 import { FunctionComponent, useEffect } from "react";
-import { RouteProps, useLocation, Link, Routes, Route } from "react-router-dom";
+import { RouteProps, useLocation, Link, Switch, Route } from "react-router-dom";
 import {
 	defaultProps,
 	RouteAnnouncer,
@@ -64,13 +64,13 @@ const App = (): JSX.Element => {
 			<Link to="/about">About</Link>
 			<Link to="/work">Work</Link>
 			<Link to="/contacts">Contacts</Link>
-			<Routes>
-				<Route path="/" element={<Home />} />
-				<Route path="/about" element={<About />} />
-				<Route path="/contacts" element={<Contacts />} />
-				<Route path="/work" element={<Work />} />
-				<Route element={<NoMatch />} />
-			</Routes>
+			<Switch>
+				<Route exact path="/" component={Home} />
+				<Route exact path="/about" component={About} />
+				<Route exact path="/contacts" component={Contacts} />
+				<Route exact path="/work" component={Work} />
+				<Route exact component={NoMatch} />
+			</Switch>
 		</RouteAnnouncer>
 	);
 };

@@ -13,8 +13,8 @@ function startDocusaurus() {
 	}
 
 	try {
-		// Change directory to the docs folder and execute yarn start
-		execSync("yarn docs:start", { cwd: rootDir, stdio: "inherit" });
+		// Change directory to the docs folder and execute npm run start
+		execSync("npm run docs:start", { cwd: rootDir, stdio: "inherit" });
 	} catch (error) {
 		console.error("Error occurred while starting docs server:", error);
 	}

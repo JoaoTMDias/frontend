@@ -26,18 +26,18 @@
 	},
 	"scripts": {
 		"types:check": "tsc --project ./tsconfig.json --noEmit",
-		"build": "yarn types:check && vite build",
-		"postbuild": "yarn bundle-size",
+		"build": "npm run types:check && vite build",
+		"postbuild": "npm run bundle-size",
 		"pretest": "merge-coverage clear && merge-coverage clear --folder coverage-reports/cypress && merge-coverage clear --folder coverage || true",
 		"test:open": "cypress open --component",
 		"test:run": "cypress run --component",
 		"test:integration-open": "cypress open --e2e",
 		"test:integration-run": "cypress run --e2e",
-		"docs:start": "node ../../scripts/documentation.mjs",
-		"test:integration": "start-server-and-test docs:start http://localhost:3000/frontend/ 'yarn test:integration-run'",
-		"test": "yarn test:run",
+		"docs:start": "node ./scripts/documentation.mjs",
+		"test:integration": "start-server-and-test docs:start http://localhost:3000/frontend/ 'npm run test:integration-run'",
+		"test": "npm run test:run && npm run test:integration",
 		"bundle-size": "size-limit",
-		"reinstall": "rimraf node_modules && yarn install"
+		"reinstall": "rimraf node_modules && npm install"
 	},
 	"peerDependencies": {
 		"react": ">= 16.14",
@@ -69,7 +69,7 @@
 		"eslint-plugin-react-refresh": "^0.4.5",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
-		"react-router-dom": "^6.22.3",
+		"react-router-dom": "5.3.4",
 		"sass": "^1.71.1",
 		"size-limit": "^11.0.2",
 		"start-server-and-test": "2.0.3",
