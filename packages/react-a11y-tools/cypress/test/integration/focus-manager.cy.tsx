@@ -9,7 +9,7 @@
  */
 import { FOCUSABLE_ELEMENT_SELECTOR } from "../../selectors/focusable";
 
-const STORY_URL = "/docs/manage-focus/focus-manager";
+const STORY_URL = "/manage-focus/focus-manager";
 
 describe("Focus Manager", () => {
 	beforeEach(() => {

@@ -17,9 +17,9 @@ const reHasRegExpChar = RegExp(reRegExpChar.source);
  * // => '\[github\]\(https://github\.com/\)'
  */
 export function escapeRegExp(string = "") {
-  return string && reHasRegExpChar.test(string)
-    ? string.replace(reRegExpChar, "\\$&")
-    : string || "";
+	return string && reHasRegExpChar.test(string)
+		? string.replace(reRegExpChar, "\\$&")
+		: string || "";
 }
 
 // Regex explained: https://regexr.com/5c55v
@@ -27,6 +27,8 @@ const kcRegex = /([0-9]+|([A-Z][a-z]+)|[a-z]+|([A-Z]+)(?![a-z]))/g;
 
 /**
  * Converts string to kebab case.
+ *
+ * @example
  *
  * kebabCase('Foo Bar')
  * // => 'foo-bar'
@@ -71,9 +73,9 @@ const kcRegex = /([0-9]+|([A-Z][a-z]+)|[a-z]+|([A-Z]+)(?![a-z]))/g;
  * // => '30-fgh-ij'
  */
 export function kebabCase(str: string): string {
-  const MatchingValue = String(str ?? "").match(kcRegex) || [];
+	const MatchingValue = String(str ?? "").match(kcRegex) || [];
 
-  return MatchingValue.map((char) => char.toLowerCase()).join("-");
+	return MatchingValue.map((char) => char.toLowerCase()).join("-");
 }
 
 /**
@@ -81,13 +83,16 @@ export function kebabCase(str: string): string {
  *
  * @example
  *
- * capitalize('hello')   -> 'Hello'
- * capitalize('va va voom') -> 'Va va voom'
+ * capitalize('hello')
+ * //-> 'Hello'
+ *
+ * capitalize('va va voom')
+ * //-> 'Va va voom'
  */
 export function capitalize(str: string): string {
-  if (!str || str.trim().length === 0) return "";
-  const lower = str.toLowerCase();
-  return lower.substring(0, 1).toUpperCase() + lower.substring(1, lower.length);
+	if (!str || str.trim().length === 0) return "";
+	const lower = str.toLowerCase();
+	return lower.substring(0, 1).toUpperCase() + lower.substring(1, lower.length);
 }
 
 /**
@@ -100,21 +105,21 @@ export function capitalize(str: string): string {
  * camelCase('helloWorld') -> 'helloWorld'
  */
 export function camelCase(str: string): string {
-  if (isNil(str)) {
-    return "";
-  }
+	if (isNil(str)) {
+		return "";
+	}
 
-  const parts =
-    str
-      ?.replace(/([A-Z])+/g, capitalize)
-      ?.split(/(?=[A-Z])|[\.\-\s_#$%&@]/) // Include # in the split characters
-      .filter((x) => x)
-      .map((x) => x.toLowerCase()) ?? [];
-  if (parts.length === 0) return "";
-  if (parts.length === 1) return parts[0];
-  return parts.reduce((acc, part) => {
-    return `${acc}${part.charAt(0).toUpperCase()}${part.slice(1)}`;
-  });
+	const parts =
+		str
+			?.replace(/([A-Z])+/g, capitalize)
+			?.split(/(?=[A-Z])|[\.\-\s_#$%&@]/) // Include # in the split characters
+			.filter((x) => x)
+			.map((x) => x.toLowerCase()) ?? [];
+	if (parts.length === 0) return "";
+	if (parts.length === 1) return parts[0];
+	return parts.reduce((acc, part) => {
+		return `${acc}${part.charAt(0).toUpperCase()}${part.slice(1)}`;
+	});
 }
 
 /**
@@ -125,13 +130,13 @@ export function camelCase(str: string): string {
  * pascalCase('va va boom') -> 'VaVaBoom'
  */
 export function pascalCase(str: string): string {
-  const parts =
-    str
-      ?.split(/[\.\-\s_#$%&@]/)
-      .filter((x) => x)
-      .map((x) => x.toLowerCase()) ?? [];
-  if (parts.length === 0) return "";
-  return parts.map((str) => str.charAt(0).toUpperCase() + str.slice(1)).join("");
+	const parts =
+		str
+			?.split(/[\.\-\s_#$%&@]/)
+			.filter((x) => x)
+			.map((x) => x.toLowerCase()) ?? [];
+	if (parts.length === 0) return "";
+	return parts.map((str) => str.charAt(0).toUpperCase() + str.slice(1)).join("");
 }
 
 /**
@@ -144,16 +149,16 @@ export function pascalCase(str: string): string {
  * titleCase('queryItems') -> 'Query Items'
  */
 export function titleCase(str: string | null | undefined): string {
-  if (!str) {
-    return "";
-  }
+	if (!str) {
+		return "";
+	}
 
-  return str
-    .split(/(?=[A-Z])|[\.\-\s_#$%&@]/)
-    .map((s) => s.trim())
-    .filter((s) => !!s)
-    .map((s) => capitalize(s.toLowerCase()))
-    .join(" ");
+	return str
+		.split(/(?=[A-Z])|[\.\-\s_#$%&@]/)
+		.map((s) => s.trim())
+		.filter((s) => !!s)
+		.map((s) => capitalize(s.toLowerCase()))
+		.join(" ");
 }
 
 /**
@@ -165,13 +170,13 @@ export function titleCase(str: string | null | undefined): string {
  * Ex. template('Hello, <name>', { name: 'ray' }, /<(.+?)>/g)
  */
 export function template(str: string, data: Record<string, any>, regex = /\{\{(.+?)\}\}/g) {
-  if (isNil(str)) {
-    return "";
-  }
+	if (isNil(str)) {
+		return "";
+	}
 
-  return Array.from(str.matchAll(regex)).reduce((acc, match) => {
-    return acc.replace(match[0], data[match[1]]);
-  }, str);
+	return Array.from(str.matchAll(regex)).reduce((acc, match) => {
+		return acc.replace(match[0], data[match[1]]);
+	}, str);
 }
 
 /**
@@ -189,8 +194,8 @@ export function template(str: string, data: Record<string, any>, regex = /\{\{(.
  * ```
  */
 export function trim(str: string | null | undefined, charsToTrim: string = " ") {
-  if (!str) return "";
-  const toTrim = charsToTrim.replace(/[\W]{1}/g, "\\$&");
-  const regex = new RegExp(`^[${toTrim}]+|[${toTrim}]+$`, "g");
-  return str.replace(regex, "");
+	if (!str) return "";
+	const toTrim = charsToTrim.replace(/[\W]{1}/g, "\\$&");
+	const regex = new RegExp(`^[${toTrim}]+|[${toTrim}]+$`, "g");
+	return str.replace(regex, "");
 }

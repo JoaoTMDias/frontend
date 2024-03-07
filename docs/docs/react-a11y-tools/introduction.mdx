@@ -1,0 +1,59 @@
+---
+sidebar_position: 1
+title: Introduction
+---
+
+## About
+
+### The Problem
+
+
+We're in the design systems era now. Almost every company, big or small, either has one or has toyed with the idea. These systems are awesome – they give us the tools to whip up interfaces that are quick, slick, and uniform.
+
+But, accessibility? That's still a tough nut to crack, especially with frameworks like React in the mix. Whether we're tapping into existing design systems or crafting our own, accessibility often ends up as a last-minute thing. And, let's face it, sometimes companies just don't have the time or resources to make it a priority.
+
+### The Solution
+
+We aim to simplify certain aspects of the accessibility journey. We're diving into topics like focus management, navigation, and announcements – areas where we believe we can lend a hand.
+
+Our library is all about accessibility and behavior aligned with the WAI-ARIA Authoring Practices. It's got your back with screen-reader and keyboard navigation support.
+
+No need to conform to any specific styling or design approach here. Our compact package focuses on behavior and interactions, freeing you up to concentrate on your design.
+
+Plus, we throw in a straightforward testing tool, so you can simulate a mouse-free environment hassle-free.
+
+## Install
+
+Inside your React project directory, install `@jtmdias/react-a11y-tools` by running either of the following:
+
+```sh
+$ npm install @jtmdias/react-a11y-tools
+
+# with Yarn
+
+$ yarn add @jtmdias/react-a11y-tools
+
+# with pnpm
+
+$ pnpm add @jtmdias/react-a11y-tools
+
+```
+
+## Roadmap
+
+Here is a table of the components, custom hooks and their status.
+
+✅ - Released<br/>
+🛠 - Building<br/>
+
+| Status              | Name                                                                | type                     |
+| ------------------- | ------------------------------------------------------------------- | ------------------------ |
+| <center>✅</center> | [Route Announcer ](/docs/react-a11y-tools/feedback/route-announcer)                  | `feedback`               |
+| <center>✅</center> | [Messages Announcer](/docs/react-a11y-tools/feedback/messages-announcer)             | `feedback`               |
+| <center>✅</center> | [Focus Manager](/docs/react-a11y-tools/manage-focus/focus-manager)                   | `focus`                  |
+| <center>✅</center> | [The Rover](/docs/react-a11y-tools/manage-focus/roving-tabindex)                     | `focus`                  |
+| <center>✅</center> | [Keyboard Only](/docs/react-a11y-tools/testing/keyboard-only)                        | `testing utilities`      |
+| <center>✅</center> | [Skip Links](/docs/react-a11y-tools/content-and-navigation/skip-links)               | `content and navigation` |
+| <center>✅</center> | [Semantic Headings](/docs/react-a11y-tools/content-and-navigation/semantic-headings) | `content and navigation` |
+| <center>✅</center> | [useTabbable](/docs/react-a11y-tools/hooks/use-tabbable)                             | `hooks`                  |
+| <center>✅</center> | [useAutoId](/docs/react-a11y-tools/hooks/useAutoId)                             | `hooks`                  |

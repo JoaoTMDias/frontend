@@ -5,9 +5,6 @@
 			"dependsOn": ["^build"],
 			"outputs": ["{projectRoot}/dist"]
 		},
-		"postbuild": {
-			"dependsOn": ["^build"]
-		},
 		"test": {
 			"dependsOn": ["^build"]
 		}

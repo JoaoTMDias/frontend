@@ -2,7 +2,8 @@
 	"name": "@jtmdias/frontend",
 	"private": true,
 	"workspaces": [
-		"packages/*"
+		"packages/*",
+		"docs"
 	],
 	"engines": {
 		"node": ">= 20",
@@ -12,6 +13,8 @@
 		"all:build": "lerna run build",
 		"all:test": "lerna run test",
 		"all:upgrade": "npx npm-check-updates",
+		"docs:start": "cd ./docs && npm run start",
+		"docs:serve": "cd ./docs && npm run build && npm run serve",
 		"reinstall": "rimraf node_modules && npm install",
 		"project-graph": "npx nx graph",
 		"create-changeset": "changeset",
@@ -23,9 +26,12 @@
 		"@changesets/changelog-github": "^0.5.0",
 		"@changesets/cli": "^2.27.1",
 		"@types/node": "^20.11.20",
+		"app-root-path": "^3.1.0",
 		"cypress": "^13.6.4",
 		"lerna": "^8.1.2",
+		"react-router-dom": "5.3.4",
 		"rimraf": "^5.0.5",
+		"ts-node": "^10.9.2",
 		"typescript": "^5.3.3",
 		"vite-tsconfig-paths": "^4.3.1"
 	}

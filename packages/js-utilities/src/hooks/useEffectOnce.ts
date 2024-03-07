@@ -1,4 +1,5 @@
-import { EffectCallback, useEffect } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { EffectCallback, useEffect } from "react";
 
 /**
  * Runs an effect only once.
@@ -17,5 +18,5 @@ import { EffectCallback, useEffect } from 'react';
  * ```
  */
 export function useEffectOnce(effect: EffectCallback): void {
-  useEffect(effect, []);
-};
+	useEffect(effect, []);
+}

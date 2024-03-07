@@ -259,7 +259,7 @@ export function has(obj: ObjTypeWithAny, path: string | string[]): boolean {
 /**
  * Performs a deep comparison between two values to determine if they are equivalent.
  */
-export const isEqual = <TType>(x: TType, y: TType): boolean => {
+export function isEqual<TType>(x: TType, y: TType): boolean {
 	if (Object.is(x, y)) return true;
 	if (x instanceof Date && y instanceof Date) {
 		return x.getTime() === y.getTime();
@@ -278,4 +278,4 @@ export const isEqual = <TType>(x: TType, y: TType): boolean => {
 		if (!isEqual(x[keysX[i]], y[keysX[i]])) return false;
 	}
 	return true;
-};
+}

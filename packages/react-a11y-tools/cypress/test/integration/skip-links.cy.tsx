@@ -6,7 +6,7 @@
  *
  * (c) 2023 joaodias.me, Rights Reserved.
  */
-const ROVER_STORY_URL = "/docs/content-and-navigation/skip-links";
+const ROVER_STORY_URL = "/content-and-navigation/skip-links";
 
 describe("Skip Links", () => {
 	beforeEach(() => {
