@@ -1,5 +1,12 @@
 # [1.5.0](https://github.com/JoaoTMDias/js-utilities/compare/v1.4.0...v1.5.0) (2024-02-21)
 
+## 1.6.3
+
+### Patch Changes
+
+- [#5](https://github.com/JoaoTMDias/frontend/pull/5) [`1a69d5f`](https://github.com/JoaoTMDias/frontend/commit/1a69d5f717a6faaf079ee1aa0593afa5631b5fef) Thanks [@JoaoTMDias](https://github.com/JoaoTMDias)! - - Adds jsdoc to helpers in "js-utilities".
+  - "getBrowserTimeZone" is also exported as "getBrowserTimezone"
+
 ## 1.6.2
 
 ### Patch Changes
