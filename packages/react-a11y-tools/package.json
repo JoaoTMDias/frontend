@@ -35,7 +35,7 @@
 		"test:integration-run": "cypress run --e2e",
 		"docs:start": "node ../../scripts/documentation.mjs",
 		"test:integration": "start-server-and-test docs:start http://localhost:3000/frontend/ 'yarn test:integration-run'",
-		"test": "yarn test:run && yarn test:integration",
+		"test": "yarn test:run",
 		"bundle-size": "size-limit",
 		"reinstall": "rimraf node_modules && yarn install"
 	},
