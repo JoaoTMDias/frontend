@@ -3,4 +3,5 @@
 "@jtmdias/js-utilities": patch
 ---
 
-Added documentation to helpers. getBrowserTimeZone is also exported as getBrowserTimezone
+-   Adds jsdoc to helpers in "js-utilities".
+-   "getBrowserTimeZone" is also exported as "getBrowserTimezone"
