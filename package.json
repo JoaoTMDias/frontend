@@ -11,7 +11,7 @@
 	},
 	"scripts": {
 		"all:build": "lerna run build",
-		"all:test": "lerna run test",
+		"all:test": "lerna run test --stream",
 		"all:upgrade": "npx npm-check-updates",
 		"docs:start": "cd ./docs && npm run start",
 		"docs:build": "cd ./docs && npm run build",
@@ -31,6 +31,7 @@
 		"cypress": "^13.6.4",
 		"lerna": "^8.1.2",
 		"rimraf": "^5.0.5",
+		"ts-node": "^10.9.2",
 		"typescript": "^5.3.3",
 		"vite-tsconfig-paths": "^4.3.1"
 	}
