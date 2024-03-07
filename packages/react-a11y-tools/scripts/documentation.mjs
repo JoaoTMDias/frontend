@@ -14,7 +14,7 @@ function startDocusaurus() {
 
 	try {
 		// Change directory to the docs folder and execute npm run start
-		execSync("npm run docs:start", { cwd: rootDir, stdio: "inherit" });
+		execSync("npm run docs:serve", { cwd: rootDir, stdio: "inherit" });
 	} catch (error) {
 		console.error("Error occurred while starting docs server:", error);
 	}

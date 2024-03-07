@@ -26,8 +26,7 @@ describe("Roving Tab Index", () => {
 	});
 
 	it("should go through the menu using the down arrow button", () => {
-		cy.get("@FirstButton").focus();
-		cy.get("@FirstButton").realPress("Tab");
+		cy.get("@FirstButton").click().realPress("Tab");
 		cy.get("@Nav").within(() => {
 			cy.get(FOCUSABLE_ELEMENT_SELECTOR).as("navButtons");
 			cy.get("@navButtons").first().should("have.focus");
@@ -39,7 +38,7 @@ describe("Roving Tab Index", () => {
 	});
 
 	it("should travel to the top of the menu when pressing the Home button", () => {
-		cy.get("@FirstButton").focus();
+		cy.get("@FirstButton").click();
 		cy.get("@FirstButton").realPress("Tab");
 		cy.get("@Nav").within(() => {
 			cy.get(FOCUSABLE_ELEMENT_SELECTOR).as("navButtons");
@@ -52,7 +51,7 @@ describe("Roving Tab Index", () => {
 	});
 
 	it("should travel to the bottom of the menu when pressing the End button", () => {
-		cy.get("@FirstButton").focus();
+		cy.get("@FirstButton").click();
 		cy.get("@FirstButton").realPress("Tab");
 		cy.get("@Nav").within(() => {
 			cy.get(FOCUSABLE_ELEMENT_SELECTOR).as("navButtons");
@@ -84,7 +83,7 @@ describe("Roving Tab Index", () => {
 			"ZoomOut",
 		];
 
-		cy.get("@FirstButton").focus();
+		cy.get("@FirstButton").click();
 		cy.get("@FirstButton").realPress("Tab");
 		cy.get("@Nav").within(() => {
 			cy.get(FOCUSABLE_ELEMENT_SELECTOR).as("navButtons");
