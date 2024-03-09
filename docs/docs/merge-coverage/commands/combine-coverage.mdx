@@ -1,0 +1,44 @@
+---
+title: combine-coverage
+---
+Combines coverage from different test runner tools
+
+## API
+
+###  Optional Parameters
+```sh
+# Custom Test runners (default: "jest,cypress")
+--tools=<string>
+--tools=<string,string>
+
+# Custom reports folder (default: "coverage-reports/reports")
+--folder=<string>
+--folder=<string,string>
+```
+
+## Usage
+
+### Combine coverage using the terminal
+
+```sh
+# Option A - Default test runners
+$ merge-coverage combine-coverage
+
+# Option B - Custom test runners and default reports folder
+$ merge-coverage combine-coverage --tools=vitest,cypress
+
+# Option C - Custom test runners and custom reports folder
+$ merge-coverage combine-coverage --tools=vitest,cypress --folder=custom-folder/reports
+```
+
+### Combine coverage after running tests
+```json
+{
+  "devDependencies": {
+    "@jtmdias/merge-coverage": "x.y.z",
+  },
+  "scripts": {
+    "posttest": "merge-coverage combine-coverage --tools=vitest,cypress",
+  }
+}
+```

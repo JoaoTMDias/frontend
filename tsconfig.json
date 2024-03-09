@@ -1,3 +1,10 @@
 {
-  "extends": "./tsconfig.base.json"
+	"extends": "./tsconfig.base.json",
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"@jtmdias/js-utilities": ["./packages/js-utilities/src/*"],
+			"@jtmdias/react-a11y-tools": ["./packages/react-a11y-tools/src/*"]
+		}
+	}
 }

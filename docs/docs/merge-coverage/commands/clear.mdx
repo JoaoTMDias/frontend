@@ -1,0 +1,37 @@
+---
+title: clear
+---
+Clears the coverage folder before running tests.
+This command is useful when it runs before executing the pipeline of tests, like the `pretest` pre-script hooks.
+
+## API
+
+###  Optional Parameters
+```sh
+# Custom reports folder
+--folder=<string>
+```
+
+## Usage
+
+### Clean coverage using the terminal
+
+```sh
+# Option A - Ddefault folder ("coverage-reports/reports")
+$ merge-coverage clear
+
+# Option B - Custom folder
+$ merge-coverage clear --folder coverage-reports/cypress
+```
+
+### Clean coverage before running tests
+```json
+{
+  "devDependencies": {
+    "@jtmdias/merge-coverage": "x.y.z",
+  },
+  "scripts": {
+    "pretest": "merge-coverage clear --folder coverage",
+  }
+}
+```

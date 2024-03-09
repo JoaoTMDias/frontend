@@ -1,0 +1,40 @@
+---
+title: combine-reports
+---
+Combines multiple JUnit XML files.
+
+## API
+
+###  Optional Parameters
+```sh
+# Custom reports folder (default: "results")
+--folder=<string>
+--folder=<string,string>
+
+# Custom output XML file destination (default: "junit.xml")
+--outputFile=<string>
+```
+
+## Usage
+
+### Combine coverage using the terminal
+
+```sh
+# Option A - Default reports folder and outfile file
+$ merge-coverage combine-reports
+
+# Option B - Custom reports folder and outfile file
+$ merge-coverage combine-reports --folder=custom-results --outputFile="custom-junit.xml"
+```
+
+### Combine coverage after running tests and generate a JUnit XML file
+```json
+{
+  "devDependencies": {
+    "@jtmdias/merge-coverage": "x.y.z",
+  },
+  "scripts": {
+    "posttest": "merge-coverage combine-coverage && merge-coverage combine-reports",
+  }
+}
+```
