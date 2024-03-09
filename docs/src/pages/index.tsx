@@ -21,12 +21,18 @@ export default function Home(): JSX.Element {
 
 			return (
 				<li key={key} className={styles["list-item"]}>
-					<Link href={project.url} className={styles["list-item__link"]}>
-						<h2 className={styles["list-item__title"]}>{project.name}</h2>
+					<Link
+						href={project.url}
+						className={styles["list-item__link"]}
+						aria-describedby={key}
+					>
+						<h3 className={styles["list-item__title"]}>{project.name}</h3>
 						<p className={styles["list-item__version"]}>
 							<span className="sr-only">Current version is</span> {project.version}
 						</p>
-						<p className={styles["list-item__description"]}>{project.description}</p>
+						<p id={key} className={styles["list-item__description"]}>
+							{project.description}
+						</p>
 					</Link>
 				</li>
 			);
@@ -38,6 +44,11 @@ export default function Home(): JSX.Element {
 	return (
 		<div className={styles.page}>
 			<Head>
+				<title>@jtmdias/frontend</title>
+				<meta
+					name="description"
+					content="Documentation for the monorepo of all the javascript-related packages for JoaoTMDias"
+				/>
 				<link rel="preconnect" href="https://fonts.googleapis.com" />
 				<link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
 				<link
