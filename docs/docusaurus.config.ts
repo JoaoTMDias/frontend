@@ -57,7 +57,7 @@ function getMonorepoProjects() {
 
 const config: Config = {
 	title: "@jtmdias/frontend",
-	url: "https://joaotmdias.github.io",
+	url: "https://joaotmdias.github.io/",
 	baseUrl: "/frontend/",
 	organizationName: "@jtmdias",
 	projectName: "frontend",

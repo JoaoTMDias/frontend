@@ -1,7 +1,8 @@
 import Link from "@docusaurus/Link";
 import Head from "@docusaurus/Head";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import styles from "./index.module.css";
+import "../css/custom.css";
+import styles from "./index.module.scss";
 
 interface ProjectInfo {
 	url: string;
@@ -20,12 +21,12 @@ export default function Home(): JSX.Element {
 
 			return (
 				<li key={key} className={styles["list-item"]}>
-					<Link href={project.url}>
-						<h2 className={styles.title}>{project.name}</h2>
-						<p className={styles.version}>
+					<Link href={project.url} className={styles["list-item__link"]}>
+						<h2 className={styles["list-item__title"]}>{project.name}</h2>
+						<p className={styles["list-item__version"]}>
 							<span className="sr-only">Current version is</span> {project.version}
 						</p>
-						<p className={styles.description}>{project.description}</p>
+						<p className={styles["list-item__description"]}>{project.description}</p>
 					</Link>
 				</li>
 			);
