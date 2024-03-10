@@ -7,6 +7,7 @@
 		"name": "João Dias",
 		"url": "https://joaodias.me"
 	},
+	"homepage": "https://github.com/JoaoTMDias/frontend/tree/main/packages/react-a11y-tools",
 	"type": "module",
 	"main": "dist/index.umd.cjs",
 	"module": "dist/index.es.mjs",
@@ -50,7 +51,7 @@
 	},
 	"devDependencies": {
 		"@cypress/code-coverage": "^3.12.24",
-		"@jtmdias/merge-coverage": "^1.1.0",
+		"@jtmdias/merge-coverage": "*",
 		"@size-limit/preset-small-lib": "^11.0.2",
 		"@testing-library/cypress": "^10.0.1",
 		"@types/react": "^18.2.56",
