@@ -1,5 +1,11 @@
 # [1.5.0](https://github.com/JoaoTMDias/js-utilities/compare/v1.4.0...v1.5.0) (2024-02-21)
 
+## 2.0.1
+
+### Patch Changes
+
+- [#10](https://github.com/JoaoTMDias/frontend/pull/10) [`b28a5ae`](https://github.com/JoaoTMDias/frontend/commit/b28a5ae4b355fbe621a2b452a690050f649bfeb9) Thanks [@JoaoTMDias](https://github.com/JoaoTMDias)! - Added minor react version to 18 and added also react as an optional dependency
+
 ## 2.0.0
 
 ### Major Changes
