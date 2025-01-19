@@ -1,27 +1,26 @@
 /**
-* This file is open-source. This means that it can be reproduced in whole
-* or in part, stored in a retrieval system transmitted in any form, or by
-* any means electronic with my prior permission as an author and owner
-* Please refer to the terms of the license agreement in the root of the project
-*
- * (c) 2023 joaodias.me
-*/
+ * Please refer to the terms of the license agreement in the root of the project
+ *
+ * (c) 2024 joaodias.me
+ */
 
 /**
  * Given a cookie key `name`, returns the value of the cookie
  * or `null`, if the key is not found.
  */
 export function getCookie(name: string): string | null {
-  const nameLenPlus = (name.length + 1);
-  return document.cookie
-    .split(';')
-    .map(ckie => ckie.trim())
-    .filter(cookie => {
-      return cookie.substring(0, nameLenPlus) === `${name}=`;
-    })
-    .map(cookie => {
-      return decodeURIComponent(cookie.substring(nameLenPlus));
-    })[0] || null;
+  const nameLenPlus = name.length + 1;
+  return (
+    document.cookie
+      .split(";")
+      .map((ckie) => ckie.trim())
+      .filter((cookie) => {
+        return cookie.substring(0, nameLenPlus) === `${name}=`;
+      })
+      .map((cookie) => {
+        return decodeURIComponent(cookie.substring(nameLenPlus));
+      })[0] || null
+  );
 }
 
 /**
@@ -40,12 +39,10 @@ export function getCookie(name: string): string | null {
  */
 export function setCookie(name: string, value: string, days: number, path = "/"): void {
   const CURRENT_DATE = new Date();
+  CURRENT_DATE.setTime(CURRENT_DATE.getTime() + days * 24 * 60 * 60 * 1000);
   const EXPIRATION_DATE = CURRENT_DATE.toUTCString();
 
-  CURRENT_DATE.setTime(CURRENT_DATE.getTime() + days * 24 * 60 * 60 * 1000);
-
-  const NEW_COOKIE = `${name}=${value};expires=${EXPIRATION_DATE};path=${path}`;
-
+  const NEW_COOKIE = `${name}=${encodeURIComponent(value)};expires=${EXPIRATION_DATE};path=${path}`;
   document.cookie = NEW_COOKIE;
 }
 
@@ -61,7 +58,7 @@ export function setCookie(name: string, value: string, days: number, path = "/")
  */
 export function deleteCookie(name: string, path = "/"): void {
   const EXPIRATION_DATE = "Thu, 01 Jan 1970 00:00:00 UTC";
-  const NULLED_COOKIE = `${name}=;expires=${EXPIRATION_DATE}; path=${path};`;
+  const NULLED_COOKIE = `${name}=;expires=${EXPIRATION_DATE};path=${path};`;
 
   document.cookie = NULLED_COOKIE;
 }
