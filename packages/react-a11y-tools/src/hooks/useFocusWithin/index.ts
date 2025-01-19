@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /*
  * The file cannot be reproduced in whole or in part, stored in a retrieval system, transmitted
  * in any form, or by any means electronic, mechanical, or otherwise, without
@@ -13,24 +15,28 @@ import { UseFocusWithinProps, UseFocusWithinReturns } from "./types";
 
 /**
  * Handles focus events for the target and its descendants.
-*
-* @example
-* ```jsx
-* import { useFocusWithin } from "@jtmdias/react-a11y-tools";
-* ...
-*	function Component({ disabled, onClick, ...componentProps }) {
-*		const focusWithinProps = useFocusWithin({
-*			onFocusWithin: yourCallbackForFocus.
-*			onBlurWithin: yourCallbackForBlur.
-* 	});
-*
-*		return (
-*			<button type="button" {...focusWithinProps}>A Button</button>
-*		):
-* }
-* ```
+ *
+ * @example
+ * ```jsx
+ * import { useFocusWithin } from "@jtmdias/react-a11y-tools";
+ * ...
+ *	function Component({ disabled, onClick, ...componentProps }) {
+ *		const focusWithinProps = useFocusWithin({
+ *			onFocusWithin: yourCallbackForFocus.
+ *			onBlurWithin: yourCallbackForBlur.
+ * 	});
+ *
+ *		return (
+ *			<button type="button" {...focusWithinProps}>A Button</button>
+ *		):
+ * }
+ * ```
  */
-export function useFocusWithin({ onBlurWithin, onFocusWithin, onFocusWithinChange }: UseFocusWithinProps): UseFocusWithinReturns {
+export function useFocusWithin({
+	onBlurWithin,
+	onFocusWithin,
+	onFocusWithinChange,
+}: UseFocusWithinProps): UseFocusWithinReturns {
 	const state = useRef({
 		isFocusWithin: false,
 	});
@@ -46,17 +52,19 @@ export function useFocusWithin({ onBlurWithin, onFocusWithin, onFocusWithinChang
 			) {
 				state.current.isFocusWithin = false;
 
-				callIfExists(onBlurWithin, event);
+				// @ts-ignore We need to cast the event to any because the type is not correct
+				callIfExists(onBlurWithin, event as any);
 				callIfExists(onFocusWithinChange, false);
 			}
 		},
-		[onBlurWithin, onFocusWithinChange, state],
+		[onBlurWithin, onFocusWithinChange, state]
 	);
 
 	const onSyntheticFocus = useSyntheticBlurEvent(onBlur);
 	const onFocus = useCallback(
 		(event: FocusEvent) => {
 			if (!state.current.isFocusWithin) {
+				// @ts-ignore We need to cast the event to any because the type is not correct
 				callIfExists(onFocusWithin, event);
 				callIfExists(onFocusWithinChange, true);
 
@@ -64,7 +72,7 @@ export function useFocusWithin({ onBlurWithin, onFocusWithin, onFocusWithinChang
 				onSyntheticFocus(event);
 			}
 		},
-		[onFocusWithin, onFocusWithinChange, onSyntheticFocus],
+		[onFocusWithin, onFocusWithinChange, onSyntheticFocus]
 	);
 
 	return {

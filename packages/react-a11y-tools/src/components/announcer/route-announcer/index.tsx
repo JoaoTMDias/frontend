@@ -5,7 +5,8 @@
  * (c) 2023 joaodias.me, Rights Reserved.
  */
 import { FunctionComponent, useCallback, useEffect, useState } from "react";
-import { GenericComponentPropsWithChildren, usePrevious } from "@jtmdias/js-utilities";
+import { GenericComponentPropsWithChildren } from "@jtmdias/js-utilities";
+import { usePrevious } from "@jtmdias/js-utilities/hooks";
 import { Announcer } from "../components/announcer";
 
 export interface IRouteAnnouncerActions {
