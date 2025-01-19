@@ -5,13 +5,13 @@ import istanbul from "vite-plugin-istanbul";
 import react from "@vitejs/plugin-react-swc";
 import { resolve } from "node:path";
 
-const BASE_EXTERNAL_LIBRARIES = {
+export const BASE_EXTERNAL_LIBRARIES = {
 	react: "React",
 	"react-dom": "ReactDOM",
 	"react/jsx-runtime": "react/jsx-runtime",
 };
 
-const BASE_ROLLUP_OPTIONS: RollupOptions = {
+export const BASE_ROLLUP_OPTIONS: RollupOptions = {
 	external: [...Object.keys(BASE_EXTERNAL_LIBRARIES)],
 	output: {
 		globals: {

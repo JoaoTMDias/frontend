@@ -9,14 +9,26 @@
 		"dist"
 	],
 	"homepage": "https://github.com/JoaoTMDias/frontend/tree/main/packages/js-utilities",
-	"main": "dist/index.umd.cjs",
-	"module": "dist/index.es.mjs",
-	"types": "dist/types/index.d.ts",
+	"main": "./dist/index.cjs",
+	"module": "./dist/index.mjs",
+	"types": "./dist/index.d.ts",
 	"exports": {
 		".": {
-			"import": "./dist/index.es.mjs",
-			"require": "./dist/index.umd.cjs",
-			"types": "./dist/types/index.d.ts"
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.mjs",
+			"require": "./dist/index.cjs"
+		},
+		"./hooks": {
+			"types": "./dist/hooks.d.ts",
+			"import": "./dist/hooks.mjs",
+			"require": "./dist/hooks.cjs"
+		}
+	},
+	"typesVersions": {
+		"*": {
+			"hooks": [
+				"./dist/hooks.d.ts"
+			]
 		}
 	},
 	"scripts": {
@@ -64,15 +76,29 @@
 	},
 	"size-limit": [
 		{
-			"path": "dist/index.umd.cjs",
-			"limit": "10 kB",
+			"path": "dist/index.cjs",
+			"limit": "11 kB",
 			"ignore": [
 				"fs"
 			]
 		},
 		{
-			"path": "dist/index.es.mjs",
-			"limit": "10 kB",
+			"path": "dist/index.mjs",
+			"limit": "11 kB",
+			"ignore": [
+				"fs"
+			]
+		},
+		{
+			"path": "dist/hooks.cjs",
+			"limit": "11 kB",
+			"ignore": [
+				"fs"
+			]
+		},
+		{
+			"path": "dist/hooks.mjs",
+			"limit": "11 kB",
 			"ignore": [
 				"fs"
 			]
