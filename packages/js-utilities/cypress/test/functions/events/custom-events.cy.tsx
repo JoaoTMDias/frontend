@@ -1,8 +1,10 @@
-import {
-  EventHandler,
-  emitCustomEvent,
-  useCustomEventListener,
-} from "../../../../src/functions/events";
+/**
+ * Please refer to the terms of the license agreement in the root of the project
+ *
+ * (c) 2024 joaodias.me
+ */
+import { EventHandler, emitCustomEvent } from "src/functions";
+import { useCustomEventListener } from "src/hooks";
 
 interface ELCProps<GenericType> {
   eventName: string;

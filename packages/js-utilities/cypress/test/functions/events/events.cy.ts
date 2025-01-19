@@ -1,4 +1,9 @@
-import { on, off } from "../../../../src/functions/events";
+/**
+ * Please refer to the terms of the license agreement in the root of the project
+ *
+ * (c) 2024 joaodias.me
+ */
+import { on, off } from "src/functions";
 
 describe("on", () => {
   let divElement: HTMLDivElement;
