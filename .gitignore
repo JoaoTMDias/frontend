@@ -26,3 +26,4 @@ dist-ssr
 
 # Repo related
 .nx/cache
+.nx/workspace-data
