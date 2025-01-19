@@ -3,5 +3,5 @@
  *
  * (c) 2024 joaodias.me
  */
-export * from "./functions";
-export * from "./typings";
+export * from "./hooks/index";
+export * from "./functions/events/custom-events/use-custom-event-listener";
