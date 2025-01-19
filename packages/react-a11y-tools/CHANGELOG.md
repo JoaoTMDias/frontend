@@ -1,5 +1,33 @@
 ## [1.5.6](https://github.com/joaotmdias/react-a11y-tools/compare/v1.5.5...v1.5.6) (2023-10-27)
 
+## 1.6.2
+
+### Patch Changes
+
+- [`c5c0b30`](https://github.com/JoaoTMDias/frontend/commit/c5c0b30996c382a5aff6c30ba01a06d37b7b79dc) - Features
+
+  - clone-valid-element: added tests and improved jsdocs
+  - cookies: added tests and improved jsdoc
+  - useControlledState: added tests and improved jsdoc
+  - useEnsuredForwardedRef: added tests and improved jsdoc and docs
+  - usePageVisibility: added tests
+  - usePermission: added tests
+  - useIntersection: adds new hook
+  - package.json: added typesVersions entry
+  - useAutoId: Add support for react 18 useId hook
+  - bundle: split between pure javascript and react modules
+  - bundle: changed config to support preserving modules
+
+  Bug Fixes
+
+  - at: improved types
+  - get: improved types
+  - getValue: improved types
+  - package.json: wrong main, module and types folders
+
+- Updated dependencies [[`c5c0b30`](https://github.com/JoaoTMDias/frontend/commit/c5c0b30996c382a5aff6c30ba01a06d37b7b79dc)]:
+  - @jtmdias/js-utilities@2.0.0
+
 ## 1.6.1
 
 ### Patch Changes
