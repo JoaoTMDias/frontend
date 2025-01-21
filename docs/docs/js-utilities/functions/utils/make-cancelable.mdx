@@ -12,17 +12,25 @@ function makeCancelable<GenericPromiseValue = unknown>(promise: Promise<GenericP
 ### Usage
 
 ```tsx
-import { wait } from '@jtmdias/js-utilities';
+import { wait } from "@jtmdias/js-utilities";
 
-// A Promise that resolves after 1 second
+// Create a Promise that resolves after 1 second
 const somePromise = wait(1000);
 
-// Can also be made cancellable by wrapping it
+// Make it cancelable
 const cancelable = makeCancelable(somePromise);
 
-// So that when we execute said wrapped promise...
-cancelable.promise.then(console.log).catch(({ isCanceled }) => console.error('isCanceled', isCanceled));
+// Execute the wrapped promise
+cancelable.promise
+	.then(console.log)
+	.catch(error => {
+		if (error.name === 'AbortError') {
+			console.log('Promise was cancelled');
+		} else {
+			console.error('Other error:', error);
+		}
+	});
 
-// We can cancel it on demand
+// Cancel it when needed
 cancelable.cancel();
 ```
