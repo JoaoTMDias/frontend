@@ -1,5 +1,11 @@
 # [1.5.0](https://github.com/JoaoTMDias/js-utilities/compare/v1.4.0...v1.5.0) (2024-02-21)
 
+## 2.1.1
+
+### Patch Changes
+
+- [`e9aa988`](https://github.com/JoaoTMDias/frontend/commit/e9aa988fb0050fe901750993c39fe308e84c7fae) - Fixed the field value in the 'repo' section of package.json
+
 ## 2.1.0
 
 ### Minor Changes
