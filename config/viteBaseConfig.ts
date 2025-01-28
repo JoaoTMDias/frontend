@@ -5,6 +5,18 @@ import istanbul from "vite-plugin-istanbul";
 import react from "@vitejs/plugin-react-swc";
 import { resolve } from "node:path";
 
+type ModuleFormat =
+	| "amd"
+	| "cjs"
+	| "es"
+	| "iife"
+	| "system"
+	| "umd"
+	| "commonjs"
+	| "esm"
+	| "module"
+	| "systemjs";
+
 export const BASE_EXTERNAL_LIBRARIES = {
 	react: "React",
 	"react-dom": "ReactDOM",
@@ -19,6 +31,21 @@ export const BASE_ROLLUP_OPTIONS: RollupOptions = {
 		},
 	},
 };
+
+/**
+ * Gets a per-file format filename.
+ *
+ * @param format
+ * @returns
+ */
+export function getFilename(format: ModuleFormat, entryName: string) {
+	const OUTPUT: Partial<Record<typeof format, string>> = {
+		es: `${entryName}.mjs`,
+		cjs: `${entryName}.cjs`,
+	};
+
+	return OUTPUT[format] ?? `${entryName}.cjs`;
+}
 
 /**
  * Returns the base vite config
@@ -38,7 +65,7 @@ function getBaseViteConfig({ plugins = [], build = {}, ...config }: UserConfig):
 				requireEnv: false,
 			}),
 			dts({
-				outDir: "dist/types",
+				outDir: "./dist",
 				insertTypesEntry: true,
 			}),
 			...plugins,
