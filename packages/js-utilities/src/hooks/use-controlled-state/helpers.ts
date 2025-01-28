@@ -3,8 +3,8 @@
  *
  * (c) 2024 joaodias.me
  */
-import { GenericAnyFunction } from "../../typings";
-import { BivariantCallback, SetStateAction } from "./types";
+import type { GenericAnyFunction } from "../../typings";
+import type { BivariantCallback, SetStateAction } from "./types";
 
 /**
  * Symbol used to mark functions that are responsible for setting the next state.
@@ -28,7 +28,7 @@ const SET_NEXT_STATE = Symbol("setNextState");
  * @internal
  */
 export function isSetNextState(arg: GenericAnyFunction & { [SET_NEXT_STATE]?: true }): boolean {
-  return arg[SET_NEXT_STATE] === true;
+	return arg[SET_NEXT_STATE] === true;
 }
 
 /**
@@ -44,9 +44,9 @@ export function isSetNextState(arg: GenericAnyFunction & { [SET_NEXT_STATE]?: tr
  * @internal
  */
 export function defineSetNextState(arg: GenericAnyFunction & { [SET_NEXT_STATE]?: true }): void {
-  if (!isSetNextState(arg)) {
-    Object.defineProperty(arg, SET_NEXT_STATE, { value: true });
-  }
+	if (!isSetNextState(arg)) {
+		Object.defineProperty(arg, SET_NEXT_STATE, { value: true });
+	}
 }
 
 /**
@@ -59,9 +59,9 @@ export function defineSetNextState(arg: GenericAnyFunction & { [SET_NEXT_STATE]?
  * @internal
  */
 function isUpdater<T>(
-  argument: SetStateAction<T>
+	argument: SetStateAction<T>
 ): argument is BivariantCallback<(prevState: T) => T> {
-  return typeof argument === "function";
+	return typeof argument === "function";
 }
 
 /**
@@ -74,7 +74,7 @@ function isUpdater<T>(
  * @internal
  */
 function isLazyValue<T>(value: unknown): value is () => T {
-  return typeof value === "function";
+	return typeof value === "function";
 }
 
 /**
@@ -101,9 +101,9 @@ function isLazyValue<T>(value: unknown): value is () => T {
  * applyState(prev => prev + 1, () => 1) // returns 2
  */
 export function applyState<T>(argument: SetStateAction<T>, currentValue: T | (() => T)): T {
-  if (isUpdater(argument)) {
-    const value = isLazyValue(currentValue) ? currentValue() : currentValue;
-    return argument(value);
-  }
-  return argument;
+	if (isUpdater(argument)) {
+		const value = isLazyValue(currentValue) ? currentValue() : currentValue;
+		return argument(value);
+	}
+	return argument;
 }

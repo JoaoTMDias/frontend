@@ -11,15 +11,15 @@
 	"homepage": "https://github.com/JoaoTMDias/frontend/tree/main/packages/js-utilities",
 	"main": "./dist/index.cjs",
 	"module": "./dist/index.mjs",
-	"types": "./dist/types/index.d.ts",
+	"types": "./dist/index.d.ts",
 	"exports": {
 		".": {
-			"types": "./dist/types/index.d.ts",
+			"types": "./dist/index.d.ts",
 			"import": "./dist/index.mjs",
 			"require": "./dist/index.cjs"
 		},
 		"./hooks": {
-			"types": "./dist/types/hooks.d.ts",
+			"types": "./dist/hooks.d.ts",
 			"import": "./dist/hooks.mjs",
 			"require": "./dist/hooks.cjs"
 		}

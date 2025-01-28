@@ -62,10 +62,10 @@ function generateIncrementalId(): string {
  * const id2 = useAutoId("8e88aa2e-e6a8");
  *
  * // Auto-generated ID with prefix
- * const id3 = useAutoId(undefined, "fdz-prefix"); // "fdz-prefix--{id}"
+ * const id3 = useAutoId(undefined, "prefix"); // "prefix--{id}"
  *
  * // Custom ID with prefix
- * const id4 = useAutoId("6949d175", "fdz-js-checkbox"); // "fdz-js-checkbox--6949d175"
+ * const id4 = useAutoId("6949d175", "js-checkbox"); // "js-checkbox--6949d175"
  * ```
  *
  * @param customId - Optional predefined ID value

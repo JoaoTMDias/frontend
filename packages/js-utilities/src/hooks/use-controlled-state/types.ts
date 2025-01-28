@@ -3,7 +3,7 @@
  *
  * (c) 2024 joaodias.me
  */
-import { GenericAnyFunction } from "../../typings";
+import type { GenericAnyFunction } from "../../typings";
 
 /**
  * A utility type that handles bivariant function types to resolve TypeScript's strict function
@@ -20,7 +20,7 @@ import { GenericAnyFunction } from "../../typings";
  * // Can be assigned to functions that take more specific or more general types
  */
 export type BivariantCallback<T extends GenericAnyFunction> = {
-  bivarianceHack(...args: Parameters<T>): ReturnType<T>;
+	bivarianceHack(...args: Parameters<T>): ReturnType<T>;
 }["bivarianceHack"];
 
 /**

@@ -3,7 +3,7 @@
  *
  * (c) 2024 joaodias.me
  */
-import { ObjTypeWithAny } from "src/typings";
+import type { ObjTypeWithAny } from "src/typings";
 import { isNil } from "..";
 
 /**
@@ -26,13 +26,13 @@ import { isNil } from "..";
  * // => false
  */
 export function has(obj: ObjTypeWithAny, path: string | string[]): boolean {
-  if (isNil(obj) || isNil(path)) {
-    return false;
-  }
+	if (isNil(obj) || isNil(path)) {
+		return false;
+	}
 
-  const pathArray = Array.isArray(path) ? path : path.match(/([^[.\]])+/g);
+	const pathArray = Array.isArray(path) ? path : path.match(/([^[.\]])+/g);
 
-  return !!pathArray?.reduce((prevObj: ObjTypeWithAny | undefined, key: string) => {
-    return prevObj && prevObj[key];
-  }, obj);
+	return !!pathArray?.reduce((prevObj: ObjTypeWithAny | undefined, key: string) => {
+		return prevObj && prevObj[key];
+	}, obj);
 }

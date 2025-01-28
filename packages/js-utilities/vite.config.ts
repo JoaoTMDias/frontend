@@ -2,6 +2,7 @@ import { resolve } from "path";
 import type { RollupOptions } from "rollup";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
+import dts from "vite-plugin-dts";
 
 //@ts-ignore
 import getBaseConfig, { BASE_ROLLUP_OPTIONS } from "../../config/viteBaseConfig";
@@ -43,7 +44,13 @@ function getFilename(format: ModuleFormat, entryName: string) {
 }
 
 const CONFIG = getBaseConfig({
-	plugins: [tsconfigPaths()],
+	plugins: [
+		tsconfigPaths(),
+		dts({
+			outDir: "./dist",
+			insertTypesEntry: true,
+		}),
+	],
 	resolve: {
 		alias: [
 			{

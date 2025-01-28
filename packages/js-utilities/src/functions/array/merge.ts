@@ -3,7 +3,7 @@
  *
  * (c) 2024 joaodias.me
  */
-import { ObjTypeWithAny } from "src/typings";
+import type { ObjTypeWithAny } from "src/typings";
 
 /**
  * This method is like `assign` except that it recursively merges own and
@@ -38,21 +38,27 @@ import { ObjTypeWithAny } from "src/typings";
  * // => { 'a': [{ 'b': 2, 'c': 3 }, { 'd': 4, 'e': 5 }] }
  */
 export function merge<T extends ObjTypeWithAny, U extends ObjTypeWithAny>(
-  target: T,
-  source: U
+	target: T,
+	source: U
 ): T & U {
-  const merged: any = { ...target };
+	const merged: any = { ...target };
 
-  for (const key in source) {
-    if (typeof source[key] === "object" && source[key] !== null && !Array.isArray(source[key])) {
-      merged[key] = merge(target[key] ?? {}, source[key]);
-    } else if (Array.isArray(source[key]) && Array.isArray(target[key])) {
-      // Merge arrays recursively @ts-ignore
-      merged[key] = target[key].map((item: any, index: number) => merge(item, source[key][index]));
-    } else {
-      merged[key] = source[key];
-    }
-  }
+	for (const key in source) {
+		if (
+			typeof source[key] === "object" &&
+			source[key] !== null &&
+			!Array.isArray(source[key])
+		) {
+			merged[key] = merge(target[key] ?? {}, source[key]);
+		} else if (Array.isArray(source[key]) && Array.isArray(target[key])) {
+			// Merge arrays recursively @ts-ignore
+			merged[key] = target[key].map((item: any, index: number) =>
+				merge(item, source[key][index])
+			);
+		} else {
+			merged[key] = source[key];
+		}
+	}
 
-  return merged as T & U;
+	return merged as T & U;
 }

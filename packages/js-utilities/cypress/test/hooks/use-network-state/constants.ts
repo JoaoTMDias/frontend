@@ -3,28 +3,28 @@
  *
  * (c) 2024 joaodias.me
  */
-import { tuple } from "src/typings";
+import { tuple } from "src/functions";
 
 export const NETWORK_STATE_KEYS = {
-  online: "online",
-  previous: "previous",
-  since: "since",
-  downlink: "downlink",
-  downlinkMax: "downlinkMax",
-  effectiveType: "effectiveType",
-  rtt: "rtt",
-  saveData: "saveData",
-  type: "type",
+	online: "online",
+	previous: "previous",
+	since: "since",
+	downlink: "downlink",
+	downlinkMax: "downlinkMax",
+	effectiveType: "effectiveType",
+	rtt: "rtt",
+	saveData: "saveData",
+	type: "type",
 } as const;
 
 export const NETWORK_STATE_TUPLE = tuple(
-  NETWORK_STATE_KEYS.online,
-  NETWORK_STATE_KEYS.previous,
-  NETWORK_STATE_KEYS.since,
-  NETWORK_STATE_KEYS.downlink,
-  NETWORK_STATE_KEYS.downlinkMax,
-  NETWORK_STATE_KEYS.effectiveType,
-  NETWORK_STATE_KEYS.rtt,
-  NETWORK_STATE_KEYS.saveData,
-  NETWORK_STATE_KEYS.type
+	NETWORK_STATE_KEYS.online,
+	NETWORK_STATE_KEYS.previous,
+	NETWORK_STATE_KEYS.since,
+	NETWORK_STATE_KEYS.downlink,
+	NETWORK_STATE_KEYS.downlinkMax,
+	NETWORK_STATE_KEYS.effectiveType,
+	NETWORK_STATE_KEYS.rtt,
+	NETWORK_STATE_KEYS.saveData,
+	NETWORK_STATE_KEYS.type
 );
