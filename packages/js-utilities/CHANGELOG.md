@@ -1,5 +1,19 @@
 # [1.5.0](https://github.com/JoaoTMDias/js-utilities/compare/v1.4.0...v1.5.0) (2024-02-21)
 
+## 2.2.0
+
+### Minor Changes
+
+- [`4cc937a`](https://github.com/JoaoTMDias/frontend/commit/4cc937aebedd09610cfac2e5daa155bcabccc78c) - WHY
+
+  - Removed duplicated code and documentation from @jtmdias/react-a11y-tools
+  - Sets the minimum React version to 18.
+
+  WHAT
+
+  - There was duplicated code on @jtmdias/react-a11y-tools that already existed on @jtmdias/js-utilities
+  - The React version was still on 16
+
 ## 2.1.1
 
 ### Patch Changes
