@@ -2,32 +2,30 @@
  * Please refer to the terms of the license
  * agreement.
  *
- * (c) 2023 joaodias.me, Rights Reserved.
+ * (c) 2021 Feedzai, Rights Reserved.
+ */
+
+/**
+ * use-rover.test.tsx
+ *
+ * @author João Dias <joao.dias@feedzai.com>
+ * @since 1.0.0
  */
 import React from "react";
 import {
 	RoverProvider,
 	useRover,
 	useFocus,
-	RoverProviderProps,
 } from "../../../../../src/components/roving-tabindex/index";
 
 const TestButton: React.FC<{
 	disabled: boolean;
-	rowIndex?: number | null;
-	lockScrollOnRover?: boolean;
+	children: React.ReactNode;
 	id?: string;
-}> = ({ disabled, rowIndex = null, lockScrollOnRover = true, children, id }) => {
+}> = ({ disabled, children, id }) => {
 	const ref = React.useRef(null);
-
-	const [tabIndex, focused, handleKeyDown, handleClick] = useRover(ref, {
-		disabled,
-		rowIndex,
-		lockScrollOnRover,
-	});
-
+	const [tabIndex, focused, handleKeyDown, handleClick] = useRover(ref, disabled);
 	useFocus(ref, focused);
-
 	return (
 		<button
 			ref={ref}
@@ -56,40 +54,6 @@ const TestToolbar: React.FC<{
 	</RoverProvider>
 );
 
-const TestToolbarWithOptions: React.FC<{
-	options?: RoverProviderProps["options"];
-	flags?: Array<boolean>;
-}> = ({
-	flags = [false, false, false],
-	options = {
-		direction: "vertical",
-	},
-}) => (
-	<RoverProvider options={options}>
-		<TestButton disabled={flags[0]}>Button One</TestButton>
-		<div>
-			<TestButton disabled={flags[1]}>Button Two</TestButton>
-		</div>
-		<TestButton disabled={flags[2]}>Button Three</TestButton>
-	</RoverProvider>
-);
-
-const TestGrid: React.FC<{ flags?: Array<boolean> }> = ({ flags = [false, false, false] }) => (
-	<RoverProvider>
-		<TestButton disabled={flags[0]} rowIndex={0}>
-			Button One
-		</TestButton>
-		<div>
-			<TestButton disabled={flags[1]} rowIndex={0}>
-				Button Two
-			</TestButton>
-		</div>
-		<TestButton disabled={flags[2]} rowIndex={1}>
-			Button Three
-		</TestButton>
-	</RoverProvider>
-);
-
 const TestToolbarWithIDs: React.FC<{
 	flags?: Array<boolean>;
 }> = ({ flags = [false, false, false] }) => (
@@ -109,454 +73,456 @@ const TestToolbarWithIDs: React.FC<{
 );
 
 describe("useRover", () => {
-	context("tabindex", () => {
-		context("when used as part of a toolbar", () => {
-			it("displays correctly initially when no buttons are disabled", () => {
-				const flags = [false, false, false];
-				cy.mount(<TestToolbar flags={flags} />);
+	it("displays correctly initially when no buttons are disabled", () => {
+		const flags = [false, false, false];
+		cy.mount(<TestToolbar flags={flags} />);
 
-				cy.findByText("Button One").should("have.attr", "tabindex", "0");
-				cy.findByText("Button One").should("have.attr", "data-focused", "false");
+		cy.findByText("Button One").invoke("attr", "tabindex").should("equal", "0");
+		cy.findByText("Button One").invoke("attr", "data-focused").should("equal", "false");
 
-				cy.findByText("Button Two").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button Two").should("have.attr", "data-focused", "false");
+		cy.findByText("Button Two").invoke("attr", "tabindex").should("equal", "-1");
+		cy.findByText("Button Two").invoke("attr", "data-focused").should("equal", "false");
 
-				cy.findByText("Button Three").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button Three").should("have.attr", "data-focused", "false");
-			});
+		cy.findByText("Button Three").invoke("attr", "tabindex").should("equal", "-1");
+		cy.findByText("Button Three").invoke("attr", "data-focused").should("equal", "false");
+	});
 
-			it("displays correctly initially when custom IDs are used", () => {
-				const flags = [false, false, false];
-				cy.mount(<TestToolbarWithIDs flags={flags} />);
+	it("displays correctly initially when custom IDs are used", () => {
+		const flags = [false, false, false];
+		cy.mount(<TestToolbarWithIDs flags={flags} />);
 
-				cy.findByText("Button One").should("have.id", "user-id-1");
-				cy.findByText("Button Two").should("have.id", "user-id-2");
-				cy.findByText("Button Three").should("have.id", "user-id-3");
-			});
+		cy.findByText("Button One").invoke("attr", "id").should("equal", "user-id-1");
+		cy.findByText("Button Two").invoke("attr", "id").should("equal", "user-id-2");
+		cy.findByText("Button Three").invoke("attr", "id").should("equal", "user-id-3");
+	});
 
-			it("updates correctly when a button changes to being disabled", () => {
-				let flags = [false, false, false];
-				cy.mount(<TestToolbar flags={flags} />).then(({ rerender }) => {
-					flags = [true, false, false];
-					rerender(<TestToolbar flags={flags} />);
+	it("displays correctly initially when first button is disabled", () => {
+		const flags = [true, false, false];
+		cy.mount(<TestToolbar flags={flags} />);
+		cy.findByText("Button One").invoke("attr", "tabindex").should("equal", "-1");
+		cy.findByText("Button Two").invoke("attr", "tabindex").should("equal", "0");
+		cy.findByText("Button Three").invoke("attr", "tabindex").should("equal", "-1");
+	});
 
-					cy.findByText("Button One").should("have.attr", "tabindex", "-1");
-					cy.findByText("Button Two").should("have.attr", "tabindex", "0");
-					cy.findByText("Button Three").should("have.attr", "tabindex", "-1");
-				});
-			});
+	it("updates correctly when a button changes to being disabled", () => {
+		let flags = [false, false, false];
+		cy.mount(<TestToolbar flags={flags} />).then(({ rerender }) => {
+			flags = [true, false, false];
+			rerender(<TestToolbar flags={flags} />);
 
-			it("displays correctly initially when first button is disabled", () => {
-				const flags = [true, false, false];
-				cy.mount(<TestToolbar flags={flags} />);
-				cy.findByText("Button One").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button Two").should("have.attr", "tabindex", "0");
-				cy.findByText("Button Three").should("have.attr", "tabindex", "-1");
-			});
-		});
-		context("when used as part of a grid", () => {
-			it("displays correctly initially when no buttons are disabled", () => {
-				const flags = [false, false, false];
-
-				cy.mount(<TestGrid flags={flags} />);
-
-				cy.findByText("Button One").should("have.attr", "tabindex", "0");
-				cy.findByText("Button One").should("have.attr", "data-focused", "false");
-
-				cy.findByText("Button Two").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button Two").should("have.attr", "data-focused", "false");
-
-				cy.findByText("Button Three").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button Three").should("have.attr", "data-focused", "false");
-			});
-
-			it("displays correctly initially when first button is disabled", () => {
-				const flags = [true, false, false];
-
-				cy.mount(<TestGrid flags={flags} />);
-
-				cy.findByText("Button One").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button Two").should("have.attr", "tabindex", "0");
-				cy.findByText("Button Three").should("have.attr", "tabindex", "-1");
-			});
-
-			it("updates correctly when a button changes to being disabled", () => {
-				let flags = [false, false, false];
-				cy.mount(<TestGrid flags={flags} />).then(({ rerender }) => {
-					flags = [true, false, false];
-					rerender(<TestGrid flags={flags} />);
-
-					cy.findByText("Button One").should("have.attr", "tabindex", "-1");
-					cy.findByText("Button Two").should("have.attr", "tabindex", "0");
-					cy.findByText("Button Three").should("have.attr", "tabindex", "-1");
-				});
-			});
+			cy.findByText("Button One").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button Two").invoke("attr", "tabindex").should("equal", "0");
+			cy.findByText("Button Three").invoke("attr", "tabindex").should("equal", "-1");
 		});
 	});
 
-	context("direction", () => {
-		context("direction is 'horizontal'", () => {
-			beforeEach(() => {
-				cy.mount(
-					<TestToolbarWithOptions
-						options={{
-							direction: "horizontal",
-						}}
-					/>,
-				);
-			});
-
-			it("pressing arrow right key", () => {
-				cy.findByText("Button One").type("{rightarrow}");
-				cy.findByText("Button One").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button One").should("have.attr", "data-focused", "false");
-				cy.findByText("Button Two").should("have.attr", "tabindex", "0");
-				cy.findByText("Button Two").should("have.attr", "data-focused", "true");
-				cy.findByText("Button Three").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button Three").should("have.attr", "data-focused", "false");
-
-				cy.findByText("Button Two").type("{rightarrow}");
-				cy.findByText("Button One").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button One").should("have.attr", "data-focused", "false");
-				cy.findByText("Button Two").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button Two").should("have.attr", "data-focused", "false");
-				cy.findByText("Button Three").should("have.attr", "tabindex", "0");
-				cy.findByText("Button Three").should("have.attr", "data-focused", "true");
-
-				cy.findByText("Button Three").type("{rightarrow}");
-				cy.findByText("Button One").should("have.attr", "tabindex", "0");
-				cy.findByText("Button One").should("have.attr", "data-focused", "true");
-				cy.findByText("Button Two").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button Two").should("have.attr", "data-focused", "false");
-				cy.findByText("Button Three").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button Three").should("have.attr", "data-focused", "false");
-			});
-
-			it("pressing arrow left key", () => {
-				cy.findByText("Button One").type("{leftarrow}");
-				cy.findByText("Button One").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button One").should("have.attr", "data-focused", "false");
-				cy.findByText("Button Two").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button Two").should("have.attr", "data-focused", "false");
-				cy.findByText("Button Three").should("have.attr", "tabindex", "0");
-				cy.findByText("Button Three").should("have.attr", "data-focused", "true");
-
-				cy.findByText("Button Three").type("{leftarrow}");
-				cy.findByText("Button One").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button One").should("have.attr", "data-focused", "false");
-				cy.findByText("Button Two").should("have.attr", "tabindex", "0");
-				cy.findByText("Button Two").should("have.attr", "data-focused", "true");
-				cy.findByText("Button Three").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button Three").should("have.attr", "data-focused", "false");
-
-				cy.findByText("Button Two").type("{leftarrow}");
-				cy.findByText("Button One").should("have.attr", "tabindex", "0");
-				cy.findByText("Button One").should("have.attr", "data-focused", "true");
-				cy.findByText("Button Two").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button Two").should("have.attr", "data-focused", "false");
-				cy.findByText("Button Three").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button Three").should("have.attr", "data-focused", "false");
-			});
-
-			it("pressing arrow up key", () => {
-				cy.findByText("Button One").type("{uparrow}");
-
-				cy.findByText("Button One").should("have.attr", "tabindex", "0");
-				cy.findByText("Button Two").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button Three").should("have.attr", "tabindex", "-1");
-			});
-
-			it("pressing down up key", () => {
-				cy.mount(<TestToolbar direction="horizontal" />);
-
-				cy.findByText("Button One").type("{downarrow}");
-
-				cy.findByText("Button One").should("have.attr", "tabindex", "0");
-				cy.findByText("Button Two").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button Three").should("have.attr", "tabindex", "-1");
-			});
-		});
-
-		context("direction is 'vertical'", () => {
-			beforeEach(() => {
-				cy.mount(
-					<TestToolbarWithOptions
-						options={{
-							direction: "vertical",
-						}}
-					/>,
-				);
-			});
-
-			it("pressing arrow down key", () => {
-				cy.findByText("Button One").type("{downarrow}");
-				cy.findByText("Button One").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button One").should("have.attr", "data-focused", "false");
-				cy.findByText("Button Two").should("have.attr", "tabindex", "0");
-				cy.findByText("Button Two").should("have.attr", "data-focused", "true");
-				cy.findByText("Button Three").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button Three").should("have.attr", "data-focused", "false");
-
-				cy.findByText("Button Two").type("{downarrow}");
-				cy.findByText("Button One").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button One").should("have.attr", "data-focused", "false");
-				cy.findByText("Button Two").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button Two").should("have.attr", "data-focused", "false");
-				cy.findByText("Button Three").should("have.attr", "tabindex", "0");
-				cy.findByText("Button Three").should("have.attr", "data-focused", "true");
-
-				cy.findByText("Button Three").type("{downarrow}");
-				cy.findByText("Button One").should("have.attr", "tabindex", "0");
-				cy.findByText("Button One").should("have.attr", "data-focused", "true");
-				cy.findByText("Button Two").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button Two").should("have.attr", "data-focused", "false");
-				cy.findByText("Button Three").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button Three").should("have.attr", "data-focused", "false");
-			});
-
-			it("pressing arrow up key", () => {
-				cy.findByText("Button One").type("{uparrow}");
-				cy.findByText("Button One").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button One").should("have.attr", "data-focused", "false");
-				cy.findByText("Button Two").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button Two").should("have.attr", "data-focused", "false");
-				cy.findByText("Button Three").should("have.attr", "tabindex", "0");
-				cy.findByText("Button Three").should("have.attr", "data-focused", "true");
-
-				cy.findByText("Button Three").type("{uparrow}");
-				cy.findByText("Button One").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button One").should("have.attr", "data-focused", "false");
-				cy.findByText("Button Two").should("have.attr", "tabindex", "0");
-				cy.findByText("Button Two").should("have.attr", "data-focused", "true");
-				cy.findByText("Button Three").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button Three").should("have.attr", "data-focused", "false");
-
-				cy.findByText("Button Two").type("{uparrow}");
-				cy.findByText("Button One").should("have.attr", "tabindex", "0");
-				cy.findByText("Button One").should("have.attr", "data-focused", "true");
-				cy.findByText("Button Two").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button Two").should("have.attr", "data-focused", "false");
-				cy.findByText("Button Three").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button Three").should("have.attr", "data-focused", "false");
-			});
-
-			it("pressing arrow right key", () => {
-				cy.findByText("Button One").type("{rightarrow}");
-
-				cy.findByText("Button One").should("have.attr", "tabindex", "0");
-				cy.findByText("Button Two").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button Three").should("have.attr", "tabindex", "-1");
-			});
-
-			it("pressing arrow down key", () => {
-				cy.findByText("Button One").type("{leftarrow}");
-
-				cy.findByText("Button One").should("have.attr", "tabindex", "0");
-				cy.findByText("Button Two").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button Three").should("have.attr", "tabindex", "-1");
-			});
-		});
-
-		context("direction is 'both'", () => {
-			beforeEach(() => {
-				cy.mount(
-					<TestToolbarWithOptions
-						options={{
-							direction: "both",
-						}}
-					/>,
-				);
-			});
-
-			it("pressing arrow right key", () => {
-				cy.findByText("Button One").type("{rightarrow}");
-				cy.findByText("Button One").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button One").should("have.attr", "data-focused", "false");
-				cy.findByText("Button Two").should("have.attr", "tabindex", "0");
-				cy.findByText("Button Two").should("have.attr", "data-focused", "true");
-				cy.findByText("Button Three").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button Three").should("have.attr", "data-focused", "false");
-
-				cy.findByText("Button Two").type("{rightarrow}");
-				cy.findByText("Button One").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button One").should("have.attr", "data-focused", "false");
-				cy.findByText("Button Two").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button Two").should("have.attr", "data-focused", "false");
-				cy.findByText("Button Three").should("have.attr", "tabindex", "0");
-				cy.findByText("Button Three").should("have.attr", "data-focused", "true");
-
-				cy.findByText("Button Three").type("{rightarrow}");
-				cy.findByText("Button One").should("have.attr", "tabindex", "0");
-				cy.findByText("Button One").should("have.attr", "data-focused", "true");
-				cy.findByText("Button Two").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button Two").should("have.attr", "data-focused", "false");
-				cy.findByText("Button Three").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button Three").should("have.attr", "data-focused", "false");
-			});
-
-			it("pressing arrow left key", () => {
-				cy.findByText("Button One").type("{leftarrow}");
-				cy.findByText("Button One").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button One").should("have.attr", "data-focused", "false");
-				cy.findByText("Button Two").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button Two").should("have.attr", "data-focused", "false");
-				cy.findByText("Button Three").should("have.attr", "tabindex", "0");
-				cy.findByText("Button Three").should("have.attr", "data-focused", "true");
-
-				cy.findByText("Button Three").type("{leftarrow}");
-				cy.findByText("Button One").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button One").should("have.attr", "data-focused", "false");
-				cy.findByText("Button Two").should("have.attr", "tabindex", "0");
-				cy.findByText("Button Two").should("have.attr", "data-focused", "true");
-				cy.findByText("Button Three").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button Three").should("have.attr", "data-focused", "false");
-
-				cy.findByText("Button Two").type("{leftarrow}");
-				cy.findByText("Button One").should("have.attr", "tabindex", "0");
-				cy.findByText("Button One").should("have.attr", "data-focused", "true");
-				cy.findByText("Button Two").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button Two").should("have.attr", "data-focused", "false");
-				cy.findByText("Button Three").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button Three").should("have.attr", "data-focused", "false");
-			});
-
-			it("pressing arrow down key", () => {
-				cy.findByText("Button One").type("{downarrow}");
-				cy.findByText("Button One").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button One").should("have.attr", "data-focused", "false");
-				cy.findByText("Button Two").should("have.attr", "tabindex", "0");
-				cy.findByText("Button Two").should("have.attr", "data-focused", "true");
-				cy.findByText("Button Three").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button Three").should("have.attr", "data-focused", "false");
-
-				cy.findByText("Button Two").type("{downarrow}");
-				cy.findByText("Button One").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button One").should("have.attr", "data-focused", "false");
-				cy.findByText("Button Two").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button Two").should("have.attr", "data-focused", "false");
-				cy.findByText("Button Three").should("have.attr", "tabindex", "0");
-				cy.findByText("Button Three").should("have.attr", "data-focused", "true");
-
-				cy.findByText("Button Three").type("{downarrow}");
-				cy.findByText("Button One").should("have.attr", "tabindex", "0");
-				cy.findByText("Button One").should("have.attr", "data-focused", "true");
-				cy.findByText("Button Two").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button Two").should("have.attr", "data-focused", "false");
-				cy.findByText("Button Three").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button Three").should("have.attr", "data-focused", "false");
-			});
-
-			it("pressing arrow up key", () => {
-				cy.findByText("Button One").type("{uparrow}");
-				cy.findByText("Button One").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button One").should("have.attr", "data-focused", "false");
-				cy.findByText("Button Two").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button Two").should("have.attr", "data-focused", "false");
-				cy.findByText("Button Three").should("have.attr", "tabindex", "0");
-				cy.findByText("Button Three").should("have.attr", "data-focused", "true");
-
-				cy.findByText("Button Three").type("{uparrow}");
-				cy.findByText("Button One").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button One").should("have.attr", "data-focused", "false");
-				cy.findByText("Button Two").should("have.attr", "tabindex", "0");
-				cy.findByText("Button Two").should("have.attr", "data-focused", "true");
-				cy.findByText("Button Three").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button Three").should("have.attr", "data-focused", "false");
-
-				cy.findByText("Button Two").type("{uparrow}");
-				cy.findByText("Button One").should("have.attr", "tabindex", "0");
-				cy.findByText("Button One").should("have.attr", "data-focused", "true");
-				cy.findByText("Button Two").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button Two").should("have.attr", "data-focused", "false");
-				cy.findByText("Button Three").should("have.attr", "tabindex", "-1");
-				cy.findByText("Button Three").should("have.attr", "data-focused", "false");
-			});
-		});
-	});
-
-	context("focus management", () => {
-		it("pressing home key", () => {
-			cy.mount(<TestToolbar />);
-
-			cy.findByText("Button One").type("{home}");
-			cy.findByText("Button One").should("have.attr", "tabindex", "0");
-			cy.findByText("Button One").should("have.attr", "data-focused", "true");
-			cy.findByText("Button Two").should("have.attr", "tabindex", "-1");
-			cy.findByText("Button Two").should("have.attr", "data-focused", "false");
-			cy.findByText("Button Three").should("have.attr", "tabindex", "-1");
-			cy.findByText("Button Three").should("have.attr", "data-focused", "false");
-
-			cy.findByText("Button Two").type("{home}");
-			cy.findByText("Button One").should("have.attr", "tabindex", "0");
-			cy.findByText("Button One").should("have.attr", "data-focused", "true");
-			cy.findByText("Button Two").should("have.attr", "tabindex", "-1");
-			cy.findByText("Button Two").should("have.attr", "data-focused", "false");
-			cy.findByText("Button Three").should("have.attr", "tabindex", "-1");
-			cy.findByText("Button Three").should("have.attr", "data-focused", "false");
-
-			cy.findByText("Button Three").type("{home}");
-			cy.findByText("Button One").should("have.attr", "tabindex", "0");
-			cy.findByText("Button One").should("have.attr", "data-focused", "true");
-			cy.findByText("Button Two").should("have.attr", "tabindex", "-1");
-			cy.findByText("Button Two").should("have.attr", "data-focused", "false");
-			cy.findByText("Button Three").should("have.attr", "tabindex", "-1");
-			cy.findByText("Button Three").should("have.attr", "data-focused", "false");
-		});
-
-		it("pressing end key", () => {
-			cy.mount(<TestToolbar />);
-
-			cy.findByText("Button One").type("{end}");
-			cy.findByText("Button One").should("have.attr", "tabindex", "-1");
-			cy.findByText("Button One").should("have.attr", "data-focused", "false");
-			cy.findByText("Button Two").should("have.attr", "tabindex", "-1");
-			cy.findByText("Button Two").should("have.attr", "data-focused", "false");
-			cy.findByText("Button Three").should("have.attr", "tabindex", "0");
-			cy.findByText("Button Three").should("have.attr", "data-focused", "true");
-
-			cy.findByText("Button Two").type("{end}");
-			cy.findByText("Button One").should("have.attr", "tabindex", "-1");
-			cy.findByText("Button One").should("have.attr", "data-focused", "false");
-			cy.findByText("Button Two").should("have.attr", "tabindex", "-1");
-			cy.findByText("Button Two").should("have.attr", "data-focused", "false");
-			cy.findByText("Button Three").should("have.attr", "tabindex", "0");
-			cy.findByText("Button Three").should("have.attr", "data-focused", "true");
-
-			cy.findByText("Button Three").type("{end}");
-			cy.findByText("Button One").should("have.attr", "tabindex", "-1");
-			cy.findByText("Button One").should("have.attr", "data-focused", "false");
-			cy.findByText("Button Two").should("have.attr", "tabindex", "-1");
-			cy.findByText("Button Two").should("have.attr", "data-focused", "false");
-			cy.findByText("Button Three").should("have.attr", "tabindex", "0");
-			cy.findByText("Button Three").should("have.attr", "data-focused", "true");
-		});
-
-		it("manages focus when switching between keyboard and mouse input", () => {
-			const flags = [false, false, false];
-
-			cy.mount(
-				<TestToolbarWithOptions
-					flags={flags}
-					options={{
-						direction: "horizontal",
-					}}
-				/>,
-			);
-
-			cy.findByText("Button One").click();
-			cy.findByText("Button One").should("have.attr", "data-focused", "true");
-			cy.findByText("Button Two").should("have.attr", "data-focused", "false");
-			cy.findByText("Button Three").should("have.attr", "data-focused", "false");
+	describe("direction is 'horizontal'", () => {
+		it("pressing arrow right key", () => {
+			cy.mount(<TestToolbar direction="horizontal" />);
 
 			cy.findByText("Button One").type("{rightarrow}");
-			cy.findByText("Button One").should("have.attr", "data-focused", "false");
-			cy.findByText("Button Two").should("have.attr", "data-focused", "true");
-			cy.findByText("Button Three").should("have.attr", "data-focused", "false");
+			cy.findByText("Button One").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button One").invoke("attr", "data-focused").should("equal", "false");
+			cy.findByText("Button Two").invoke("attr", "tabindex").should("equal", "0");
+			cy.findByText("Button Two").invoke("attr", "data-focused").should("equal", "true");
+			cy.findByText("Button Three").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button Three").invoke("attr", "data-focused").should("equal", "false");
 
-			cy.findByText("Button One").click();
-			cy.findByText("Button One").should("have.attr", "data-focused", "true");
-			cy.findByText("Button Two").should("have.attr", "data-focused", "false");
-			cy.findByText("Button Three").should("have.attr", "data-focused", "false");
+			cy.findByText("Button Two").type("{rightarrow}");
+			cy.findByText("Button One").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button One").invoke("attr", "data-focused").should("equal", "false");
+			cy.findByText("Button Two").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button Two").invoke("attr", "data-focused").should("equal", "false");
+			cy.findByText("Button Three").invoke("attr", "tabindex").should("equal", "0");
+			cy.findByText("Button Three").invoke("attr", "data-focused").should("equal", "true");
+
+			cy.findByText("Button Three").type("{rightarrow}");
+			cy.findByText("Button One").invoke("attr", "tabindex").should("equal", "0");
+			cy.findByText("Button One").invoke("attr", "data-focused").should("equal", "true");
+			cy.findByText("Button Two").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button Two").invoke("attr", "data-focused").should("equal", "false");
+			cy.findByText("Button Three").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button Three").invoke("attr", "data-focused").should("equal", "false");
 		});
+
+		it("pressing arrow left key", () => {
+			cy.mount(<TestToolbar direction="horizontal" />);
+
+			cy.findByText("Button One").type("{leftarrow}");
+			cy.findByText("Button One").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button One").invoke("attr", "data-focused").should("equal", "false");
+			cy.findByText("Button Two").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button Two").invoke("attr", "data-focused").should("equal", "false");
+			cy.findByText("Button Three").invoke("attr", "tabindex").should("equal", "0");
+			cy.findByText("Button Three").invoke("attr", "data-focused").should("equal", "true");
+
+			cy.findByText("Button Three").type("{leftarrow}");
+			cy.findByText("Button One").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button One").invoke("attr", "data-focused").should("equal", "false");
+			cy.findByText("Button Two").invoke("attr", "tabindex").should("equal", "0");
+			cy.findByText("Button Two").invoke("attr", "data-focused").should("equal", "true");
+			cy.findByText("Button Three").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button Three").invoke("attr", "data-focused").should("equal", "false");
+
+			cy.findByText("Button Two").type("{leftarrow}");
+			cy.findByText("Button One").invoke("attr", "tabindex").should("equal", "0");
+			cy.findByText("Button One").invoke("attr", "data-focused").should("equal", "true");
+			cy.findByText("Button Two").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button Two").invoke("attr", "data-focused").should("equal", "false");
+			cy.findByText("Button Three").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button Three").invoke("attr", "data-focused").should("equal", "false");
+		});
+
+		it("pressing arrow up key", () => {
+			cy.mount(<TestToolbar direction="horizontal" />);
+
+			cy.findByText("Button One")
+				.type("{uparrow}")
+				.then(() => {
+					cy.findByText("Button One").invoke("attr", "tabindex").should("equal", "0");
+					cy.findByText("Button Two").invoke("attr", "tabindex").should("equal", "-1");
+					cy.findByText("Button Three").invoke("attr", "tabindex").should("equal", "-1");
+				});
+		});
+
+		it("pressing down up key", () => {
+			cy.mount(<TestToolbar direction="horizontal" />);
+
+			cy.findByText("Button One")
+				.type("{downarrow}")
+				.then(() => {
+					cy.findByText("Button One").invoke("attr", "tabindex").should("equal", "0");
+					cy.findByText("Button Two").invoke("attr", "tabindex").should("equal", "-1");
+					cy.findByText("Button Three").invoke("attr", "tabindex").should("equal", "-1");
+				});
+		});
+	});
+
+	describe("direction is 'vertical'", () => {
+		it("pressing arrow down key", () => {
+			cy.mount(<TestToolbar direction="vertical" />);
+
+			cy.findByText("Button One").type("{downarrow}");
+			cy.findByText("Button One").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button One").invoke("attr", "data-focused").should("equal", "false");
+			cy.findByText("Button Two").invoke("attr", "tabindex").should("equal", "0");
+			cy.findByText("Button Two").invoke("attr", "data-focused").should("equal", "true");
+			cy.findByText("Button Three").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button Three").invoke("attr", "data-focused").should("equal", "false");
+
+			cy.findByText("Button Two").type("{downarrow}");
+			cy.findByText("Button One").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button One").invoke("attr", "data-focused").should("equal", "false");
+			cy.findByText("Button Two").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button Two").invoke("attr", "data-focused").should("equal", "false");
+			cy.findByText("Button Three").invoke("attr", "tabindex").should("equal", "0");
+			cy.findByText("Button Three").invoke("attr", "data-focused").should("equal", "true");
+
+			cy.findByText("Button Three").type("{downarrow}");
+			cy.findByText("Button One").invoke("attr", "tabindex").should("equal", "0");
+			cy.findByText("Button One").invoke("attr", "data-focused").should("equal", "true");
+			cy.findByText("Button Two").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button Two").invoke("attr", "data-focused").should("equal", "false");
+			cy.findByText("Button Three").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button Three").invoke("attr", "data-focused").should("equal", "false");
+		});
+
+		it("pressing arrow up key", () => {
+			cy.mount(<TestToolbar direction="vertical" />);
+
+			cy.findByText("Button One").type("{uparrow}");
+			cy.findByText("Button One").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button One").invoke("attr", "data-focused").should("equal", "false");
+			cy.findByText("Button Two").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button Two").invoke("attr", "data-focused").should("equal", "false");
+			cy.findByText("Button Three").invoke("attr", "tabindex").should("equal", "0");
+			cy.findByText("Button Three").invoke("attr", "data-focused").should("equal", "true");
+
+			cy.findByText("Button Three").type("{uparrow}");
+			cy.findByText("Button One").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button One").invoke("attr", "data-focused").should("equal", "false");
+			cy.findByText("Button Two").invoke("attr", "tabindex").should("equal", "0");
+			cy.findByText("Button Two").invoke("attr", "data-focused").should("equal", "true");
+			cy.findByText("Button Three").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button Three").invoke("attr", "data-focused").should("equal", "false");
+
+			cy.findByText("Button Two").type("{uparrow}");
+			cy.findByText("Button One").invoke("attr", "tabindex").should("equal", "0");
+			cy.findByText("Button One").invoke("attr", "data-focused").should("equal", "true");
+			cy.findByText("Button Two").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button Two").invoke("attr", "data-focused").should("equal", "false");
+			cy.findByText("Button Three").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button Three").invoke("attr", "data-focused").should("equal", "false");
+		});
+
+		it("pressing arrow right key", () => {
+			cy.mount(<TestToolbar direction="vertical" />);
+
+			cy.findByText("Button One")
+				.type("{rightarrow}")
+				.then(() => {
+					cy.findByText("Button One").invoke("attr", "tabindex").should("equal", "0");
+					cy.findByText("Button Two").invoke("attr", "tabindex").should("equal", "-1");
+					cy.findByText("Button Three").invoke("attr", "tabindex").should("equal", "-1");
+				});
+		});
+
+		it("pressing arrow down key", () => {
+			cy.mount(<TestToolbar direction="vertical" />);
+
+			cy.findByText("Button One")
+				.type("{leftarrow}")
+				.then(() => {
+					cy.findByText("Button One").invoke("attr", "tabindex").should("equal", "0");
+					cy.findByText("Button Two").invoke("attr", "tabindex").should("equal", "-1");
+					cy.findByText("Button Three").invoke("attr", "tabindex").should("equal", "-1");
+				});
+		});
+	});
+
+	describe("direction is 'both'", () => {
+		it("pressing arrow right key", () => {
+			cy.mount(<TestToolbar direction="both" />);
+
+			cy.findByText("Button One").type("{rightarrow}");
+			cy.findByText("Button One").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button One").invoke("attr", "data-focused").should("equal", "false");
+			cy.findByText("Button Two").invoke("attr", "tabindex").should("equal", "0");
+			cy.findByText("Button Two").invoke("attr", "data-focused").should("equal", "true");
+			cy.findByText("Button Three").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button Three").invoke("attr", "data-focused").should("equal", "false");
+
+			cy.findByText("Button Two").type("{rightarrow}");
+			cy.findByText("Button One").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button One").invoke("attr", "data-focused").should("equal", "false");
+			cy.findByText("Button Two").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button Two").invoke("attr", "data-focused").should("equal", "false");
+			cy.findByText("Button Three").invoke("attr", "tabindex").should("equal", "0");
+			cy.findByText("Button Three").invoke("attr", "data-focused").should("equal", "true");
+
+			cy.findByText("Button Three").type("{rightarrow}");
+			cy.findByText("Button One").invoke("attr", "tabindex").should("equal", "0");
+			cy.findByText("Button One").invoke("attr", "data-focused").should("equal", "true");
+			cy.findByText("Button Two").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button Two").invoke("attr", "data-focused").should("equal", "false");
+			cy.findByText("Button Three").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button Three").invoke("attr", "data-focused").should("equal", "false");
+		});
+
+		it("pressing arrow left key", () => {
+			cy.mount(<TestToolbar direction="both" />);
+
+			cy.findByText("Button One").type("{leftarrow}");
+			cy.findByText("Button One").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button One").invoke("attr", "data-focused").should("equal", "false");
+			cy.findByText("Button Two").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button Two").invoke("attr", "data-focused").should("equal", "false");
+			cy.findByText("Button Three").invoke("attr", "tabindex").should("equal", "0");
+			cy.findByText("Button Three").invoke("attr", "data-focused").should("equal", "true");
+
+			cy.findByText("Button Three").type("{leftarrow}");
+			cy.findByText("Button One").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button One").invoke("attr", "data-focused").should("equal", "false");
+			cy.findByText("Button Two").invoke("attr", "tabindex").should("equal", "0");
+			cy.findByText("Button Two").invoke("attr", "data-focused").should("equal", "true");
+			cy.findByText("Button Three").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button Three").invoke("attr", "data-focused").should("equal", "false");
+
+			cy.findByText("Button Two").type("{leftarrow}");
+			cy.findByText("Button One").invoke("attr", "tabindex").should("equal", "0");
+			cy.findByText("Button One").invoke("attr", "data-focused").should("equal", "true");
+			cy.findByText("Button Two").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button Two").invoke("attr", "data-focused").should("equal", "false");
+			cy.findByText("Button Three").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button Three").invoke("attr", "data-focused").should("equal", "false");
+		});
+
+		it("pressing arrow down key", () => {
+			cy.mount(<TestToolbar direction="vertical" />);
+
+			cy.findByText("Button One").type("{downarrow}");
+			cy.findByText("Button One").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button One").invoke("attr", "data-focused").should("equal", "false");
+			cy.findByText("Button Two").invoke("attr", "tabindex").should("equal", "0");
+			cy.findByText("Button Two").invoke("attr", "data-focused").should("equal", "true");
+			cy.findByText("Button Three").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button Three").invoke("attr", "data-focused").should("equal", "false");
+
+			cy.findByText("Button Two").type("{downarrow}");
+			cy.findByText("Button One").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button One").invoke("attr", "data-focused").should("equal", "false");
+			cy.findByText("Button Two").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button Two").invoke("attr", "data-focused").should("equal", "false");
+			cy.findByText("Button Three").invoke("attr", "tabindex").should("equal", "0");
+			cy.findByText("Button Three").invoke("attr", "data-focused").should("equal", "true");
+
+			cy.findByText("Button Three").type("{downarrow}");
+			cy.findByText("Button One").invoke("attr", "tabindex").should("equal", "0");
+			cy.findByText("Button One").invoke("attr", "data-focused").should("equal", "true");
+			cy.findByText("Button Two").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button Two").invoke("attr", "data-focused").should("equal", "false");
+			cy.findByText("Button Three").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button Three").invoke("attr", "data-focused").should("equal", "false");
+		});
+
+		it("pressing arrow up key", () => {
+			cy.mount(<TestToolbar direction="vertical" />);
+
+			cy.findByText("Button One").type("{uparrow}");
+			cy.findByText("Button One").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button One").invoke("attr", "data-focused").should("equal", "false");
+			cy.findByText("Button Two").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button Two").invoke("attr", "data-focused").should("equal", "false");
+			cy.findByText("Button Three").invoke("attr", "tabindex").should("equal", "0");
+			cy.findByText("Button Three").invoke("attr", "data-focused").should("equal", "true");
+
+			cy.findByText("Button Three").type("{uparrow}");
+			cy.findByText("Button One").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button One").invoke("attr", "data-focused").should("equal", "false");
+			cy.findByText("Button Two").invoke("attr", "tabindex").should("equal", "0");
+			cy.findByText("Button Two").invoke("attr", "data-focused").should("equal", "true");
+			cy.findByText("Button Three").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button Three").invoke("attr", "data-focused").should("equal", "false");
+
+			cy.findByText("Button Two").type("{uparrow}");
+			cy.findByText("Button One").invoke("attr", "tabindex").should("equal", "0");
+			cy.findByText("Button One").invoke("attr", "data-focused").should("equal", "true");
+			cy.findByText("Button Two").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button Two").invoke("attr", "data-focused").should("equal", "false");
+			cy.findByText("Button Three").invoke("attr", "tabindex").should("equal", "-1");
+			cy.findByText("Button Three").invoke("attr", "data-focused").should("equal", "false");
+		});
+	});
+
+	it("pressing home key", () => {
+		cy.mount(<TestToolbar />);
+
+		cy.findByText("Button One").type("{home}");
+		cy.findByText("Button One").invoke("attr", "tabindex").should("equal", "0");
+		cy.findByText("Button One").invoke("attr", "data-focused").should("equal", "true");
+		cy.findByText("Button Two").invoke("attr", "tabindex").should("equal", "-1");
+		cy.findByText("Button Two").invoke("attr", "data-focused").should("equal", "false");
+		cy.findByText("Button Three").invoke("attr", "tabindex").should("equal", "-1");
+		cy.findByText("Button Three").invoke("attr", "data-focused").should("equal", "false");
+
+		cy.findByText("Button Two").type("{home}");
+		cy.findByText("Button One").invoke("attr", "tabindex").should("equal", "0");
+		cy.findByText("Button One").invoke("attr", "data-focused").should("equal", "true");
+		cy.findByText("Button Two").invoke("attr", "tabindex").should("equal", "-1");
+		cy.findByText("Button Two").invoke("attr", "data-focused").should("equal", "false");
+		cy.findByText("Button Three").invoke("attr", "tabindex").should("equal", "-1");
+		cy.findByText("Button Three").invoke("attr", "data-focused").should("equal", "false");
+
+		cy.findByText("Button Three").type("{home}");
+		cy.findByText("Button One").invoke("attr", "tabindex").should("equal", "0");
+		cy.findByText("Button One").invoke("attr", "data-focused").should("equal", "true");
+		cy.findByText("Button Two").invoke("attr", "tabindex").should("equal", "-1");
+		cy.findByText("Button Two").invoke("attr", "data-focused").should("equal", "false");
+		cy.findByText("Button Three").invoke("attr", "tabindex").should("equal", "-1");
+		cy.findByText("Button Three").invoke("attr", "data-focused").should("equal", "false");
+	});
+
+	it("pressing end key", () => {
+		cy.mount(<TestToolbar />);
+
+		cy.findByText("Button One").type("{end}");
+		cy.findByText("Button One").invoke("attr", "tabindex").should("equal", "-1");
+		cy.findByText("Button One").invoke("attr", "data-focused").should("equal", "false");
+		cy.findByText("Button Two").invoke("attr", "tabindex").should("equal", "-1");
+		cy.findByText("Button Two").invoke("attr", "data-focused").should("equal", "false");
+		cy.findByText("Button Three").invoke("attr", "tabindex").should("equal", "0");
+		cy.findByText("Button Three").invoke("attr", "data-focused").should("equal", "true");
+
+		cy.findByText("Button Two").type("{end}");
+		cy.findByText("Button One").invoke("attr", "tabindex").should("equal", "-1");
+		cy.findByText("Button One").invoke("attr", "data-focused").should("equal", "false");
+		cy.findByText("Button Two").invoke("attr", "tabindex").should("equal", "-1");
+		cy.findByText("Button Two").invoke("attr", "data-focused").should("equal", "false");
+		cy.findByText("Button Three").invoke("attr", "tabindex").should("equal", "0");
+		cy.findByText("Button Three").invoke("attr", "data-focused").should("equal", "true");
+
+		cy.findByText("Button Three").type("{end}");
+		cy.findByText("Button One").invoke("attr", "tabindex").should("equal", "-1");
+		cy.findByText("Button One").invoke("attr", "data-focused").should("equal", "false");
+		cy.findByText("Button Two").invoke("attr", "tabindex").should("equal", "-1");
+		cy.findByText("Button Two").invoke("attr", "data-focused").should("equal", "false");
+		cy.findByText("Button Three").invoke("attr", "tabindex").should("equal", "0");
+		cy.findByText("Button Three").invoke("attr", "data-focused").should("equal", "true");
+	});
+
+	it("pressing home key", () => {
+		cy.mount(<TestToolbar />);
+
+		cy.findByText("Button One").type("{home}");
+		cy.findByText("Button One").invoke("attr", "tabindex").should("equal", "0");
+		cy.findByText("Button One").invoke("attr", "data-focused").should("equal", "true");
+		cy.findByText("Button Two").invoke("attr", "tabindex").should("equal", "-1");
+		cy.findByText("Button Two").invoke("attr", "data-focused").should("equal", "false");
+		cy.findByText("Button Three").invoke("attr", "tabindex").should("equal", "-1");
+		cy.findByText("Button Three").invoke("attr", "data-focused").should("equal", "false");
+
+		cy.findByText("Button Two").type("{home}");
+		cy.findByText("Button One").invoke("attr", "tabindex").should("equal", "0");
+		cy.findByText("Button One").invoke("attr", "data-focused").should("equal", "true");
+		cy.findByText("Button Two").invoke("attr", "tabindex").should("equal", "-1");
+		cy.findByText("Button Two").invoke("attr", "data-focused").should("equal", "false");
+		cy.findByText("Button Three").invoke("attr", "tabindex").should("equal", "-1");
+		cy.findByText("Button Three").invoke("attr", "data-focused").should("equal", "false");
+
+		cy.findByText("Button Three").type("{home}");
+		cy.findByText("Button One").invoke("attr", "tabindex").should("equal", "0");
+		cy.findByText("Button One").invoke("attr", "data-focused").should("equal", "true");
+		cy.findByText("Button Two").invoke("attr", "tabindex").should("equal", "-1");
+		cy.findByText("Button Two").invoke("attr", "data-focused").should("equal", "false");
+		cy.findByText("Button Three").invoke("attr", "tabindex").should("equal", "-1");
+		cy.findByText("Button Three").invoke("attr", "data-focused").should("equal", "false");
+	});
+
+	it("pressing end key", () => {
+		cy.mount(<TestToolbar />);
+
+		cy.findByText("Button One").type("{end}");
+		cy.findByText("Button One").invoke("attr", "tabindex").should("equal", "-1");
+		cy.findByText("Button One").invoke("attr", "data-focused").should("equal", "false");
+		cy.findByText("Button Two").invoke("attr", "tabindex").should("equal", "-1");
+		cy.findByText("Button Two").invoke("attr", "data-focused").should("equal", "false");
+		cy.findByText("Button Three").invoke("attr", "tabindex").should("equal", "0");
+		cy.findByText("Button Three").invoke("attr", "data-focused").should("equal", "true");
+
+		cy.findByText("Button Two").type("{end}");
+		cy.findByText("Button One").invoke("attr", "tabindex").should("equal", "-1");
+		cy.findByText("Button One").invoke("attr", "data-focused").should("equal", "false");
+		cy.findByText("Button Two").invoke("attr", "tabindex").should("equal", "-1");
+		cy.findByText("Button Two").invoke("attr", "data-focused").should("equal", "false");
+		cy.findByText("Button Three").invoke("attr", "tabindex").should("equal", "0");
+		cy.findByText("Button Three").invoke("attr", "data-focused").should("equal", "true");
+
+		cy.findByText("Button Three").type("{end}");
+		cy.findByText("Button One").invoke("attr", "tabindex").should("equal", "-1");
+		cy.findByText("Button One").invoke("attr", "data-focused").should("equal", "false");
+		cy.findByText("Button Two").invoke("attr", "tabindex").should("equal", "-1");
+		cy.findByText("Button Two").invoke("attr", "data-focused").should("equal", "false");
+		cy.findByText("Button Three").invoke("attr", "tabindex").should("equal", "0");
+		cy.findByText("Button Three").invoke("attr", "data-focused").should("equal", "true");
+	});
+
+	it("manages focus when switching between keyboard and mouse input", () => {
+		const flags = [false, false, false];
+		cy.mount(<TestToolbar flags={flags} direction="horizontal" />);
+
+		cy.findByText("Button One").click();
+		cy.findByText("Button One").invoke("attr", "data-focused").should("equal", "true");
+		cy.findByText("Button Two").invoke("attr", "data-focused").should("equal", "false");
+		cy.findByText("Button Three").invoke("attr", "data-focused").should("equal", "false");
+
+		cy.findByText("Button One").type("{rightarrow}");
+		cy.findByText("Button One").invoke("attr", "data-focused").should("equal", "false");
+		cy.findByText("Button Two").invoke("attr", "data-focused").should("equal", "true");
+		cy.findByText("Button Three").invoke("attr", "data-focused").should("equal", "false");
+
+		cy.findByText("Button One").click();
+		cy.findByText("Button One").invoke("attr", "data-focused").should("equal", "true");
+		cy.findByText("Button Two").invoke("attr", "data-focused").should("equal", "false");
+		cy.findByText("Button Three").invoke("attr", "data-focused").should("equal", "false");
 	});
 });

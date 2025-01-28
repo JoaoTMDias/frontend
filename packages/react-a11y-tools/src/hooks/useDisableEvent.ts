@@ -1,7 +1,16 @@
 /*
  * Please refer to the terms of the license agreement.
  *
- * (c) 2023 joaodias.me, Rights Reserved.
+ * (c) 2021 joaodias.me, Rights Reserved.
+ */
+
+/**
+ * useDisableEvent.js
+ *
+ * Disables an event bubbling up on a DOM element
+ *
+ * @author João Dias <joao.dias@feedzai.com>
+ * @since 1.0.0
  */
 import { useCallback } from "react";
 
@@ -10,13 +19,9 @@ export type UseDisableEventReturns = (event: React.SyntheticEvent) => void;
 /**
  * Disables an event bubbling up on a DOM element
  *
- * @example
- *
- * ```jsx
- * import { useDisableEvent } from "@jtmdias/react-a11y-tools";
- * ...
- * const onClickCapture = useDisableEvent(htmlProps.disabled);
- * ```
+ * @export
+ * @param {boolean} [disabled]
+ * @returns {UseDisableEventReturns}
  */
 export function useDisableEvent(disabled?: boolean): UseDisableEventReturns {
 	return useCallback(
@@ -37,6 +42,6 @@ export function useDisableEvent(disabled?: boolean): UseDisableEventReturns {
 				event.preventDefault();
 			}
 		},
-		[disabled],
+		[disabled]
 	);
 }

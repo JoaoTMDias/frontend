@@ -1,8 +1,16 @@
 /*
  * Please refer to the terms of the license agreement.
  *
- * (c) 2023 joaodias.me, Rights Reserved.
+ * (c) 2021 joaodias.me, Rights Reserved.
  */
+
+/**
+ * index.tsx
+ *
+ * @author João Dias <joao.dias@feedzai.com>
+ * @since 1.0.0
+ */
+
 import {
 	Ref,
 	forwardRef,
@@ -74,8 +82,6 @@ export function Level({ dangerouslySetHeadingLevel, children }: PropsWithChildre
 	return <HeadingsContext.Provider value={value}>{children}</HeadingsContext.Provider>;
 }
 
-Level.displayName = "Level";
-
 /**
  * Renders a heading HTML element (h1...h6) base on the number and depth of `Level`'s.
  *
@@ -107,7 +113,5 @@ export const Heading = forwardRef(
 		return createElement(HeadingLevel, elementProps, children);
 	}
 );
-
-Heading.displayName = "Heading";
 
 export * from "./useHeadings";

@@ -3,7 +3,14 @@
  * Please refer to the terms of the license
  * agreement.
  *
- * (c) 2023 joaodias.me, Rights Reserved.
+ * (c) 2021 joaodias.me, Rights Reserved.
+ */
+
+/**
+ * focus-without-scrolling.ts
+ *
+ * @author João Dias <joao.dias@feedzai.com>
+ * @since 1.0.0
  */
 interface IScrollableElement {
 	element: HTMLElement;
@@ -15,7 +22,9 @@ interface IScrollableElement {
  * @param {HTMLElement} element
  * @returns {IScrollableElement[]}
  */
-function getAllScrollableElements<GenericElement extends HTMLElement | SVGElement>(element: GenericElement): IScrollableElement[] {
+function getAllScrollableElements<GenericElement extends HTMLElement | SVGElement>(
+	element: GenericElement
+): IScrollableElement[] {
 	let parent = element.parentNode;
 	const IScrollableElements: IScrollableElement[] = [];
 	const rootScrollingElement = document.scrollingElement || document.documentElement;
@@ -66,7 +75,9 @@ function restoreScrollPosition(IScrollableElements: IScrollableElement[]) {
  * @export
  * @param {HTMLElement} element
  */
-export function focusWithoutScrolling<GenericElement extends HTMLElement | SVGElement>(element: GenericElement): void {
+export function focusWithoutScrolling<GenericElement extends HTMLElement | SVGElement>(
+	element: GenericElement
+): void {
 	if (supportsPreventScroll()) {
 		element.focus({ preventScroll: true });
 	} else {

@@ -2,13 +2,19 @@
  * Please refer to the terms of the license
  * agreement.
  *
- * (c) 2023 joaodias.me, Rights Reserved.
+ * (c) 2021 joaodias.me, Rights Reserved.
  */
-import { FunctionComponent, useReducer } from "react";
-import { Announcer } from "../components/announcer";
+
+/**
+ * provider.tsx
+ *
+ * @author João Dias <joao.dias@feedzai.com>
+ * @since 1.0.0
+ */
+import React, { FunctionComponent, useReducer } from "react";
+import { Announcer } from "../announcer";
 import { defaultState, MessagesAnnouncerContext } from "./context";
 import { AnnouncementReducerState } from "./index";
-import { GenericComponentPropsWithChildren } from "@jtmdias/js-utilities";
 
 function reducer(
 	state: AnnouncementReducerState,
@@ -46,7 +52,7 @@ function reducer(
  * @param {FunctionComponent} props
  * @returns {JSX.Element}
  */
-export const MessagesAnnouncer: FunctionComponent<GenericComponentPropsWithChildren> = ({
+export const MessagesAnnouncer: FunctionComponent<{ children: React.ReactNode }> = ({
 	children,
 }) => {
 	const [state, setMessage] = useReducer(reducer, {
@@ -70,5 +76,3 @@ export const MessagesAnnouncer: FunctionComponent<GenericComponentPropsWithChild
 		</MessagesAnnouncerContext.Provider>
 	);
 };
-
-MessagesAnnouncer.displayName = "MessagesAnnouncer";

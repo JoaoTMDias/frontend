@@ -2,7 +2,14 @@
  * Please refer to the terms of the license
  * agreement.
  *
- * (c) 2023 joaodias.me, Rights Reserved.
+ * (c) 2021 joaodias.me, Rights Reserved.
+ */
+
+/**
+ * index.tsx
+ *
+ * @author João Dias <joao.dias@feedzai.com>
+ * @since 1.0.0
  */
 import { FunctionComponent } from "react";
 import { ISkipLink, SkipLink, SKIP_LINK_DEFAULT_PROPS } from "./link";
@@ -53,5 +60,4 @@ export const SkipLinks: FunctionComponent<ISkipLinksProps> = ({ items }) => {
 	return renderLinks();
 };
 
-SkipLinks.displayName = "SkipLinks";
 SkipLinks.defaultProps = SKIP_LINK_ITEMS_DEFAULT_PROPS;

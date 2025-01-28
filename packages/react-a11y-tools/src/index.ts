@@ -3,8 +3,15 @@
  * Please refer to the terms of the license
  * agreement.
  *
- * (c) 2023 joaodias.me, Rights Reserved.
+ * (c) 2021 joaodias.me, Rights Reserved.
+ */
+
+/**
+ * index.tsx
+ *
+ * @author João Dias <joao.dias@feedzai.com>
+ * @since 1.0.0
  */
 export * from "./components";
 export * from "./helpers";
-export * from "./hooks";
+export { useDisableEvent, useFocusVisible, useFocusWithin, useTabbable } from "./hooks";

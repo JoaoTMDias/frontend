@@ -9,13 +9,13 @@
 	},
 	"homepage": "https://github.com/JoaoTMDias/frontend/tree/main/packages/react-a11y-tools",
 	"type": "module",
-	"main": "dist/index.umd.cjs",
-	"module": "dist/index.es.mjs",
-	"typings": "dist/index.d.ts",
+	"main": "./dist/index.cjs",
+	"module": "./dist/index.mjs",
+	"types": "./dist/index.d.ts",
 	"exports": {
 		".": {
-			"import": "./dist/index.es.mjs",
-			"require": "./dist/index.umd.cjs"
+			"import": "./dist/index.mjs",
+			"require": "./dist/index.cjs"
 		}
 	},
 	"files": [
@@ -41,13 +41,12 @@
 		"reinstall": "rimraf node_modules && npm install"
 	},
 	"peerDependencies": {
-		"react": ">= 16.14",
-		"react-dom": ">= 16.14"
+		"react": ">= 18",
+		"react-dom": ">= 18"
 	},
 	"dependencies": {
 		"@jtmdias/js-utilities": "*",
-		"react": ">= 16.14",
-		"react-dom": ">= 16.14"
+		"focus-trap-react": "^11.0.3"
 	},
 	"devDependencies": {
 		"@cypress/code-coverage": "^3.12.24",
@@ -87,15 +86,15 @@
 	},
 	"size-limit": [
 		{
-			"path": "dist/index.umd.cjs",
-			"limit": "10 kB",
+			"path": "dist/index.cjs",
+			"limit": "15kB",
 			"ignore": [
 				"fs"
 			]
 		},
 		{
-			"path": "dist/index.es.mjs",
-			"limit": "10 kB",
+			"path": "dist/index.mjs",
+			"limit": "15 kB",
 			"ignore": [
 				"fs"
 			]

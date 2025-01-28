@@ -1,29 +1,19 @@
 /*
  * Please refer to the terms of the license agreement.
  *
- * (c) 2023 joaodias.me, Rights Reserved.
+ * (c) 2021 joaodias.me, Rights Reserved.
  */
-import React, { useRef } from "react";
-import { makeId } from "../../helpers";
-import { useAutoId } from "../../hooks";
-import { CommonElement } from "../../typings/common";
-import { PolymorphicComponentProps } from "@jtmdias/js-utilities";
 
 /**
- * Styles to visually hide an element
- * but make it accessible to screen-readers
+ * index.tsx
+ *
+ * @author João Dias <joao.dias@feedzai.com>
+ * @since 1.0.0
  */
-export const visuallyHiddenStyle: React.CSSProperties = {
-	border: "0px",
-	clip: "rect(0px, 0px, 0px, 0px)",
-	margin: "-1px",
-	overflow: "hidden",
-	height: "1px",
-	width: "1px",
-	padding: "0",
-	position: "absolute",
-	whiteSpace: "nowrap",
-};
+import React, { useRef } from "react";
+import { makeId, CommonElement, PolymorphicComponentProps } from "@jtmdias/js-utilities";
+import { useAutoId } from "@jtmdias/js-utilities/hooks";
+import { visuallyHiddenStyle } from "./constants";
 
 export type VisuallyHiddenProps<C extends React.ElementType> = PolymorphicComponentProps<
 	C,
@@ -76,5 +66,3 @@ export const VisuallyHidden = <GenericElement extends React.ElementType = "span"
 		</Component>
 	);
 };
-
-VisuallyHidden.displayName = "VisuallyHidden";

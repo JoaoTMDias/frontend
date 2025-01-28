@@ -1,11 +1,20 @@
 /*
- * The file cannot be reproduced in whole or in part, stored in a retrieval system, transmitted
+ * The copyright of this file belongs to Feedzai. The file cannot be
+ * reproduced in whole or in part, stored in a retrieval system, transmitted
  * in any form, or by any means electronic, mechanical, or otherwise, without
  * the prior permission of the owner. Please refer to the terms of the license
  * agreement.
  *
- * (c) 2023 joaodias.me, Rights Reserved.
+ * (c) 2022 joaodias.me, Rights Reserved.
  */
+
+/**
+ * useFocusVisible.ts
+ *
+ * @author João Dias <joao.dias@feedzai.com>
+ * @since ```feedzai.next.release```
+ */
+
 import { useEffect, useState } from "react";
 import {
 	FocusVisibleHandler,
@@ -224,7 +233,7 @@ export function useInteractionModality(): Modality | null {
 function isKeyboardFocusEvent(
 	isTextInput: boolean | undefined,
 	modality: Modality,
-	event: HandlerEvent | null,
+	event: HandlerEvent | null
 ) {
 	return !(
 		isTextInput &&
@@ -236,23 +245,10 @@ function isKeyboardFocusEvent(
 
 /**
  * Manages focus visible state for the page, and subscribes individual components for updates.
-*
-* @example
-* ```jsx
-* import { toggleDataAttribute } from "@jtmdias/js-utilities";
-* import { useFocusVisible} from "@jtmdias/react-a11y-tools";
-* ...
-*	function Component({ disabled, onClick, ...componentProps }) {
-*		const { isFocusVisible } = useFocusWithin({
-*			isTextInput: false,
-*			autoFocus: false,
-* 	});
-*
-*		return (
-*			<button type="button" data-focus-visible={toggleDataAttribute(isFocusVisible)}>A Button</button>
-*		):
-* }
-* ```
+ *
+ * @export
+ * @param {FocusVisibleProps} [props={}]
+ * @returns {FocusVisibleResult}
  */
 export function useFocusVisible(props: FocusVisibleProps = {}): FocusVisibleResult {
 	const { isTextInput, autoFocus } = props;
@@ -263,7 +259,7 @@ export function useFocusVisible(props: FocusVisibleProps = {}): FocusVisibleResu
 			setFocusVisible(isFocusVisible);
 		},
 		[isTextInput],
-		{ isTextInput },
+		{ isTextInput }
 	);
 
 	return { isFocusVisible: isFocusVisibleState };
@@ -280,7 +276,7 @@ export function useFocusVisible(props: FocusVisibleProps = {}): FocusVisibleResu
 export function useFocusVisibleListener(
 	fn: FocusVisibleHandler,
 	deps: ReadonlyArray<any>,
-	opts?: { isTextInput?: boolean },
+	opts?: { isTextInput?: boolean }
 ): void {
 	setupGlobalFocusEvents();
 

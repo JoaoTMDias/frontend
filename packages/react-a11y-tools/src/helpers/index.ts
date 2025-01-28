@@ -3,8 +3,14 @@
  * Please refer to the terms of the license
  * agreement.
  *
- * (c) 2023 joaodias.me, Rights Reserved.
+ * (c) 2021 joaodias.me, Rights Reserved.
  */
-export * from "./make-id";
+
+/**
+ * index.ts
+ *
+ * @author João Dias <joao.dias@feedzai.com>
+ * @since 1.0.0
+ */
 export * from "./run-after-transition";
 export { focusWithoutScrolling } from "./focus-without-scrolling";

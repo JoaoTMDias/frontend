@@ -2,10 +2,17 @@
  * Please refer to the terms of the license
  * agreement.
  *
- * (c) 2023 joaodias.me, Rights Reserved.
+ * (c) 2021 joaodias.me, Rights Reserved.
+ */
+
+/**
+ * index.tsx
+ *
+ * @author João Dias <joao.dias@feedzai.com>
+ * @since 1.0.0
  */
 import { FunctionComponent } from "react";
-import { useSafeLayoutEffect } from "../../hooks/index";
+import { useSafeLayoutEffect } from "@jtmdias/js-utilities/hooks";
 import "./styles.css";
 
 const addClass = (className: string) => document.documentElement.classList.add(className);
@@ -28,5 +35,3 @@ export const KeyboardOnly: FunctionComponent = () => {
 
 	return <div data-testid="js-audit" />;
 };
-
-KeyboardOnly.displayName = "KeyboardOnly";

@@ -7,8 +7,10 @@
  * (c) 2023 joaodias.me, Rights Reserved.
  */
 import React, { useRef, useState, HTMLAttributes, InputHTMLAttributes } from "react";
-import { useAutoId, useTabbable, makeId } from "../../../../../../packages/react-a11y-tools/src";
+import { useTabbable } from "../../../../../../packages/react-a11y-tools/src";
 import styles from "./index.modules.scss";
+import { makeId } from "@jtmdias/js-utilities";
+import { useAutoId } from "@jtmdias/js-utilities/hooks";
 
 type Tabbable = {
 	focusable?: boolean;

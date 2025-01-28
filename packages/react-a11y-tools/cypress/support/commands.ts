@@ -11,7 +11,7 @@ import "cypress-axe";
 import { keyCodeDefinitions } from "cypress-real-events/keyCodeDefinitions";
 import { isAriaDisabled } from "./a11y/assertions/isAriaDisabled";
 import { recurse } from "cypress-recurse";
-import { mount } from "cypress/react";
+import { mount } from "cypress/react18";
 
 chai.use(isAriaDisabled);
 
@@ -48,6 +48,15 @@ declare global {
 		}
 	}
 }
+
+function tab<GenericSubject>(
+	prevSubject: GenericSubject,
+	options: Partial<{ shift: boolean }> = { shift: false }
+) {
+	return cy.wrap(prevSubject).realPress(options.shift ? ["Shift", "Tab"] : "Tab");
+}
+
+Cypress.Commands.add("tab", { prevSubject: ["element"] }, tab);
 
 /**
  * Presses the tab key until a predicate element is true.

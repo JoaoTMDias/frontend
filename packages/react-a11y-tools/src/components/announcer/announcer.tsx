@@ -2,7 +2,14 @@
  * Please refer to the terms of the license
  * agreement.
  *
- * (c) 2023 joaodias.me, Rights Reserved.
+ * (c) 2021 joaodias.me, Rights Reserved.
+ */
+
+/**
+ * announcer.tsx
+ *
+ * @author João Dias <joao.dias@feedzai.com>
+ * @since 1.0.0
  */
 import React from "react";
 import { isString } from "@jtmdias/js-utilities";
@@ -72,6 +79,8 @@ export const Announcer = ({
 
 		return <p>{message}</p>;
 	}
+
+	console.log;
 
 	return (
 		<div

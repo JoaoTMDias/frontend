@@ -2,10 +2,19 @@
  * Please refer to the terms of the license
  * agreement.
  *
- * (c) 2023 joaodias.me, Rights Reserved.
+ * (c) 2021 joaodias.me, Rights Reserved.
+ */
+
+/**
+ * link.tsx
+ *
+ * @author João Dias <joao.dias@feedzai.com>
+ * @since 1.0.0
  */
 import { FunctionComponent, useCallback, KeyboardEvent } from "react";
-import "./styles.css";
+import { classNames } from "@jtmdias/js-utilities";
+import { useConstant } from "@jtmdias/js-utilities/hooks";
+import styles from "./index.module.scss";
 
 export const SKIP_LINK_DEFAULT_PROPS: ISkipLink = {
 	target: "#content",
@@ -26,6 +35,10 @@ export interface ISkipLink {
  * @returns {JSX.Element}
  */
 export const SkipLink: FunctionComponent<ISkipLink> = ({ target, text, as }) => {
+	const CSS_CLASS = useConstant(() => {
+		return classNames(styles.item, "css-skip-links__item");
+	});
+
 	const onKeyUp = useCallback(
 		(event: KeyboardEvent<HTMLButtonElement>) => {
 			if (event.key === "Enter" || event.key === " ") {
@@ -43,7 +56,7 @@ export const SkipLink: FunctionComponent<ISkipLink> = ({ target, text, as }) => 
 				role="link"
 				type="button"
 				onKeyUp={onKeyUp}
-				className="css-skip-links__item"
+				className={CSS_CLASS}
 				data-testid="js-skip-link"
 			>
 				{text}
@@ -51,13 +64,12 @@ export const SkipLink: FunctionComponent<ISkipLink> = ({ target, text, as }) => 
 		);
 	}
 	return (
-		<a href={target} className="css-skip-links__item" data-testid="js-skip-link">
+		<a href={target} className={CSS_CLASS} data-testid="js-skip-link">
 			{text}
 		</a>
 	);
 };
 
-SkipLink.displayName = "SkipLink";
 SkipLink.defaultProps = SKIP_LINK_DEFAULT_PROPS;
 
 export default SkipLink;

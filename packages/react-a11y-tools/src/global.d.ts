@@ -3,12 +3,20 @@
  * Please refer to the terms of the license
  * agreement.
  *
- * (c) 2023 joaodias.me, Rights Reserved.
+ * (c) 2021 joaodias.me, Rights Reserved.
+ */
+
+/**
+ * modules.d.ts
+ *
+ * @author João Dias <joao.dias@feedzai.com>
+ * @since 1.0.0
  */
 declare module "*.css";
+declare module "*.module.scss";
 
-declare interface Navigator extends NavigatorUA { }
-declare interface WorkerNavigator extends NavigatorUA { }
+declare interface Navigator extends NavigatorUA {}
+declare interface WorkerNavigator extends NavigatorUA {}
 
 // https://wicg.github.io/ua-client-hints/#navigatorua
 declare interface NavigatorUA {
@@ -47,4 +55,9 @@ interface UALowEntropyJSON {
 interface NavigatorUAData extends UALowEntropyJSON {
 	getHighEntropyValues(hints: string[]): Promise<UADataValues>;
 	toJSON(): UALowEntropyJSON;
+}
+
+interface Window {
+	__react_a11y_tools_activeScope__: RefObject<HTMLElement[]> | null;
+	__react_a11y_tools_scopes__: Set<RefObject<HTMLElement[]>>;
 }

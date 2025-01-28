@@ -7,4 +7,3 @@
  * (c) 2023 joaodias.me, Rights Reserved.
  */
 export * from "./useTabbable";
-export * from "./useAutoId";

@@ -2,12 +2,18 @@
  * Please refer to the terms of the license
  * agreement.
  *
- * (c) 2023 joaodias.me, Rights Reserved.
+ * (c) 2021 joaodias.me, Rights Reserved.
  */
-import { FunctionComponent, useCallback, useEffect, useState } from "react";
-import { GenericComponentPropsWithChildren } from "@jtmdias/js-utilities";
+
+/**
+ * index.tsx
+ *
+ * @author João Dias <joao.dias@feedzai.com>
+ * @since 1.0.0
+ */
+import React, { FunctionComponent, useCallback, useEffect, useState } from "react";
 import { usePrevious } from "@jtmdias/js-utilities/hooks";
-import { Announcer } from "../components/announcer";
+import { Announcer } from "../announcer";
 
 export interface IRouteAnnouncerActions {
 	/**
@@ -36,6 +42,11 @@ export interface IRouteAnnouncerProps {
 	 * Content to be read by the screen-reader on the `aria-live` announcer
 	 */
 	action?: IRouteAnnouncerActions;
+
+	/**
+	 * Any type of React children inside the RouteAnnouncer
+	 */
+	children: React.ReactNode;
 }
 
 const DEFAULT_WRAPPER_ID = "content-focus-wrapper";
@@ -82,13 +93,13 @@ export function getHeadingText(id: string): string | undefined {
  *
  * // The screen reader outputs:
  * "Navigated to Create Account"
- *
- * @param {IRouteAnnouncerProps} props
- * @returns {JSX.Element}
  */
-export const RouteAnnouncer: FunctionComponent<
-	IRouteAnnouncerProps & GenericComponentPropsWithChildren
-> = ({ id = defaultProps.id, pathname, action = defaultProps.action, children }) => {
+export const RouteAnnouncer: FunctionComponent<IRouteAnnouncerProps> = ({
+	id = defaultProps.id,
+	pathname,
+	action = defaultProps.action,
+	children,
+}) => {
 	const [text, setText] = useState("");
 	const previousPathname = usePrevious(pathname);
 
@@ -142,5 +153,3 @@ export const RouteAnnouncer: FunctionComponent<
 		</div>
 	);
 };
-
-RouteAnnouncer.displayName = "RouteAnnouncer";

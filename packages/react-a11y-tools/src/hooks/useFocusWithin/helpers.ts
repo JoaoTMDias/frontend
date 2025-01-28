@@ -1,14 +1,22 @@
 /* istanbul ignore file */
 /*
- * The file cannot be reproduced in whole or in part, stored in a retrieval system, transmitted
+ * The copyright of this file belongs to Feedzai. The file cannot be
+ * reproduced in whole or in part, stored in a retrieval system, transmitted
  * in any form, or by any means electronic, mechanical, or otherwise, without
  * the prior permission of the owner. Please refer to the terms of the license
  * agreement.
  *
- * (c) 2023 joaodias.me, Rights Reserved.
+ * (c) 2022 joaodias.me, Rights Reserved.
+ */
+
+/**
+ * helpers.ts
+ *
+ * @author João Dias <joao.dias@feedzai.com>
+ * @since ```feedzai.next.release```
  */
 import { FocusEvent as ReactFocusEvent, useCallback, useRef } from "react";
-import { useSafeLayoutEffect } from "../index";
+import { useSafeLayoutEffect } from "@jtmdias/js-utilities/hooks";
 
 export class SyntheticFocusEvent implements ReactFocusEvent {
 	nativeEvent: FocusEvent;
@@ -23,7 +31,7 @@ export class SyntheticFocusEvent implements ReactFocusEvent {
 	timeStamp: number;
 	type: string;
 
-	constructor (type: string, nativeEvent: FocusEvent) {
+	constructor(type: string, nativeEvent: FocusEvent) {
 		this.nativeEvent = nativeEvent;
 		this.target = nativeEvent.target as Element;
 		this.currentTarget = nativeEvent.currentTarget as Element;
@@ -56,7 +64,7 @@ export class SyntheticFocusEvent implements ReactFocusEvent {
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-empty-function
-	persist() { }
+	persist() {}
 }
 
 export function useSyntheticBlurEvent(onBlur: (e: ReactFocusEvent) => void) {
@@ -109,7 +117,13 @@ export function useSyntheticBlurEvent(onBlur: (e: ReactFocusEvent) => void) {
 				}
 			};
 
-			target.addEventListener("focusout", onBlurHandler as EventListenerOrEventListenerObject, { once: true });
+			target.addEventListener(
+				"focusout",
+				onBlurHandler as EventListenerOrEventListenerObject,
+				{
+					once: true,
+				}
+			);
 
 			stateRef.current.observer = new MutationObserver(() => {
 				if (stateRef.current.isFocused && target.disabled) {

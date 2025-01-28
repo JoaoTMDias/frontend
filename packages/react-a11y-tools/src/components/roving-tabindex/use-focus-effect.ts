@@ -2,10 +2,17 @@
  * Please refer to the terms of the license
  * agreement.
  *
- * (c) 2023 joaodias.me, Rights Reserved.
+ * (c) 2021 joaodias.me, Rights Reserved.
+ */
+
+/**
+ * use-focus-effect.ts
+ *
+ * @author João Dias <joao.dias@feedzai.com>
+ * @since 1.0.0
  */
 import { useEffect, RefObject } from "react";
-import { focusWithoutScrolling } from "../../../helpers";
+import { focusWithoutScrolling } from "../../helpers";
 
 /**
  * Invokes `focus()` on a DOM element.
@@ -32,12 +39,18 @@ import { focusWithoutScrolling } from "../../../helpers";
  * @param {(boolean)} [scrollWhenFocus=true]
  * @returns {void}
  */
-export function useFocus<GenericElement extends HTMLElement | SVGElement>(element: RefObject<GenericElement> | GenericElement, willFocus: boolean | undefined = true, scrollWhenFocus: boolean | undefined = true): void {
+export function useFocus<GenericElement extends HTMLElement | SVGElement>(
+	element: RefObject<GenericElement> | GenericElement,
+	willFocus: boolean | undefined = true,
+	scrollWhenFocus: boolean | undefined = true
+): void {
 	useEffect(() => {
-		const DOMElement = "current" in element ? element.current : element;
+		if (willFocus) {
+			const DOMElement = "current" in element ? element.current : element;
 
-		if (willFocus && DOMElement) {
-			scrollWhenFocus ? DOMElement.focus() : focusWithoutScrolling(DOMElement);
+			if (DOMElement) {
+				scrollWhenFocus ? DOMElement.focus() : focusWithoutScrolling(DOMElement);
+			}
 		}
 	}, [element, willFocus]);
 }

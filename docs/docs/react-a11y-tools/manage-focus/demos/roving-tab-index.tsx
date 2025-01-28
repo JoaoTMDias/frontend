@@ -8,10 +8,7 @@ const SidenavLink = ({
 	onClick,
 }: Pick<React.HTMLProps<HTMLButtonElement>, "disabled" | "children" | "onClick">) => {
 	const ref = useRef(null);
-	const [tabIndex, focused, handleKeyDown, handleClick] = useRover(ref, {
-		disabled,
-		lockScrollOnRover: true,
-	});
+	const [tabIndex, focused, handleKeyDown, handleClick] = useRover(ref, disabled);
 	useFocus(ref, focused);
 	return (
 		<button
