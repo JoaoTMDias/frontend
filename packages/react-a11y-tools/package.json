@@ -3,6 +3,10 @@
 	"description": "A small React component library that aims to ease the process of creating accessible design systems, web apps or websites",
 	"private": false,
 	"version": "2.0.0",
+	"engines": {
+		"node": ">= 20",
+		"npm": ">= 10"
+	},
 	"author": {
 		"name": "João Dias",
 		"url": "https://joaodias.me"
@@ -21,10 +25,6 @@
 	"files": [
 		"dist"
 	],
-	"engine": {
-		"node": ">= 18",
-		"npm": ">= 10"
-	},
 	"scripts": {
 		"types:check": "tsc --project ./tsconfig.json --noEmit",
 		"build": "npm run types:check && vite build",
