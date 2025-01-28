@@ -1,5 +1,16 @@
 ## [1.5.6](https://github.com/joaotmdias/react-a11y-tools/compare/v1.5.5...v1.5.6) (2023-10-27)
 
+## 3.0.0
+
+### Major Changes
+
+- [#16](https://github.com/JoaoTMDias/frontend/pull/16) [`90fbf92`](https://github.com/JoaoTMDias/frontend/commit/90fbf922a9e2d8c868e3d6e7967bed24a46640f3) Thanks [@JoaoTMDias](https://github.com/JoaoTMDias)! - Changed minimum node version to 20 and npm to 10 on all packages
+
+### Patch Changes
+
+- Updated dependencies [[`90fbf92`](https://github.com/JoaoTMDias/frontend/commit/90fbf922a9e2d8c868e3d6e7967bed24a46640f3)]:
+  - @jtmdias/js-utilities@3.0.0
+
 ## 2.0.0
 
 ### Major Changes

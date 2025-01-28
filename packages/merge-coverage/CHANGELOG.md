@@ -1,5 +1,11 @@
 # [1.1.0](https://github.com/JoaoTMDias/merge-coverage/compare/v1.0.1...v1.1.0) (2023-05-14)
 
+## 2.0.0
+
+### Major Changes
+
+- [#16](https://github.com/JoaoTMDias/frontend/pull/16) [`90fbf92`](https://github.com/JoaoTMDias/frontend/commit/90fbf922a9e2d8c868e3d6e7967bed24a46640f3) Thanks [@JoaoTMDias](https://github.com/JoaoTMDias)! - Changed minimum node version to 20 and npm to 10 on all packages
+
 ## 1.1.1
 
 ### Patch Changes
