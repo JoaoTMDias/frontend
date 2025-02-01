@@ -1,5 +1,16 @@
 ## [1.5.6](https://github.com/joaotmdias/react-a11y-tools/compare/v1.5.5...v1.5.6) (2023-10-27)
 
+## 3.1.0
+
+### Minor Changes
+
+- [#18](https://github.com/JoaoTMDias/frontend/pull/18) [`cb984fb`](https://github.com/JoaoTMDias/frontend/commit/cb984fbf65d7e8e8200d2b158659555b61f5a153) Thanks [@JoaoTMDias](https://github.com/JoaoTMDias)! - Bumped dependencies to their latest version
+
+### Patch Changes
+
+- Updated dependencies [[`cb984fb`](https://github.com/JoaoTMDias/frontend/commit/cb984fbf65d7e8e8200d2b158659555b61f5a153)]:
+  - @jtmdias/js-utilities@3.1.0
+
 ## 3.0.0
 
 ### Major Changes

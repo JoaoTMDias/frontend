@@ -2,7 +2,7 @@
 	"name": "@jtmdias/react-a11y-tools",
 	"description": "A small React component library that aims to ease the process of creating accessible design systems, web apps or websites",
 	"private": false,
-	"version": "3.0.0",
+	"version": "3.1.0",
 	"engines": {
 		"node": ">= 20",
 		"npm": ">= 10"
