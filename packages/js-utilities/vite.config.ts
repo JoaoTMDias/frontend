@@ -3,52 +3,22 @@ import type { RollupOptions } from "rollup";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import dts from "vite-plugin-dts";
-
-//@ts-ignore
-import getBaseConfig, { BASE_ROLLUP_OPTIONS } from "../../config/viteBaseConfig";
-
-type ModuleFormat =
-	| "amd"
-	| "cjs"
-	| "es"
-	| "iife"
-	| "system"
-	| "umd"
-	| "commonjs"
-	| "esm"
-	| "module"
-	| "systemjs";
+import getBaseConfig, { BASE_ROLLUP_OPTIONS, getFilename } from "../../config/viteBaseConfig";
 
 const ROLLUP_OPTIONS: RollupOptions = {
 	...BASE_ROLLUP_OPTIONS,
 	output: {
-		...BASE_ROLLUP_OPTIONS.output,
 		preserveModules: true,
 		inlineDynamicImports: false,
+		...BASE_ROLLUP_OPTIONS.output,
 	},
 };
-
-/**
- * Gets a per-file format filename.
- *
- * @param format
- * @returns
- */
-function getFilename(format: ModuleFormat, entryName: string) {
-	const OUTPUT: Partial<Record<typeof format, string>> = {
-		es: `${entryName}.mjs`,
-		cjs: `${entryName}.cjs`,
-	};
-
-	return OUTPUT[format] ?? `${entryName}.cjs`;
-}
 
 const CONFIG = getBaseConfig({
 	plugins: [
 		tsconfigPaths(),
 		dts({
-			outDir: "./dist",
-			insertTypesEntry: true,
+			insertTypesEntry: false,
 		}),
 	],
 	resolve: {
