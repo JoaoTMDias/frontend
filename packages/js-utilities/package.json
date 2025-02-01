@@ -2,7 +2,7 @@
 	"name": "@jtmdias/js-utilities",
 	"description": "A collection of javascript utilities for web projects",
 	"private": false,
-	"version": "3.0.0",
+	"version": "3.1.0",
 	"sideEffects": false,
 	"license": "MIT",
 	"type": "module",

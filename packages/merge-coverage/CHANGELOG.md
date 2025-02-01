@@ -1,5 +1,11 @@
 # [1.1.0](https://github.com/JoaoTMDias/merge-coverage/compare/v1.0.1...v1.1.0) (2023-05-14)
 
+## 2.1.0
+
+### Minor Changes
+
+- [#18](https://github.com/JoaoTMDias/frontend/pull/18) [`cb984fb`](https://github.com/JoaoTMDias/frontend/commit/cb984fbf65d7e8e8200d2b158659555b61f5a153) Thanks [@JoaoTMDias](https://github.com/JoaoTMDias)! - Bumped dependencies to their latest version
+
 ## 2.0.0
 
 ### Major Changes
