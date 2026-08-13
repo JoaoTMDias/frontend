@@ -12,20 +12,18 @@ jobs:
     strategy:
       matrix:
         node-version:
-          - lts/*
+          - '22'
         os:
           - ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
       - name: Using node ${{ matrix.node-version }}
         uses: actions/setup-node@v5
         with:
           node-version: ${{ matrix.node-version }}
-          cache: "pnpm"
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm run all:test
+          cache: "npm"
+      - run: npm install
+      - run: npm run all:test
 
   package_release:
     permissions:
@@ -40,22 +38,20 @@ jobs:
       - quality
     strategy:
       matrix:
-        node-version: ["lts/*"]
+        node-version: ['22']
     steps:
       - uses: actions/checkout@v5
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v5
         with:
           node-version: ${{ matrix.node-version }}
-          cache: "pnpm"
+          cache: "npm"
       - name: Installing Dependencies
-        run: pnpm install --frozen-lockfile
+        run: npm install
       - name: Create Release Pull Request or Publish to npm
         uses: changesets/action@v1
         with:
-          publish: pnpm run release
-          version: pnpm run version
+          publish: npm run release
+          version: npm run version
           commit: "chore: new release"
           title: "chore: new release candidate"
         env:
@@ -69,22 +65,20 @@ jobs:
     strategy:
       matrix:
         node-version:
-          - lts/*
+          - '22'
         os:
           - ubuntu-latest
     steps:
       - name: Check out repo
         uses: actions/checkout@v5
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
       - name: Build Website
         uses: actions/setup-node@v5
         with:
           node-version: ${{ matrix.node-version }}
-          cache: "pnpm"
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm run all:build
-      - run: pnpm run docs:build
+          cache: "npm"
+      - run: npm install
+      - run: npm run all:build
+      - run: npm run docs:build
       - name: Deploy to GitHub Pages
         if: success()
         uses: crazy-max/ghaction-github-pages@v4
