@@ -1,13 +1,10 @@
 {
 	"name": "@jtmdias/frontend",
 	"private": true,
-	"workspaces": [
-		"packages/*",
-		"docs"
-	],
+	"packageManager": "pnpm@9.15.4",
 	"engines": {
-		"node": ">= 20",
-		"npm": ">= 10"
+		"node": ">= 22",
+		"pnpm": ">= 9"
 	},
 	"scripts": {
 		"all:build": "lerna run build",
