@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import { defineConfig } from "cypress";
-import codeCoverageTask from "@cypress/code-coverage/task";
+import codeCoverageTask from "@cypress/code-coverage/task.js";
 
 export default defineConfig({
 	viewportWidth: 1280,
