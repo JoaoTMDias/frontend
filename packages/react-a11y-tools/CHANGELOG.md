@@ -1,5 +1,11 @@
 ## [1.5.6](https://github.com/joaotmdias/react-a11y-tools/compare/v1.5.5...v1.5.6) (2023-10-27)
 
+## 3.1.1
+
+### Patch Changes
+
+- [`d202db6`](https://github.com/JoaoTMDias/frontend/commit/d202db63d707a42ed9ae69b7b7ab6cb1aaea422b) Thanks [@JoaoTMDias](https://github.com/JoaoTMDias)! - Fix package export metadata for TypeScript resolution in modern ESM/CJS consumers by exposing the generated declaration file via the root export map. This resolves missing declaration errors for @jtmdias/react-a11y-tools when using modern TypeScript configs such as moduleResolution: "bundler".
+
 ## 3.1.0
 
 ### Minor Changes
