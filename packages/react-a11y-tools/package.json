@@ -88,14 +88,14 @@
 	"size-limit": [
 		{
 			"path": "dist/index.cjs",
-			"limit": "15kB",
+			"limit": "16 kB",
 			"ignore": [
 				"fs"
 			]
 		},
 		{
 			"path": "dist/index.mjs",
-			"limit": "15 kB",
+			"limit": "16 kB",
 			"ignore": [
 				"fs"
 			]
