@@ -1,5 +1,11 @@
 ## [1.5.6](https://github.com/joaotmdias/react-a11y-tools/compare/v1.5.5...v1.5.6) (2023-10-27)
 
+## 3.1.2
+
+### Patch Changes
+
+- [#23](https://github.com/JoaoTMDias/frontend/pull/23) [`b9d318b`](https://github.com/JoaoTMDias/frontend/commit/b9d318b08c3583482409ddaf6cc82414514ac045) Thanks [@JoaoTMDias](https://github.com/JoaoTMDias)! - Rewrite the package README with current usage, exports, monorepo commands, and links.
+
 ## 3.1.1
 
 ### Patch Changes
